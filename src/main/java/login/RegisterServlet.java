@@ -1,21 +1,17 @@
 package login;
 
 import dao.RegisterDAO;
-import org.apache.commons.validator.routines.EmailValidator;
 import util.ActivationEmail;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Locale;
 
 @WebServlet("/register")
@@ -26,6 +22,7 @@ public class RegisterServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String user_login = request.getParameter("userlogin");
         String user_pass = request.getParameter("pwd");
         String first_name = request.getParameter("firstname");

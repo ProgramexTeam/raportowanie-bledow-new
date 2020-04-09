@@ -1,10 +1,11 @@
 package dao;
 
+import util.DataConnect;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import util.DataConnect;
 
 public class RegisterDAO {
     public static String getAlphaNumericString(int n) {
