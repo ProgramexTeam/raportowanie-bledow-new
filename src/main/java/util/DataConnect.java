@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.util.concurrent.ArrayBlockingQueue;
 
 public class DataConnect {
-    private final static String DBURL = "jdbc:mysql://127.0.0.1:3306/";
+    private final static String DBURL = "jdbc:mysql://127.0.0.1:3306/error-reporting-portal?serverTimezone=UTC";
     private final static String DBUSER = "error-reporting-portal";
     private final static String DBPASS = "12345678";
     private final static String DBDRIVER = "com.mysql.cj.jdbc.Driver";
