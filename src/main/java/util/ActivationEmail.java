@@ -7,11 +7,11 @@ import java.util.Properties;
 
 public class ActivationEmail {
     public static void sendActivationEmail(String activation_key, String user_email) {
-        final String username = "monopolowy24h@bcd.pl";
-        final String password = "1dX3;21dfs3412davD!";
+        final String username = "error.reporting.portal@gmail.com";
+        final String password = "DziraXpWe9RkW@?zz!";
 
         Properties prop = new Properties();
-        prop.put("mail.smtp.host", "bcd.home.pl");
+        prop.put("mail.smtp.host", "smtp.gmail.com");
         prop.put("mail.smtp.port", "465");
         prop.put("mail.smtp.auth", "true");
         prop.put("mail.smtp.socketFactory.port", "465");
