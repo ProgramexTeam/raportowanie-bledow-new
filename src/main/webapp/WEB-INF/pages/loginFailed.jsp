@@ -9,7 +9,7 @@
 </head>
 <body>
 <h3>Logowanie nie powiodło się. Podałeś złe dane.</h3>
-<h4>Zostaniesz automatycznie przekierowany do strony logowania</h4>
+<h4>Zostaniesz automatycznie przekierowany do strony logowania chuju</h4>
 <br>
 <a href="${pageContext.request.contextPath}/">Home</a>
 </body>
