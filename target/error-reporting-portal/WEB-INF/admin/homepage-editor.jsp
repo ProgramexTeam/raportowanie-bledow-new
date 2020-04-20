@@ -17,7 +17,7 @@
             <button class="activate-tab-button" onclick="openTab('Wyroznione', this)">Wyróżnione</button>
             <button class="activate-tab-button" onclick="openTab('Dodatkowy', this)">JS/CSS/HTML</button>
         </div>
-        <form action="/admin/homepage-editor" method="post">
+        <form action="${pageContext.request.contextPath}/admin/homepage-editor" method="post">
             <div id="Slajder" class="tabName">
                 <div class="input-section">
                     <h3 class="input-section-title">Tło slajdera</h3>
