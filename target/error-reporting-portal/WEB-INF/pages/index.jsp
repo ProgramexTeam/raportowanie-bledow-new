@@ -1,8 +1,9 @@
 <%@ page import="files.HomePageConfigFile" %>
 <%@ page import="java.util.HashMap" %>
-<%@ page import="dao.ProductDAO" %>
+<%@ page import="dao.TicketDAO" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="objects.Product" %>
+<%@ page import="objects.Ticket" %>
+<%@ page import="objects.Ticket" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <jsp:include page="/WEB-INF/parts/overall-header.jsp"/>
 <jsp:include page="/WEB-INF/parts/sloganbar.jsp"/>
@@ -49,8 +50,8 @@
             <div class="col-md-12">
                 <div class="owl-carousel owl-theme">
                     <%
-                        ArrayList<Product> lista = ProductDAO.getFeaturedProductsList(10);
-                        for (Product produkt: lista) {
+                        ArrayList<Ticket> lista = TicketDAO.getFeaturedProductsList(10);
+                        for (Ticket produkt: lista) {
                     %>
                     <a href="${pageContext.request.contextPath}/portal/produkt?id=<% out.print(produkt.getId()); %>">
                         <div class="featured-item">

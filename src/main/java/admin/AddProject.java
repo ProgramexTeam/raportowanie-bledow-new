@@ -12,7 +12,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@WebServlet("/admin/category-manager/add-category")
+@WebServlet("/admin/project-manager/add-project")
 public class AddProject extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,9 +33,9 @@ public class AddProject extends HttpServlet {
         } else {
             boolean done = ProjectDAO.addCategory(category_name, category_url);
             if(done){
-                request.setAttribute("msg", "Pomyślnie dodano kategorię do bazy");
+                request.setAttribute("msg", "Pomyślnie dodano projekt do bazy");
             } else {
-                request.setAttribute("msg", "Wystąpił problem w trakcie dodawania kategorii do bazy, spróbuj ponownie, albo zweryfikuj logi serwera");
+                request.setAttribute("msg", "Wystąpił problem w trakcie dodawania projektu do bazy, spróbuj ponownie, albo zweryfikuj logi serwera");
             }
         }
 

@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet("/admin/category-manager")
-public class CategoryManager extends HttpServlet {
+@WebServlet("/admin/project-manager")
+public class ProjectManager extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long page, amountPerPage, amountOfCategories;
         String deleteId, searchByCategoryName;

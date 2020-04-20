@@ -12,9 +12,9 @@
         <script src="${pageContext.request.contextPath}/assets/js/additionalHomepage.jsp"></script>
     <% } %>
 
-    <!-- Skrypty tylko na single product -->
+    <!-- Skrypty tylko na single ticket -->
     <script src="${pageContext.request.contextPath}/assets/js/isotope.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/additional-js-for-single-product.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/additional-js-for-single-ticket.js"></script>
     <script src="${pageContext.request.contextPath}/assets/js/flex-slider.js"></script>
 
     <!-- Dodatkowe inline skrypty -->

@@ -15,20 +15,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
-@WebServlet("/sklep/produkt")
+@WebServlet("/portal/ticket")
 public class SingleTicket extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String id = request.getParameter("id");
             Ticket ticket = TicketDAO.getSingleProductData(id);
             if (ticket != null) {
-                request.setAttribute("product", ticket);
+                request.setAttribute("ticket", ticket);
                 request.getRequestDispatcher("/WEB-INF/pages/single-ticket.jsp").forward(request, response);
             } else {
-                response.sendRedirect("/sklep");
+                response.sendRedirect("/portal");
             }
         } catch (NumberFormatException e) {
-            response.sendRedirect("/sklep");
+            response.sendRedirect("/portal");
         }
     }
 

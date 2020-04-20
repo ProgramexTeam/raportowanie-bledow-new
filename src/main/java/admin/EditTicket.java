@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/admin/product-manager/edit-product")
+@WebServlet("/admin/ticket-manager/edit-ticket")
 public class EditTicket extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -22,7 +22,7 @@ public class EditTicket extends HttpServlet {
         }
         if(TicketDAO.checkIfProductExists(productId)){
             Ticket singleTicket = TicketDAO.getSingleProductData(productId);
-            request.setAttribute("singleProduct", singleTicket);
+            request.setAttribute("singleTicket", singleTicket);
         }
 
         request.getRequestDispatcher("/WEB-INF/admin/edit-ticket.jsp").forward(request, response);
