@@ -1,6 +1,5 @@
 package admin;
 
-import dao.RegisterDAO;
 import dao.UserDAO;
 import objects.User;
 
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 @WebServlet("/admin/user-manager/edit-user")
 public class EditUser extends HttpServlet {
@@ -38,8 +36,7 @@ public class EditUser extends HttpServlet {
         String last_name = request.getParameter("lastname");
         String user_email = request.getParameter("email");
         String user_activation_key = request.getParameter("userActivationKey");
-        String birth_date = request.getParameter("birthDate");
-
+        String role = request.getParameter("role");
 
         if(user_id == null){ request.setAttribute("msg", "Nie rozpoznano id edytowanego użytkownika. Spróbuj ponownie wyszukać użytkownika na " +
                 "liście uzytkowników w menadżerze użytkowników i zedytuj jego dane jeszcze raz.");
@@ -52,7 +49,7 @@ public class EditUser extends HttpServlet {
         } else if(!UserDAO.checkIfLoginExist(user_login, user_id)){ request.setAttribute("msg", "Podany login jest już zajęty");
         } else {
             if(user_activation_key == null) { user_activation_key = ""; }
-            boolean done = UserDAO.editGivenUser(user_id, user_login, user_pass, first_name, last_name, user_email, user_activation_key, birth_date);
+            boolean done = UserDAO.editGivenUser(user_id, user_login, user_pass, first_name, last_name, user_email, user_activation_key, role);
             if(done){
                 request.setAttribute("msg", "Pomyślnie zedytowano użytkownika");
             } else {

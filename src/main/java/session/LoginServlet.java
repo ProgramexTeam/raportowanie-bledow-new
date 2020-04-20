@@ -2,20 +2,12 @@ package session;
 
 import dao.LoginDAO;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Map;
-
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -52,7 +44,7 @@ public class LoginServlet extends HttpServlet {
 			String user_id = userData.get(4);
 			HttpSession session = request.getSession();
 
-			if(user_activation_key.isEmpty()){
+			if(user_activation_key.isEmpty()) {
 				session.setAttribute("user_login", user_login);
 				session.setAttribute("user_role", user_role);
 				session.setAttribute("user_email", user_email);

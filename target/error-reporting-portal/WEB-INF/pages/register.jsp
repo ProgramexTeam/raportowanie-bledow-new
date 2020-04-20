@@ -27,8 +27,6 @@
                     <option value="analyst">analityk</option>
                 </select>
             </p>
-            <p><span>Data urodzenia:</span> <br /> <span style="font-size: 8px">Aby się zarejestrować musisz mieć przynajmniej 18 lat</span> <br />
-                <input type="date" name="birthDate" value="2000-01-01" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" min="1900-01-01"></p>
             <p><input type="submit" value="Zarejestruj" required></p>
             <p style="color: red">Wszystkie pola są wymagane!</p>
         </form>

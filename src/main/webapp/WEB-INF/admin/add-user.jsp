@@ -21,7 +21,7 @@
                     <p class="input-element"><span>Nazwisko:</span> <br /> <input type="text" name="lastname" required></p></div>
                 <div class="input-row">
                     <p class="input-element"><span>Email:</span> <br /> <input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required></p>
-                    <p class="input-element"><span>Data urodzenia:</span> <br /> <input type="date" name="birthDate" value="2000-01-01" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" min="1900-01-01" required></p></div>
+                </div>
                 <p class="input-element submit-element"><input type="submit" value="Dodaj użytkownika"></p>
             </form>
             <p style="color: red; font-weight: bold">

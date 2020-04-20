@@ -21,7 +21,6 @@ public class AddUser extends HttpServlet {
         String first_name = request.getParameter("firstname");
         String last_name = request.getParameter("lastname");
         String user_email = request.getParameter("email");
-        String birth_date = request.getParameter("birthDate");
         String role = request.getParameter("role");
 
         if(user_login == null){ request.setAttribute("msg", "Nie podano loginu");
@@ -32,7 +31,7 @@ public class AddUser extends HttpServlet {
         } else if(!RegisterDAO.validateUserEmail(user_email)){ request.setAttribute("msg", "Podany email jest już zajęty");
         } else if(!RegisterDAO.validateUserLogin(user_login)){ request.setAttribute("msg", "Podany login jest już zajęty");
         } else {
-            boolean done = RegisterDAO.addUser(user_login, user_pass, first_name, last_name, user_email, "", birth_date, role);
+            boolean done = RegisterDAO.addUser(user_login, user_pass, first_name, last_name, user_email, "", role);
             if(done) {
                 request.setAttribute("msg", "Pomyślnie dodano użytkownika do bazy");
             } else {

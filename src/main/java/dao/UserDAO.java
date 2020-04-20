@@ -89,8 +89,7 @@ public class UserDAO {
                         rs.getString("last_name"),
                         rs.getString("user_email"),
                         rs.getString("user_activation_key"),
-                        rs.getString("user_role"),
-                        rs.getString("birth_date"));
+                        rs.getString("user_role"));
                 usersList.add(temp);
             }
         } catch (SQLException ex) {
@@ -232,8 +231,7 @@ public class UserDAO {
                         rs.getString("last_name"),
                         rs.getString("user_email"),
                         rs.getString("user_activation_key"),
-                        rs.getString("user_role"),
-                        rs.getString("birth_date"));
+                        rs.getString("user_role"));
                 return singleUser;
             }
         } catch (SQLException ex) {
@@ -251,7 +249,7 @@ public class UserDAO {
         }
         return null;
     }
-    public static boolean editGivenUser(String userId, String user_login, String user_pass, String first_name, String last_name, String user_email, String activation_key, String birth_date) {
+    public static boolean editGivenUser(String userId, String user_login, String user_pass, String first_name, String last_name, String user_email, String activation_key, String role) {
         if (user_login != null || user_pass != null || user_email != null) {
             PreparedStatement ps = null;
             Connection con = null;
@@ -259,17 +257,15 @@ public class UserDAO {
             try {
                 con = DataConnect.getConnection();
                 if (con != null) {
-                    ps = con.prepareStatement("UPDATE users SET user_login = ?, user_pass = ?, first_name = ?, last_name = ?, user_email = ?, user_role = ?, user_activation_key = ?, birth_date = ? WHERE ID = ? ");
+                    ps = con.prepareStatement("UPDATE users SET user_login = ?, user_pass = ?, first_name = ?, last_name = ?, user_email = ?, user_role = ?, user_activation_key = ? WHERE ID = ? ");
                     ps.setString(1, user_login);
                     ps.setString(2, user_pass);
                     ps.setString(3, first_name);
                     ps.setString(4, last_name);
                     ps.setString(5, user_email);
-                    ps.setString(6, "USER");
+                    ps.setString(6, role);
                     ps.setString(7, activation_key);
-//                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    ps.setString(8, birth_date);
-                    ps.setString(9, userId);
+                    ps.setString(8, userId);
                     ps.executeUpdate();
                 }
             } catch (Exception ex) {
@@ -308,8 +304,7 @@ public class UserDAO {
                         rs.getString("last_name"),
                         rs.getString("user_email"),
                         rs.getString("user_activation_key"),
-                        rs.getString("user_role"),
-                        rs.getString("birth_date"));
+                        rs.getString("user_role"));
                 usersList.add(temp);
             }
         } catch (SQLException ex) {

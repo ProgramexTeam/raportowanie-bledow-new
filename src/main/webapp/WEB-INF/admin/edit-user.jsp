@@ -27,7 +27,7 @@
                 </div>
                 <div class="input-row">
                     <p class="input-element"><span>Klucz aktywacyjny:</span> <br /> <input type="text" name="userActivationKey" maxlength="20" value="<% out.println(singleUser.getUser_activation()); %>"></p>
-                    <p class="input-element"><span>Data urodzenia:</span> <br /> <input type="date" name="birthDate" value="<% out.print(singleUser.getBirth_date()); %>" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" min="1900-01-01" required></p></div>
+                </div>
                 <p class="input-element submit-element"><input type="submit" value="Zapisz zmiany"></p>
             </form>
             <% } %>
