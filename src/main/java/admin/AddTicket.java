@@ -1,6 +1,6 @@
 package admin;
 
-import dao.ProductDAO;
+import dao.TicketDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,14 +13,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @WebServlet("/admin/product-manager/add-product")
-public class AddProduct extends HttpServlet {
+public class AddTicket extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         request.setAttribute("currentDate", dateFormat.format(date));
-        request.getRequestDispatcher("/WEB-INF/admin/add-product.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/admin/add-ticket.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -48,7 +48,7 @@ public class AddProduct extends HttpServlet {
         } else if(price == null){ request.setAttribute("msg", "Nie podano ceny produktu");
         } else if(description == null){ request.setAttribute("msg", "Nie podano opisu produktu");
         } else {
-            boolean done = ProductDAO.addProduct(product_name, category, quantity, quantity_sold, sale_price, date_added, price,
+            boolean done = TicketDAO.addProduct(product_name, category, quantity, quantity_sold, sale_price, date_added, price,
                     description, photoLinkOne, photoLinkTwo, photoLinkThree, photoLinkFour, featured);
             if(done){
                 request.setAttribute("msg", "Pomyślnie dodano produkt do bazy");

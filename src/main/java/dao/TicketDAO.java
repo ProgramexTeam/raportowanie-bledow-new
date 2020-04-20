@@ -1,7 +1,6 @@
 package dao;
 
-import objects.CartProduct;
-import objects.Product;
+import objects.Ticket;
 import util.DataConnect;
 
 import javax.json.Json;
@@ -13,11 +12,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ProductDAO {
-    public static Product getProduct(long id) {
+public class TicketDAO {
+    public static Ticket getProduct(long id) {
         PreparedStatement ps = null;
         Connection con = null;
-        Product product = null;
+        Ticket ticket = null;
         try {
             con = DataConnect.getConnection();
             if (con != null) {
@@ -26,7 +25,7 @@ public class ProductDAO {
                 ps.setLong(1, id);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                    product = new Product(
+                    ticket = new Ticket(
                             rs.getInt("product_id"),
                             rs.getString("product_name"),
                             rs.getString("category_name"),
@@ -49,7 +48,7 @@ public class ProductDAO {
             DataConnect.close(con);
             try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; ProductDAO.getProduct() -->" + ex.getMessage()); }
         }
-        return product;
+        return ticket;
     }
     public static long amountOfProducts() {
         Connection con = null;
@@ -105,10 +104,10 @@ public class ProductDAO {
         }
         return amount;
     }
-    public static ArrayList<Product> getProductsList(long startPosition, long amount) {
+    public static ArrayList<Ticket> getProductsList(long startPosition, long amount) {
         Connection con = null;
         PreparedStatement ps = null;
-        ArrayList<Product> productsList = new ArrayList<>();
+        ArrayList<Ticket> productsList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
             ps = con.prepareStatement("SELECT * FROM products LEFT JOIN categories ON products.category_id = categories.category_id ORDER BY products.product_id LIMIT ?, ?");
@@ -116,7 +115,7 @@ public class ProductDAO {
             ps.setLong(2, amount);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Product temp = new Product(rs.getInt("product_id"),
+                Ticket temp = new Ticket(rs.getInt("product_id"),
                         rs.getString("product_name"),
                         rs.getString("category_name"),
                         rs.getInt("quantity"),
@@ -140,10 +139,10 @@ public class ProductDAO {
         }
         return productsList;
     }
-    public static ArrayList<Product> getProductsListByCategory(long category_id, long startPosition, long amount) {
+    public static ArrayList<Ticket> getProductsListByCategory(long category_id, long startPosition, long amount) {
         Connection con = null;
         PreparedStatement ps = null;
-        ArrayList<Product> productsList = new ArrayList<>();
+        ArrayList<Ticket> productsList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
             ps = con.prepareStatement("SELECT * FROM products LEFT JOIN categories ON products.category_id = categories.category_id WHERE products.category_id = ? ORDER BY products.product_id LIMIT ?, ?");
@@ -152,7 +151,7 @@ public class ProductDAO {
             ps.setLong(3, amount);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Product temp = new Product(rs.getInt("product_id"),
+                Ticket temp = new Ticket(rs.getInt("product_id"),
                         rs.getString("product_name"),
                         rs.getString("category_name"),
                         rs.getInt("quantity"),
@@ -176,16 +175,16 @@ public class ProductDAO {
         }
         return productsList;
     }
-    public static ArrayList<Product> getProductsListCustomStatement(String statement) {
+    public static ArrayList<Ticket> getProductsListCustomStatement(String statement) {
         Connection con = null;
         PreparedStatement ps = null;
-        ArrayList<Product> productsList = new ArrayList<>();
+        ArrayList<Ticket> productsList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
             ps = con.prepareStatement(statement);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Product temp = new Product(rs.getInt("product_id"),
+                Ticket temp = new Ticket(rs.getInt("product_id"),
                         rs.getString("product_name"),
                         rs.getString("category_name"),
                         rs.getInt("quantity"),
@@ -236,10 +235,10 @@ public class ProductDAO {
         }
         return amountOfProducts;
     }
-    public static ArrayList<Product> getFeaturedProductsList(long amount) {
+    public static ArrayList<Ticket> getFeaturedProductsList(long amount) {
         Connection con = null;
         PreparedStatement ps = null;
-        ArrayList<Product> productsList = new ArrayList<>();
+        ArrayList<Ticket> productsList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
             ps = con.prepareStatement("SELECT * FROM products WHERE featured = ? ORDER BY product_id LIMIT ?");
@@ -247,7 +246,7 @@ public class ProductDAO {
             ps.setLong(2, amount);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Product temp = new Product(rs.getInt("product_id"),
+                Ticket temp = new Ticket(rs.getInt("product_id"),
                         rs.getString("product_name"),
                         rs.getString("category_id"),
                         rs.getInt("quantity"),
@@ -308,10 +307,10 @@ public class ProductDAO {
         }
         return productsList;
     }
-    public static ArrayList<Product> getProductListOfPattern(long startPosition, long amountPerPage, String searchByProductName, int searchOption) {
+    public static ArrayList<Ticket> getProductListOfPattern(long startPosition, long amountPerPage, String searchByProductName, int searchOption) {
         Connection con = null;
         PreparedStatement ps = null;
-        ArrayList<Product> productList = new ArrayList<>();
+        ArrayList<Ticket> ticketList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
             ps = con.prepareStatement("SELECT * FROM products LEFT JOIN categories ON products.category_id = categories.category_id WHERE products.product_name LIKE ? ORDER BY products.product_id LIMIT ?, ?");
@@ -326,7 +325,7 @@ public class ProductDAO {
             ps.setLong(3, amountPerPage);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Product temp = new Product(rs.getLong("product_id"),
+                Ticket temp = new Ticket(rs.getLong("product_id"),
                         rs.getString("product_name"),
                         rs.getString("category_name"),
                         rs.getLong("quantity"),
@@ -340,7 +339,7 @@ public class ProductDAO {
                         rs.getString("photo_link_three"),
                         rs.getString("photo_link_four"),
                         rs.getBoolean("featured"));
-                productList.add(temp);
+                ticketList.add(temp);
             }
         } catch (SQLException ex) {
             System.out.println("Error while getting products data from db; ProductDAO.getProductListOfPattern() -->" + ex.getMessage());
@@ -348,7 +347,7 @@ public class ProductDAO {
             DataConnect.close(con);
             if (ps != null) { try { ps.close(); } catch (SQLException ex) { System.out.println("Error while closing PreparedStatement; ProductDAO.getProductListOfPattern() -->" + ex.getMessage()); } }
         }
-        return productList;
+        return ticketList;
     }
     public static boolean deleteSingleProduct(String deleteId) {
         Connection con = null;
@@ -405,7 +404,7 @@ public class ProductDAO {
         }
         return false;
     }
-    public static Product getSingleProductData(String productId) {
+    public static Ticket getSingleProductData(String productId) {
         Connection con = null;
         PreparedStatement ps = null;
         try {
@@ -414,7 +413,7 @@ public class ProductDAO {
             ps.setString(1, productId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                Product singleProduct = new Product(rs.getLong("product_id"),
+                Ticket singleTicket = new Ticket(rs.getLong("product_id"),
                         rs.getString("product_name"),
                         rs.getString("category_name"),
                         rs.getLong("quantity"),
@@ -428,7 +427,7 @@ public class ProductDAO {
                         rs.getString("photo_link_three"),
                         rs.getString("photo_link_four"),
                         rs.getBoolean("featured"));
-                return singleProduct;
+                return singleTicket;
             }
         } catch (SQLException ex) {
             System.out.println("Error while checking if product exists in db; ProductDAO.getSingleProductData() -->" + ex.getMessage());
@@ -445,7 +444,7 @@ public class ProductDAO {
         }
         return null;
     }
-    public static Product getSingleProductDataForCart(String productId, Integer quantity) {
+    public static Ticket getSingleProductDataForCart(String productId, Integer quantity) {
         Connection con = null;
         PreparedStatement ps = null;
         try {
@@ -454,7 +453,7 @@ public class ProductDAO {
             ps.setString(1, productId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                Product singleProduct = new Product(rs.getLong("product_id"),
+                Ticket singleTicket = new Ticket(rs.getLong("product_id"),
                         rs.getString("product_name"),
                         rs.getString("category_name"),
                         rs.getLong("quantity"),
@@ -468,7 +467,7 @@ public class ProductDAO {
                         rs.getString("photo_link_three"),
                         rs.getString("photo_link_four"),
                         rs.getBoolean("featured"));
-                return singleProduct;
+                return singleTicket;
             }
         } catch (SQLException ex) {
             System.out.println("Error while checking if product exists in db; ProductDAO.getSingleProductData() -->" + ex.getMessage());

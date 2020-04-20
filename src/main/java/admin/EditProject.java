@@ -1,9 +1,7 @@
 package admin;
 
-import dao.CategoryDAO;
-import dao.ProductDAO;
-import objects.Category;
-import objects.Product;
+import dao.ProjectDAO;
+import objects.Project;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/admin/category-manager/edit-category")
-public class EditCategory extends HttpServlet {
+public class EditProject extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String categoryId;
@@ -22,12 +20,12 @@ public class EditCategory extends HttpServlet {
         } else {
             categoryId = (String) request.getAttribute("categoryId");
         }
-        if(CategoryDAO.checkIfCategoryExists(categoryId)){
-            Category singleCategory = CategoryDAO.getSingleCategoryData(categoryId);
-            request.setAttribute("singleCategory", singleCategory);
+        if(ProjectDAO.checkIfCategoryExists(categoryId)){
+            Project singleProject = ProjectDAO.getSingleCategoryData(categoryId);
+            request.setAttribute("singleCategory", singleProject);
         }
 
-        request.getRequestDispatcher("/WEB-INF/admin/edit-category.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/admin/edit-project.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -42,7 +40,7 @@ public class EditCategory extends HttpServlet {
         } else if(category_name == null){ request.setAttribute("msg", "Nie podano nazwy kategorii");
         } else if(category_url == null){ request.setAttribute("msg", "Nie podano url kategorii");
         } else {
-            boolean done = CategoryDAO.editGivenCategory(categoryId, category_name, category_url);
+            boolean done = ProjectDAO.editGivenCategory(categoryId, category_name, category_url);
             if(done){
                 request.setAttribute("msg", "Pomyślnie zedytowano kategorię");
             } else {

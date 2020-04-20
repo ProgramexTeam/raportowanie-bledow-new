@@ -1,7 +1,6 @@
 package admin;
 
-import dao.CategoryDAO;
-import dao.ProductDAO;
+import dao.ProjectDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,14 +13,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @WebServlet("/admin/category-manager/add-category")
-public class AddCategory extends HttpServlet {
+public class AddProject extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         request.setAttribute("currentDate", dateFormat.format(date));
-        request.getRequestDispatcher("/WEB-INF/admin/add-category.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/admin/add-project.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,7 +31,7 @@ public class AddCategory extends HttpServlet {
         if(category_name == null){ request.setAttribute("msg", "Nie podano nazwy kategorii");
         } else if(category_url == null){ request.setAttribute("msg", "Nie podano url kategorii");
         } else {
-            boolean done = CategoryDAO.addCategory(category_name, category_url);
+            boolean done = ProjectDAO.addCategory(category_name, category_url);
             if(done){
                 request.setAttribute("msg", "Pomyślnie dodano kategorię do bazy");
             } else {

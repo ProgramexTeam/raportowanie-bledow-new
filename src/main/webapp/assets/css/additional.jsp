@@ -38,8 +38,8 @@ p {
 
 /* kolory zbiorczo */
 /*.main-button a, .section-heading .line-dec, #pre-header, .banner .caption .line-dec,
-.subscribe-form, .footer .social-icons a:hover, .single-product .right-content .button,
-.single-product .right-content .down-content span a:hover i,
+.subscribe-form, .footer .social-icons a:hover, .single-ticket .right-content .button,
+.single-ticket .right-content .down-content span a:hover i,
 .about-page .right-content span a:hover i,
 .contact-page .right-content span a:hover i,
 .contact-page .right-content .button {
@@ -53,10 +53,10 @@ p {
 .featured-item:hover h4, .featured-item h6,
 .subscribe-form .main-content form button,
 .footer .footer-menu a:hover, .sub-footer a,
-.single-product .right-content span,
-.single-product .right-content .down-content span a:hover,
+.single-ticket .right-content span,
+.single-ticket .right-content .down-content span a:hover,
 .featured .featured-item:hover h4,
-.single-product .right-content h6 {
+.single-ticket .right-content h6 {
     color: #3a8bcd;
 }
 .navbar-dark .navbar-toggler, .page-navigation ul li a:hover,
@@ -133,19 +133,19 @@ p {
     background-color: #3a8bcd;
     border-color: #3a8bcd;
 }
-.single-product .right-content h6 {
+.single-ticket .right-content h6 {
     color: #3a8bcd;
 }
-.single-product .right-content span {
+.single-ticket .right-content span {
     color: #3a8bcd;
 }
-.single-product .right-content .button {
+.single-ticket .right-content .button {
     background-color: #3a8bcd;
 }
-.single-product .right-content .down-content span a:hover {
+.single-ticket .right-content .down-content span a:hover {
     color: #3a8bcd;
 }
-.single-product .right-content .down-content span a:hover i {
+.single-ticket .right-content .down-content span a:hover i {
     background-color: #3a8bcd;
 }
 .about-page .right-content span a:hover i {

@@ -1,7 +1,7 @@
 package dao;
 
-import objects.Category;
-import objects.Product;
+import objects.Project;
+import objects.Project;
 import util.DataConnect;
 
 import java.sql.Connection;
@@ -10,11 +10,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class CategoryDAO {
-    public static Category getCategory(long id) {
+public class ProjectDAO {
+    public static Project getCategory(long id) {
         PreparedStatement ps = null;
         Connection con = null;
-        Category category = null;
+        Project project = null;
         try {
             con = DataConnect.getConnection();
             if (con != null) {
@@ -23,7 +23,7 @@ public class CategoryDAO {
                 ps.setLong(1, id);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                    category = new Category(
+                    project = new Project(
                             rs.getLong("category_id"),
                             rs.getString("category_name"),
                             rs.getString("category_url"));
@@ -35,7 +35,7 @@ public class CategoryDAO {
             DataConnect.close(con);
             try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; ProductDAO.getCategory() -->" + ex.getMessage()); }
         }
-        return category;
+        return project;
     }
     public static long amountOfCategories() {
         Connection con = null;
@@ -91,10 +91,10 @@ public class CategoryDAO {
         }
         return amount;
     }
-    public static ArrayList<Category> getCategoriesList(long startPosition, long amount) {
+    public static ArrayList<Project> getCategoriesList(long startPosition, long amount) {
         Connection con = null;
         PreparedStatement ps = null;
-        ArrayList<Category> categoriesList = new ArrayList<>();
+        ArrayList<Project> categoriesList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
             ps = con.prepareStatement("SELECT * FROM categories ORDER BY category_id LIMIT ?, ?");
@@ -102,7 +102,7 @@ public class CategoryDAO {
             ps.setLong(2, amount);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Category temp = new Category(rs.getLong("category_id"),
+                Project temp = new Project(rs.getLong("category_id"),
                         rs.getString("category_name"),
                         rs.getString("category_url"));
                 categoriesList.add(temp);
@@ -115,16 +115,16 @@ public class CategoryDAO {
         }
         return categoriesList;
     }
-    public static ArrayList<Category> getCategoriesList() {
+    public static ArrayList<Project> getCategoriesList() {
         Connection con = null;
         PreparedStatement ps = null;
-        ArrayList<Category> categoriesList = new ArrayList<>();
+        ArrayList<Project> categoriesList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
             ps = con.prepareStatement("SELECT * FROM categories ORDER BY category_id");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Category temp = new Category(rs.getLong("category_id"),
+                Project temp = new Project(rs.getLong("category_id"),
                         rs.getString("category_name"),
                         rs.getString("category_url"));
                 categoriesList.add(temp);
@@ -137,10 +137,10 @@ public class CategoryDAO {
         }
         return categoriesList;
     }
-    public static ArrayList<Category> getCategoriesListOfPattern(long startPosition, long amountPerPage, String searchByCategoryName, int searchOption) {
+    public static ArrayList<Project> getCategoriesListOfPattern(long startPosition, long amountPerPage, String searchByCategoryName, int searchOption) {
         Connection con = null;
         PreparedStatement ps = null;
-        ArrayList<Category> categoriesList = new ArrayList<>();
+        ArrayList<Project> categoriesList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
             ps = con.prepareStatement("SELECT * FROM categories WHERE category_name LIKE ? ORDER BY category_id LIMIT ?, ?");
@@ -155,7 +155,7 @@ public class CategoryDAO {
             ps.setLong(3, amountPerPage);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Category temp = new Category(rs.getLong("category_id"),
+                Project temp = new Project(rs.getLong("category_id"),
                         rs.getString("category_name"),
                         rs.getString("category_url"));
                 categoriesList.add(temp);
@@ -223,7 +223,7 @@ public class CategoryDAO {
         }
         return false;
     }
-    public static Category getSingleCategoryData(String categoryId) {
+    public static Project getSingleCategoryData(String categoryId) {
         Connection con = null;
         PreparedStatement ps = null;
         try {
@@ -232,10 +232,10 @@ public class CategoryDAO {
             ps.setString(1, categoryId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                Category singleCategory = new Category(rs.getLong("category_id"),
+                Project singleProject = new Project(rs.getLong("category_id"),
                         rs.getString("category_name"),
                         rs.getString("category_url"));
-                return singleCategory;
+                return singleProject;
             }
         } catch (SQLException ex) {
             System.out.println("Error while checking if product exists in db; ProductDAO.getSingleCategoryData() -->" + ex.getMessage());

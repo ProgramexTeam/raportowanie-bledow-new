@@ -1,25 +1,25 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="objects.Category" %>
-<%@ page import="dao.CategoryDAO" %>
+<%@ page import="objects.Project" %>
+<%@ page import="dao.ProjectDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <!-- Nagłówek -->
 <jsp:include page="/WEB-INF/admin/parts/overall-header.jsp"/>
 <!-- Nawigacja sidebar -->
 <jsp:include page="/WEB-INF/admin/parts/sidebar-menu.jsp"/>
 <!-- Kontent -->
-<div class="content product-manager">
+<div class="content ticket-manager">
     <div class="content-inside">
         <h1 class="backend-page-title"><i class="fas fa-shopping-cart"></i> Menadżer produktów - dodaj produkt</h1>
         <p class="info-msg"><% if(request.getAttribute("msg") != null){ out.println(request.getAttribute("msg")); request.setAttribute("msg", null); } %></p>
         <div class="form-container">
-            <form method="post" action="${pageContext.request.contextPath}/admin/product-manager/add-product">
+            <form method="post" action="${pageContext.request.contextPath}/admin/ticket-manager/add-ticket">
                 <div class="input-row" style="width: 100%">
                     <p class="input-element"><span>Nazwa produktu:</span> <br /> <span style="font-size: 8px">Nazwa produktu musi zawierać minimum 3 znaki.</span> <br />
                         <input type="text" name="product_name" pattern=".{3,}" title="Nazwa produktu musi zawierać minimum 3 znaki" required></p>
-                    <% ArrayList<Category> categoryList = CategoryDAO.getCategoriesList(); %>
+                    <% ArrayList<Project> projectList = ProjectDAO.getCategoriesList(); %>
                     <p class="input-element"><span>Kategoria: </span> <br /> <span style="font-size: 8px">Kategorię można wybrać wyłącznie z listy utworzonych kategorii. Jeśli chcesz użyć kategorii, która nie znajduje się na liście przejdź do menadżera kategorii.</span> <br />
-                        <select name="category" title="Kategorię można wybrać wyłącznie z listy utworzonych kategorii. Jeśli chcesz użyć kategorii, która nie znajduje się na liście przejdź do menadżera kategorii." required>
-                            <% for (Category cat: categoryList) { %>
+                        <select name="project" title="Kategorię można wybrać wyłącznie z listy utworzonych kategorii. Jeśli chcesz użyć kategorii, która nie znajduje się na liście przejdź do menadżera kategorii." required>
+                            <% for (Project cat: projectList) { %>
                                 <option value="<% out.print(cat.getId()); %>"><% out.print(cat.getCategoryName()); %></option>
                             <% } %>
                         </select>

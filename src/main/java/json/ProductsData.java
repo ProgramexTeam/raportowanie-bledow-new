@@ -4,12 +4,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import dao.CategoryDAO;
-import dao.ProductDAO;
-import objects.Category;
-import objects.Product;
+import dao.ProjectDAO;
+import dao.TicketDAO;
+import objects.Project;
+import objects.Project;
+import objects.Ticket;
+import objects.Ticket;
 
-import javax.json.Json;
 import javax.json.JsonArray;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,14 +39,14 @@ public class ProductsData extends HttpServlet {
         boolean isWhereInStatement = false;
 
         String statement = "SELECT * FROM products AS P LEFT JOIN categories AS C ON P.category_id = C.category_id";
-        ArrayList<Category> categoryList = CategoryDAO.getCategoriesList();
+        ArrayList<Project> projectList = ProjectDAO.getCategoriesList();
 
-        for(Category category: categoryList) {
+        for(Project project : projectList) {
             if(path!=null) {
-                if (path.equals("/" + category.getCategoryURL())) {
-                    request.setAttribute("categoryURL", category.getCategoryURL());
-                    request.setAttribute("categoryName", category.getCategoryName());
-                    statement += " WHERE P.category_id = " + category.getId();
+                if (path.equals("/" + project.getCategoryURL())) {
+                    request.setAttribute("categoryURL", project.getCategoryURL());
+                    request.setAttribute("categoryName", project.getCategoryName());
+                    statement += " WHERE P.category_id = " + project.getId();
                     isWhereInStatement = true;
                 }
             } else {
@@ -97,7 +98,7 @@ public class ProductsData extends HttpServlet {
         statement += " LIMIT " + ((page-1)*perPage) + ", " + perPage;
 
         // get data from DB using created statement
-        ArrayList<Product> productsList = ProductDAO.getProductsListCustomStatement(statement);
+        ArrayList<Ticket> productsList = TicketDAO.getProductsListCustomStatement(statement);
 
         // create object for additional values other than products
         JsonObject attributesList = new JsonObject();
@@ -147,14 +148,14 @@ public class ProductsData extends HttpServlet {
         boolean isWhereInStatement = false;
 
         String statement = "";
-        ArrayList<Category> categoryList = CategoryDAO.getCategoriesList();
+        ArrayList<Project> projectList = ProjectDAO.getCategoriesList();
 
         if(chosenCategory!=null) {
-            for (Category category : categoryList) {
-                if (chosenCategory.equals(category.getCategoryURL())) {
-                    request.setAttribute("categoryURL", category.getCategoryURL());
-                    request.setAttribute("categoryName", category.getCategoryName());
-                    statement += " WHERE P.category_id = " + category.getId();
+            for (Project project : projectList) {
+                if (chosenCategory.equals(project.getCategoryURL())) {
+                    request.setAttribute("categoryURL", project.getCategoryURL());
+                    request.setAttribute("categoryName", project.getCategoryName());
+                    statement += " WHERE P.category_id = " + project.getId();
                     isWhereInStatement = true;
                 }
             }
@@ -227,8 +228,8 @@ public class ProductsData extends HttpServlet {
         statement += " LIMIT " + ((page-1)*perPage) + ", " + perPage;
 
         // get data from DB using created statement
-        ArrayList<Product> productsList = ProductDAO.getProductsListCustomStatement("SELECT * FROM products AS P LEFT JOIN categories AS C ON P.category_id = C.category_id" + statement);
-        long amountOfProducts = ProductDAO.getAmountOfProductsCustomStatement("SELECT COUNT(*) AS 'amountOfPages' FROM products AS P LEFT JOIN categories AS C ON P.category_id = C.category_id" + statement);
+        ArrayList<Ticket> productsList = TicketDAO.getProductsListCustomStatement("SELECT * FROM products AS P LEFT JOIN categories AS C ON P.category_id = C.category_id" + statement);
+        long amountOfProducts = TicketDAO.getAmountOfProductsCustomStatement("SELECT COUNT(*) AS 'amountOfPages' FROM products AS P LEFT JOIN categories AS C ON P.category_id = C.category_id" + statement);
 
         // create object for additional values other than products
         JsonObject attributesList = new JsonObject();

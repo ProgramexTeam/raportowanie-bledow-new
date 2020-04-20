@@ -1,9 +1,8 @@
 package pages;
 
-import shoppingLogic.ShoppingCart;
-import dao.ProductDAO;
-import objects.CartProduct;
-import objects.Product;
+
+import dao.TicketDAO;
+import objects.Ticket;
 import util.ConstantValues;
 
 import javax.servlet.ServletException;
@@ -17,14 +16,14 @@ import java.util.ArrayList;
 import java.util.Map;
 
 @WebServlet("/sklep/produkt")
-public class SingleProduct extends HttpServlet {
+public class SingleTicket extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String id = request.getParameter("id");
-            Product product = ProductDAO.getSingleProductData(id);
-            if (product != null) {
-                request.setAttribute("product", product);
-                request.getRequestDispatcher("/WEB-INF/pages/single-product.jsp").forward(request, response);
+            Ticket ticket = TicketDAO.getSingleProductData(id);
+            if (ticket != null) {
+                request.setAttribute("product", ticket);
+                request.getRequestDispatcher("/WEB-INF/pages/single-ticket.jsp").forward(request, response);
             } else {
                 response.sendRedirect("/sklep");
             }
@@ -35,21 +34,18 @@ public class SingleProduct extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        ShoppingCart shoppingCartBean = (ShoppingCart) session.getAttribute(ConstantValues.SHOPPING_CART_BEAN_SESION_KEY);
+        //ShoppingCart shoppingCartBean = (ShoppingCart) session.getAttribute("shoppingCart");
 
         String id = request.getParameter("id");
         String amountString = request.getParameter("amount");
 
         if(amountString != null && amountString.length() > 0) {
             if(id != null && id.length() > 0){
-                shoppingCartBean.addToCart(id, amountString);
+                //shoppingCartBean.addToCart(id, amountString);
             }
         }
 
-        session.setAttribute(ConstantValues.SHOPPING_CART_BEAN_SESION_KEY, shoppingCartBean);
-        Map<Long, CartProduct> beanCartContents = shoppingCartBean.getContents();
-        ArrayList<CartProduct> cartProducts = new ArrayList<>(beanCartContents.values());
-        session.setAttribute("cartProducts", cartProducts);
+        //session.setAttribute("shoppingCart", shoppingCartBean);
         doGet(request, response);
     }
 }

@@ -1,16 +1,16 @@
 package objects;
 
-public class Category {
+public class Project {
     private long id;
     private String categoryName;
     private String categoryURL;
 
-    public Category(long id, String categoryName, String categoryURL) {
+    public Project(long id, String categoryName, String categoryURL) {
         this.id = id;
         this.categoryName = categoryName;
         this.categoryURL = categoryURL;
     }
-    public Category() {
+    public Project() {
         this.id = 0;
         this.categoryName = "";
         this.categoryURL = "";

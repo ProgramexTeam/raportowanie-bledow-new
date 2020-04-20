@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/portal")
-public class Sklep extends HttpServlet {
+public class Portal extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         /*String path = request.getPathInfo();
         boolean isInStock = false;

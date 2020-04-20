@@ -1,7 +1,8 @@
 package admin;
 
-import dao.CategoryDAO;
-import objects.Category;
+import dao.ProjectDAO;
+import objects.Project;
+import objects.Project;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +23,7 @@ public class CategoryManager extends HttpServlet {
         if(request.getParameter("amountPerPage") == null){ amountPerPage = 20; } else { amountPerPage = Long.parseLong(request.getParameter("amountPerPage")); }
         if(request.getParameter("searchOption") != null) { searchOption = Integer.parseInt(request.getParameter("searchOption")); } else { searchOption = 2; }
         if(request.getParameter("deleteId") != null){ deleteId = String.valueOf(request.getParameter("deleteId"));
-            if(CategoryDAO.deleteSingleCategory(deleteId)){
+            if(ProjectDAO.deleteSingleCategory(deleteId)){
                 request.setAttribute("msg", "Pomyślnie usunięto kategorię");
             } else {
                 request.setAttribute("msg", "Wystąpił problem w trakcie usuwania kategorii");
@@ -32,15 +33,15 @@ public class CategoryManager extends HttpServlet {
         // Zwraca inną listę użytkowników w zależności od tego czy zostało coś wpisane w szukajkę
         if(request.getParameter("searchByCategoryName") != null){
             searchByCategoryName = request.getParameter("searchByCategoryName");
-            ArrayList<Category> list = CategoryDAO.getCategoriesListOfPattern(page*amountPerPage, amountPerPage, searchByCategoryName, searchOption);
+            ArrayList<Project> list = ProjectDAO.getCategoriesListOfPattern(page*amountPerPage, amountPerPage, searchByCategoryName, searchOption);
 
-            amountOfCategories = CategoryDAO.amountOfCategoriesOfPattern(searchByCategoryName, searchOption);
+            amountOfCategories = ProjectDAO.amountOfCategoriesOfPattern(searchByCategoryName, searchOption);
             request.setAttribute("searchOption", searchOption);
             request.setAttribute("searchByCategoryName", searchByCategoryName);
             request.setAttribute("list", list);
         } else {
-            ArrayList<Category> list = CategoryDAO.getCategoriesList(page*amountPerPage, amountPerPage);
-            amountOfCategories = CategoryDAO.amountOfCategories();
+            ArrayList<Project> list = ProjectDAO.getCategoriesList(page*amountPerPage, amountPerPage);
+            amountOfCategories = ProjectDAO.amountOfCategories();
             request.setAttribute("list", list);
         }
 
@@ -52,7 +53,7 @@ public class CategoryManager extends HttpServlet {
         request.setAttribute("amountPerPage", amountPerPage);
         request.setAttribute("amountOfCategories", amountOfCategories);
 
-        request.getRequestDispatcher("/WEB-INF/admin/category-manager.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/admin/project-manager.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

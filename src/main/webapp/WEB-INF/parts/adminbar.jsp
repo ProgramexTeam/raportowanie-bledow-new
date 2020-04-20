@@ -29,12 +29,12 @@
             </div>
         </a>
 		<div class="Navbar__Link">
-			<a href="${pageContext.request.contextPath}/admin/product-manager" class="backend-navigation-link" title="Przejdź do menadżera produktów">
+			<a href="${pageContext.request.contextPath}/admin/ticket-manager" class="backend-navigation-link" title="Przejdź do menadżera produktów">
 				<li class="backend-navigation-element"><i class="fas fa-shopping-cart"></i> Produkty</li>
 			</a>
 			<div class="dropdown-content">
 				<ul>
-					<a href="${pageContext.request.contextPath}/admin/product-manager/add-product" class="backend-navigation-link" title="Dodaj produkt">
+					<a href="${pageContext.request.contextPath}/admin/ticket-manager/add-ticket" class="backend-navigation-link" title="Dodaj produkt">
 						<li><i class="fas fa-cart-plus"></i> Dodaj nowy produkt</li>
 					</a>
 				</ul>
@@ -45,7 +45,7 @@
 				<li class="backend-navigation-element"><i class="fas fa-cogs"></i> Homepage Editor</li>
 			</div>
 		</a>
-		<a href="${pageContext.request.contextPath}/admin/category-manager" class="backend-navigation-link" title="Menadżer kategorii">
+		<a href="${pageContext.request.contextPath}/admin/project-manager" class="backend-navigation-link" title="Menadżer kategorii">
 			<div class="Navbar__Link">
 				<li class="backend-navigation-element"><i class="fas fa-tag"></i> Menadżer kategorii</li>
 			</div>

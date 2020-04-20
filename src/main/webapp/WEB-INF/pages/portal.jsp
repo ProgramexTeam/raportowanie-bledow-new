@@ -1,8 +1,8 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="objects.Product" %>
-<%@ page import="dao.ProductDAO" %>
-<%@ page import="objects.Category" %>
-<%@ page import="dao.CategoryDAO" %>
+<%@ page import="objects.Ticket" %>
+<%@ page import="dao.TicketDAO" %>
+<%@ page import="objects.Project" %>
+<%@ page import="dao.ProjectDAO" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 	<jsp:include page="/WEB-INF/parts/overall-header.jsp"/>
     <jsp:include page="/WEB-INF/parts/sloganbar.jsp"/>
@@ -49,10 +49,10 @@
                         <h1>Kategorie</h1>
                         <input type="hidden" id="chosenCategory" name="chosenCategory" value="">
                         <ul class="categories-list">
-                            <li class="category-button category-button-0 all-categories"><button onclick="changeCategory(null, 'category-button-0')">Wszystko</button></li>
-                            <% ArrayList<Category> categoryList = CategoryDAO.getCategoriesList();
-                                for(Category category: categoryList) { %>
-                            <li class="category-button category-button-<% out.print(category.getId()); %>"><button onclick="changeCategory('<% out.print(category.getCategoryURL()); %>', 'category-button-<% out.print(category.getId()); %>')"><% out.print(category.getCategoryName()); %></button></li>
+                            <li class="project-button project-button-0 all-categories"><button onclick="changeCategory(null, 'project-button-0')">Wszystko</button></li>
+                            <% ArrayList<Project> projectList = ProjectDAO.getCategoriesList();
+                                for(Project project : projectList) { %>
+                            <li class="project-button project-button-<% out.print(project.getId()); %>"><button onclick="changeCategory('<% out.print(project.getCategoryURL()); %>', 'project-button-<% out.print(project.getId()); %>')"><% out.print(project.getCategoryName()); %></button></li>
                             <% } %>
                         </ul>
                     </div>
@@ -102,20 +102,20 @@
                     if(productsList==null) {
                         productsList = ProductDAO.getProductsList(0, 9);
                     }
-                    for(Product product: productsList) { %>
-                        <div id="product-<% out.print(product.getId()); %>" class="item col-md-4">
-                            <a href="${pageContext.request.contextPath}/portal/produkt?id=<% out.print(product.getId()); %>">
+                    for(Product ticket: productsList) { %>
+                        <div id="ticket-<% out.print(ticket.getId()); %>" class="item col-md-4">
+                            <a href="${pageContext.request.contextPath}/portal/produkt?id=<% out.print(ticket.getId()); %>">
                                 <div class="featured-item">
-                                    <% if(!product.getImageOne().isEmpty()) { %>
-                                        <img src="<% out.print(product.getImageOne()); %>" alt="<% out.print(product.getProduct_name() + " - " + product.getCategory()); %>">
+                                    <% if(!ticket.getImageOne().isEmpty()) { %>
+                                        <img src="<% out.print(ticket.getImageOne()); %>" alt="<% out.print(ticket.getProduct_name() + " - " + ticket.getCategory()); %>">
                                     <% } else { %>
-                                        <img src="/assets/images/products/product-placeholder.jpg" alt="<% out.print(product.getProduct_name() + " - " + product.getCategory()); %>">
+                                        <img src="/assets/images/products/ticket-placeholder.jpg" alt="<% out.print(ticket.getProduct_name() + " - " + ticket.getCategory()); %>">
                                     <% } %>
-                                    <h4><% out.print(product.getProduct_name()); %></h4>
-                                    <% if(product.getSale_price()>0) { %>
-                                        <h6><span style="font-size: 10px; color: darkgrey; text-decoration: line-through"><% out.print(product.getPrice()); %> zł</span> <% out.print(product.getSale_price()); %> zł</h6>
+                                    <h4><% out.print(ticket.getProduct_name()); %></h4>
+                                    <% if(ticket.getSale_price()>0) { %>
+                                        <h6><span style="font-size: 10px; color: darkgrey; text-decoration: line-through"><% out.print(ticket.getPrice()); %> zł</span> <% out.print(ticket.getSale_price()); %> zł</h6>
                                     <% } else { %>
-                                        <h6><% out.print(product.getPrice()); %> zł</h6>
+                                        <h6><% out.print(ticket.getPrice()); %> zł</h6>
                                     <% } %>
                                 </div>
                             </a>

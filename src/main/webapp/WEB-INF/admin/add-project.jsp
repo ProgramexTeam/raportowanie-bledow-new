@@ -4,12 +4,12 @@
 <!-- Nawigacja sidebar -->
 <jsp:include page="/WEB-INF/admin/parts/sidebar-menu.jsp"/>
 <!-- Kontent -->
-<div class="content category-manager">
+<div class="content project-manager">
     <div class="content-inside">
         <h1 class="backend-page-title"><i class="fas fa-tag"></i> Menadżer kategorii - dodaj kategorię</h1>
         <p class="info-msg"><% if(request.getAttribute("msg") != null){ out.println(request.getAttribute("msg")); request.setAttribute("msg", null); } %></p>
         <div class="form-container">
-            <form method="post" action="${pageContext.request.contextPath}/admin/category-manager/add-category">
+            <form method="post" action="${pageContext.request.contextPath}/admin/project-manager/add-project">
                 <div class="input-row" style="width: 100%">
                     <p class="input-element"><span>Nazwa kategorii:</span> <br /> <span style="font-size: 8px">Nazwa kategorii musi zawierać minimum 3 znaki.</span> <br />
                         <input type="text" name="category_name" pattern=".{3,}" title="Nazwa kategorii musi zawierać minimum 3 znaki" required></p>

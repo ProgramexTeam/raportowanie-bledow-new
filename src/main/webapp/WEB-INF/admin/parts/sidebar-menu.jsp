@@ -25,11 +25,11 @@
                 <li class="backend-navigation-element"><i class="fas fa-photo-video"></i> Menadżer mediów</li>
             </a>
             <div class="products-link">
-                <a href="${pageContext.request.contextPath}/admin/product-manager" class="backend-navigation-link" title="Przejdź do menadżera produktów">
+                <a href="${pageContext.request.contextPath}/admin/ticket-manager" class="backend-navigation-link" title="Przejdź do menadżera produktów">
                     <li class="backend-navigation-element"><i class="fas fa-shopping-cart"></i> Produkty</li>
                 </a>
-                <ul class="dropdown product-dropdown">
-                    <a href="${pageContext.request.contextPath}/admin/product-manager/add-product" class="backend-navigation-link" title="Dodaj nowy produkt">
+                <ul class="dropdown ticket-dropdown">
+                    <a href="${pageContext.request.contextPath}/admin/ticket-manager/add-ticket" class="backend-navigation-link" title="Dodaj nowy produkt">
                         <li><i class="fas fa-cart-plus"></i> Dodaj nowy produkt</li>
                     </a>
                 </ul>
@@ -37,12 +37,12 @@
             <a href="${pageContext.request.contextPath}/admin/homepage-editor" class="backend-navigation-link" title="Edytor strony głównej">
                 <li class="backend-navigation-element"><i class="fas fa-cogs"></i> Homepage Editor</li>
             </a>
-            <div class="category-link">
-                <a href="${pageContext.request.contextPath}/admin/category-manager" class="backend-navigation-link" title="Menadżer kategorii">
+            <div class="project-link">
+                <a href="${pageContext.request.contextPath}/admin/project-manager" class="backend-navigation-link" title="Menadżer kategorii">
                     <li class="backend-navigation-element"><i class="fa fa-tag" aria-hidden="true"></i> Menadżer kategorii</li>
                 </a>
-                <ul class="dropdown category-dropdown">
-                    <a href="${pageContext.request.contextPath}/admin/category-manager/add-category" class="backend-navigation-link" title="Dodaj nową kategorię">
+                <ul class="dropdown project-dropdown">
+                    <a href="${pageContext.request.contextPath}/admin/project-manager/add-project" class="backend-navigation-link" title="Dodaj nową kategorię">
                         <li><i class="fas fa-tags"></i> Dodaj nową kategorię</li>
                     </a>
                 </ul>

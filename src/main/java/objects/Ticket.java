@@ -2,7 +2,7 @@ package objects;
 
 import java.io.Serializable;
 
-public class Product implements Serializable {
+public class Ticket implements Serializable {
 
     private long id;
     private String product_name;
@@ -19,8 +19,8 @@ public class Product implements Serializable {
     private String imageFour;
     private boolean featured;
 
-    public Product(long id, String product_name, String category, long quantity, long quantity_sold, double sale_price, String date_added, double price,
-                   String description, String imageOne, String imageTwo, String imageThree, String imageFour, boolean featured) {
+    public Ticket(long id, String product_name, String category, long quantity, long quantity_sold, double sale_price, String date_added, double price,
+                  String description, String imageOne, String imageTwo, String imageThree, String imageFour, boolean featured) {
         this.id = id;
         this.product_name = product_name;
         this.category = category;
@@ -37,7 +37,7 @@ public class Product implements Serializable {
         this.featured = featured;
     }
 
-    public Product(){
+    public Ticket(){
         this.id = -1;
         this.product_name = null;
         this.category = null;

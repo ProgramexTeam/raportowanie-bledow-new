@@ -1,8 +1,9 @@
-<%@ page import="objects.Product" %>
-<%@ page import="dao.ProductDAO" %>
+<%@ page import="objects.Ticket" %>
+<%@ page import="dao.TicketDAO" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="files.HomePageConfigFile" %>
+<%@ page import="objects.Ticket" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/parts/overall-header.jsp"/>
 <jsp:include page="/WEB-INF/parts/sloganbar.jsp"/>
@@ -12,12 +13,12 @@
 <!-- Początek zawartości strony -->
 <%  HomePageConfigFile file = new HomePageConfigFile(request.getServletContext());
     HashMap<String, String> configuration = file.getMap();
-    Product p = null;
-    if(request.getAttribute("product")!=null) {
-        p = (Product) request.getAttribute("product");
+    Ticket p = null;
+    if(request.getAttribute("ticket")!=null) {
+        p = (Ticket) request.getAttribute("ticket");
     } %>
 
-<div class="single-product">
+<div class="single-ticket">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -27,13 +28,13 @@
                   </div>
             </div>
             <div class="col-md-6">
-                <div class="product-slider">
+                <div class="ticket-slider">
                     <div id="slider" class="flexslider">
                         <ul class="slides">
                             <% if(p.getImageOne() != null && p.getImageOne().length()>0) { %>
                                 <li><img src="<%out.print(p.getImageOne());%>" alt="<% out.print(p.getProduct_name() + " - " + p.getCategory()); %>" /></li>
                             <% } else { %>
-                                <li><img src="/assets/images/products/product-placeholder.jpg" alt="<% out.print(p.getProduct_name() + " - " + p.getCategory()); %>" /></li>
+                                <li><img src="/assets/images/products/ticket-placeholder.jpg" alt="<% out.print(p.getProduct_name() + " - " + p.getCategory()); %>" /></li>
                             <% } %>
                             <% if(p.getImageTwo() != null && p.getImageTwo().length()>0) { %>
                                 <li><img src="<%out.print(p.getImageTwo());%>" alt="<% out.print(p.getProduct_name() + " - " + p.getCategory()); %>" /></li>
@@ -110,8 +111,8 @@
             </div>
             <div class="col-md-12">
                 <div class="owl-carousel owl-theme">
-                    <%  ArrayList<Product> lista = ProductDAO.getFeaturedProductsList(10);
-                        for (Product produkt: lista) { %>
+                    <%  ArrayList<Ticket> lista = TicketDAO.getFeaturedProductsList(10);
+                        for (Ticket produkt: lista) { %>
                     <a href="${pageContext.request.contextPath}/portal/produkt?id=<% out.print(produkt.getId()); %>">
                         <div class="featured-item">
                             <img src="<% out.print(produkt.getImageOne()); %>" alt="Produkt - <% out.print(produkt.getProduct_name()); %>">

@@ -1,10 +1,7 @@
 package admin;
 
-import dao.ProductDAO;
-import dao.RegisterDAO;
-import dao.UserDAO;
-import objects.Product;
-import objects.User;
+import dao.TicketDAO;
+import objects.Ticket;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,10 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 @WebServlet("/admin/product-manager/edit-product")
-public class EditProduct extends HttpServlet {
+public class EditTicket extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String productId;
@@ -24,12 +20,12 @@ public class EditProduct extends HttpServlet {
         } else {
             productId = (String) request.getAttribute("productId");
         }
-        if(ProductDAO.checkIfProductExists(productId)){
-            Product singleProduct = ProductDAO.getSingleProductData(productId);
-            request.setAttribute("singleProduct", singleProduct);
+        if(TicketDAO.checkIfProductExists(productId)){
+            Ticket singleTicket = TicketDAO.getSingleProductData(productId);
+            request.setAttribute("singleProduct", singleTicket);
         }
 
-        request.getRequestDispatcher("/WEB-INF/admin/edit-product.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/admin/edit-ticket.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -61,7 +57,7 @@ public class EditProduct extends HttpServlet {
         } else if(price == null){ request.setAttribute("msg", "Nie podano ceny produktu");
         } else if(description == null){ request.setAttribute("msg", "Nie podano opisu produktu");
         } else {
-            boolean done = ProductDAO.editGivenProduct(product_id, product_name, category, quantity, quantity_sold, sale_price, date_added, price,
+            boolean done = TicketDAO.editGivenProduct(product_id, product_name, category, quantity, quantity_sold, sale_price, date_added, price,
                     description, photoLinkOne, photoLinkTwo, photoLinkThree, photoLinkFour, featured);
             if(done){
                 request.setAttribute("msg", "Pomyślnie zedytowano produkt");
