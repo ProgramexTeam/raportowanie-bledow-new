@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+@SuppressWarnings({"SqlResolve", "SqlNoDataSourceInspection"})
 public class UserDAO {
     public static long amountOfUsers() {
         Connection con = null;

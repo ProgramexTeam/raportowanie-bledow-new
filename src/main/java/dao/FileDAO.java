@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@SuppressWarnings({"SqlResolve", "SqlNoDataSourceInspection"})
 public class FileDAO {
     public static File getGallery(long id) {
         PreparedStatement ps = null;
