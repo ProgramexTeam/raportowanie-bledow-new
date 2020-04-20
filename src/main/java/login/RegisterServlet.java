@@ -29,6 +29,7 @@ public class RegisterServlet extends HttpServlet {
         String last_name = request.getParameter("lastname");
         String user_email = request.getParameter("email");
         String birth_date = request.getParameter("birthDate");
+        String role = request.getParameter("role");
 
         if(!RegisterDAO.validateUserLogin(user_login)) {
             request.setAttribute("message", "Istnieje już uzytkownik o podanym loginie");
@@ -41,7 +42,7 @@ public class RegisterServlet extends HttpServlet {
             doGet(request, response);
         } else {
             String activation_key = RegisterDAO.getAlphaNumericString(20);
-            boolean done = RegisterDAO.addUser(user_login, user_pass, first_name, last_name, user_email, activation_key, birth_date);
+            boolean done = RegisterDAO.addUser(user_login, user_pass, first_name, last_name, user_email, activation_key, birth_date, role);
             if(done) {
                 ActivationEmail.sendActivationEmail(activation_key, user_email);
                 response.sendRedirect("/register-success");
