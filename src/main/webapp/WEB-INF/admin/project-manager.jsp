@@ -20,7 +20,7 @@
                 if(request.getAttribute("searchOption") != null){ searchOption = (int)request.getAttribute("searchOption"); } else { searchOption = 2; }
                 if(request.getAttribute("searchByCategoryName") != null){ searchByCategoryName = (String) request.getAttribute("searchByCategoryName"); } else { searchByCategoryName = ""; }
             %>
-            <form action="/admin/project-manager" method="post">
+            <form action="${pageContext.request.contextPath}/admin/project-manager" method="post">
                 <p>Ile kategorii na jedną stronę:
                     <select name="amountPerPage">
                         <option <% if(amountPerPage==5){ out.println("selected");} %>>5</option>

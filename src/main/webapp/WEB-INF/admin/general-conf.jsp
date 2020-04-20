@@ -17,7 +17,7 @@
             <button class="activate-tab-button" onclick="openTab('SocialMedia', this)">Social Media</button>
             <button class="activate-tab-button" onclick="openTab('Dodatkowy', this)">JS/CSS/HTML</button>
         </div>
-        <form action="/admin/general-conf" method="post">
+        <form action="${pageContext.request.contextPath}/admin/general-conf" method="post">
             <div id="Ogolne" class="tabName">
                 <div class="input-section">
                     <h3 class="input-section-title">Logo</h3>

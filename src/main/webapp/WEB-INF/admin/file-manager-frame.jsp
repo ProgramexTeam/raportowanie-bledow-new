@@ -2,12 +2,9 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <!-- Nagłówek -->
 <jsp:include page="/WEB-INF/admin/parts/overall-header.jsp"/>
-<!-- Nawigacja sidebar -->
-<jsp:include page="/WEB-INF/admin/parts/sidebar-menu.jsp"/>
 <!-- Kontent -->
-<div class="content media-manager" id="MediaManager">
+<div class="content file-manager" id="FileManager">
     <div class="content-inside">
-        <h1 class="backend-page-title"><i class="fas fa-photo-video"></i> Menadżer mediów</h1>
         <%
             int amountPerPage = 0, currentPage = 0;
             long amountOfImages = 0;
@@ -22,20 +19,8 @@
             }
         %>
         <p class="info-msg" id="InfoMsg"><% if(request.getAttribute("msg") != null){ out.println(request.getAttribute("msg")); request.setAttribute("msg", null); } %></p>
-        <div class="info">
-            <p>Poniżej znajdą się wszystkie dodane obrazki. Aby dodać nowy obrazek skorzystaj z formularza. Aby zaznaczyć parę obrazków trzymaj CTRL (Windows).
-                Obrazki po wysłaniu na serwer od razu są wysyłane podwójnie. Jedna wersja obrazka jest oryginalna druga zoptymalizowana.
-                Po wybraniu obrazka należy zdefiniować szerokość zoptymalizowanego obrazka w pikselach. Jeśli dodawany obrazek jest mniejszy niż wybrana szerokość,
-                to nie zostanie on roszerzony. Wysokość jest zmieniania proporcjonalnie do szerokości. Dodawane obrazki muszą spełniać wymagania:</p>
-            <ul>
-                <li>Maksymalny rozmiar pojedynczego obrazka to 5MB</li>
-                <li>Maksymalny rozmiar wszystkich dodawanych obrazków to 15MB</li>
-                <li>Obrazki muszą mieć rozszerzenie .jpg lub .png</li>
-            </ul>
-            <p>Poniższa galeria umożliwia kopiowanie linków. Po kliknięciu w obrazek link do niego zostanie skopiowany.</p>
-        </div>
         <div class="form-container">
-            <form method="post" action="${pageContext.request.contextPath}/admin/media-manager" style="margin-bottom: 0px" enctype="multipart/form-data">
+            <form method="post" action="${pageContext.request.contextPath}/admin/file-manager-frame" style="margin-bottom: 0px" enctype="multipart/form-data">
                 <div class="input-row">
                     <p class="input-element submit-element"><input type="submit" value="Dodaj"></p>
                     <p class="input-element"><span>Dodaj obrazek:</span> <br /> <input type="file" name="photoLink" id="AddPhoto" onchange="checkFileSize(this)" multiple required></p>
@@ -49,7 +34,7 @@
                     <p class="input-element"><input type="checkbox" name="onlyResizedImage"> Zapisz na serwerze tylko obrazek o zmienionych wymiarach (zoptymalizowany)</p>
                 </div>
             </form>
-            <form type="post" action="${pageContext.request.contextPath}/admin/media-manager">
+            <form type="post" action="${pageContext.request.contextPath}/admin/file-manager-frame">
                 <div class="input-row">
                     <p class="input-element submit-element"><input type="submit" value="Wyświetl"></p>
                     <p class="input-element"><span>Ile obrazków na stronę:</span> <br />
@@ -82,7 +67,7 @@
                         for(int i = amountPerPage * (currentPage-1); i < imageLinkList.size(); i++){
                 %>
                     <div class="image-container">
-                        <img class="image fixed-image-size" src="<% out.print(imageLinkList.get(i)); %>" onclick="copyToClipboard(this);" />
+                        <img style="mix-blend-mode: luminosity;" class="image fixed-image-size" src="<% out.print(imageLinkList.get(i)); %>" onclick="unClickImages(); parent.copyToInput(this);" />
                         <span class="image-text" id="image-text-<% out.print(i); %>" onclick="getWidthAndHeight(<% out.print(i); %>, '<% out.print(imageLinkList.get(i)); %>')"><label>0x0 px</label></span>
                     </div>
                 <%

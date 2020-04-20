@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><configuration>
+`<?xml version="1.0" encoding="UTF-8" standalone="no"?><configuration>
     <singleConf id="1">
         <name>sliderBackgroundUrl</name>
         <value>/assets/images/banner-bg.jpg</value>
