@@ -88,7 +88,6 @@ public class UserDAO {
                         rs.getString("first_name"),
                         rs.getString("last_name"),
                         rs.getString("user_email"),
-                        rs.getString("user_registered"),
                         rs.getString("user_activation_key"),
                         rs.getString("user_role"),
                         rs.getString("birth_date"));
@@ -232,7 +231,6 @@ public class UserDAO {
                         rs.getString("first_name"),
                         rs.getString("last_name"),
                         rs.getString("user_email"),
-                        rs.getString("user_registered"),
                         rs.getString("user_activation_key"),
                         rs.getString("user_role"),
                         rs.getString("birth_date"));
@@ -309,7 +307,6 @@ public class UserDAO {
                         rs.getString("first_name"),
                         rs.getString("last_name"),
                         rs.getString("user_email"),
-                        rs.getString("user_registered"),
                         rs.getString("user_activation_key"),
                         rs.getString("user_role"),
                         rs.getString("birth_date"));

@@ -20,6 +20,13 @@
             <p><span>Imię:</span> <br /> <input type="text" name="firstname" required></p>
             <p><span>Nazwisko:</span> <br /> <input type="text" name="lastname" required></p>
             <p><span>Email:</span> <br /> <input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required></p>
+            <p><span>Rola:</span><br />
+                <select name="role" id="role">
+                    <option value="developer">developer</option>
+                    <option value="tester">tester</option>
+                    <option value="analyst">analityk</option>
+                </select>
+            </p>
             <p><span>Data urodzenia:</span> <br /> <span style="font-size: 8px">Aby się zarejestrować musisz mieć przynajmniej 18 lat</span> <br />
                 <input type="date" name="birthDate" value="2000-01-01" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" min="1900-01-01"></p>
             <p><input type="submit" value="Zarejestruj" required></p>

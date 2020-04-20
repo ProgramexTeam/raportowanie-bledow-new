@@ -79,21 +79,21 @@ public class RegisterDAO {
         }
         return true;
     }
-    public static boolean addUser(String user_login, String user_pass, String first_name, String last_name, String user_email, String activation_key, String birth_date) {
-        if (user_login != null || user_pass != null || first_name != null || last_name != null || user_email != null || birth_date != null) {
+    public static boolean addUser(String user_login, String user_pass, String first_name, String last_name, String user_email, String activation_key, String birth_date, String role) {
+        if (user_login != null || user_pass != null || first_name != null || last_name != null || user_email != null || role != null) {
             PreparedStatement ps = null;
             Connection con = null;
             try {
                 con = DataConnect.getConnection();
                 if (con != null) {
-                    String sql = "INSERT INTO users(user_login, user_pass, first_name, last_name, user_email, user_registered, user_role, user_activation_key, birth_date) VALUES(?,?,?,?,?,NOW(),?,?,?)";
+                    String sql = "INSERT INTO users(user_login, user_pass, first_name, last_name, user_email, user_role, user_activation_key, birth_date) VALUES(?,?,?,?,?,?,?,?)";
                     ps = con.prepareStatement(sql);
                     ps.setString(1, user_login);
                     ps.setString(2, user_pass);
                     ps.setString(3, first_name);
                     ps.setString(4, last_name);
                     ps.setString(5, user_email);
-                    ps.setString(6, "USER");
+                    ps.setString(6, role);
                     ps.setString(7, activation_key);
                     ps.setString(8, birth_date);
                     ps.executeUpdate();
