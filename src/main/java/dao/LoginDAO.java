@@ -1,13 +1,12 @@
 package dao;
 
-import util.BCrypt;
-import util.DataConnect;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import util.DataConnect;
 
 public class LoginDAO {
 
@@ -17,14 +16,14 @@ public class LoginDAO {
 
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("Select user_login, user_pass from users where user_login = ?");
+            ps = con.prepareStatement("Select user_login, user_pass from users where user_login = ? and user_pass = ?");
             ps.setString(1, user);
+            ps.setString(2, password);
+
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                if(BCrypt.checkpw(password, rs.getString("user_pass"))) {
-                    return true;
-                }
+                return true;
             }
         } catch (SQLException ex) {
             System.out.println("Login error; LoginDAO.validate() -->" + ex.getMessage());
@@ -87,18 +86,16 @@ public class LoginDAO {
         ArrayList<String> userData = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM users WHERE user_login = '" + user + "'");
+            ps = con.prepareStatement("SELECT * FROM users WHERE user_login = '" + user + "' and user_pass = '" + password + "'");
 
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                if(BCrypt.checkpw(password, rs.getString("user_pass"))) {
-                    userData.add(rs.getString("user_login"));
-                    userData.add(rs.getString("user_email"));
-                    userData.add(rs.getString("user_activation_key"));
-                    userData.add(rs.getString("user_role"));
-                    userData.add(rs.getString("ID"));
-                    return userData;
-                }
+                userData.add(rs.getString("user_login"));
+                userData.add(rs.getString("user_email"));
+                userData.add(rs.getString("user_activation_key"));
+                userData.add(rs.getString("user_role"));
+                userData.add(rs.getString("ID"));
+                return userData;
             }
         } catch (SQLException ex) {
             System.out.println("Login error while checking auth key; LoginDAO.checkAuth() -->" + ex.getMessage());

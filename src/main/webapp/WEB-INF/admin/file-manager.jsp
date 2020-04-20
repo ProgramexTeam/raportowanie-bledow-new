@@ -5,9 +5,9 @@
 <!-- Nawigacja sidebar -->
 <jsp:include page="/WEB-INF/admin/parts/sidebar-menu.jsp"/>
 <!-- Kontent -->
-<div class="content media-manager" id="MediaManager">
+<div class="content file-manager" id="FileManager">
     <div class="content-inside">
-        <h1 class="backend-page-title"><i class="fas fa-photo-video"></i> Menadżer mediów</h1>
+        <h1 class="backend-page-title"><i class="fas fa-photo-video"></i> Menadżer plików</h1>
         <%
             int amountPerPage = 0, currentPage = 0;
             long amountOfImages = 0;
@@ -35,7 +35,7 @@
             <p>Poniższa galeria umożliwia kopiowanie linków. Po kliknięciu w obrazek link do niego zostanie skopiowany.</p>
         </div>
         <div class="form-container">
-            <form method="post" action="${pageContext.request.contextPath}/admin/media-manager" style="margin-bottom: 0px" enctype="multipart/form-data">
+            <form method="post" action="${pageContext.request.contextPath}/admin/file-manager" style="margin-bottom: 0px" enctype="multipart/form-data">
                 <div class="input-row">
                     <p class="input-element submit-element"><input type="submit" value="Dodaj"></p>
                     <p class="input-element"><span>Dodaj obrazek:</span> <br /> <input type="file" name="photoLink" id="AddPhoto" onchange="checkFileSize(this)" multiple required></p>
@@ -49,7 +49,7 @@
                     <p class="input-element"><input type="checkbox" name="onlyResizedImage"> Zapisz na serwerze tylko obrazek o zmienionych wymiarach (zoptymalizowany)</p>
                 </div>
             </form>
-            <form type="post" action="${pageContext.request.contextPath}/admin/media-manager">
+            <form type="post" action="${pageContext.request.contextPath}/admin/file-manager">
                 <div class="input-row">
                     <p class="input-element submit-element"><input type="submit" value="Wyświetl"></p>
                     <p class="input-element"><span>Ile obrazków na stronę:</span> <br />

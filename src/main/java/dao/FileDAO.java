@@ -1,19 +1,19 @@
 package dao;
 
-import objects.Gallery;
+import objects.File;
 import util.DataConnect;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
-public class GalleryDAO {
-    public static Gallery getGallery(long id) {
+@SuppressWarnings({"SqlResolve", "SqlNoDataSourceInspection"})
+public class FileDAO {
+    public static File getGallery(long id) {
         PreparedStatement ps = null;
         Connection con = null;
-        Gallery gallery = null;
+        File file = null;
         try {
             con = DataConnect.getConnection();
             if (con != null) {
@@ -22,7 +22,7 @@ public class GalleryDAO {
                 ps.setLong(1, id);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                    gallery = new Gallery(rs.getInt("gallery_id"),
+                    file = new File(rs.getInt("gallery_id"),
                             rs.getString("photo_1"),
                             rs.getString("photo_2"),
                             rs.getString("photo_3"),
@@ -35,7 +35,7 @@ public class GalleryDAO {
             DataConnect.close(con);
             try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; ProductDAO.addProduct() -->" + ex.getMessage()); }
         }
-        return gallery;
+        return file;
     }
 
 

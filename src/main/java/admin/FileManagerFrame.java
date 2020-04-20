@@ -23,8 +23,8 @@ import java.util.Comparator;
 import java.util.List;
 
 @MultipartConfig(maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 3)
-@WebServlet("/admin/media-manager")
-public class MediaManager extends HttpServlet {
+@WebServlet("/admin/file-manager-frame")
+public class FileManagerFrame extends HttpServlet {
     private static final String UPLOAD_DIRECTORY_WEB = "src\\main\\webapp\\assets\\images\\products\\";
     private static final String UPLOAD_DIRECTORY_TARGET = "target\\sklep-monopolowy24\\assets\\images\\products\\";
 
@@ -66,7 +66,7 @@ public class MediaManager extends HttpServlet {
             request.setAttribute("imageLinksList", null);
         }
         request.setAttribute("amountOfImages", counter);
-        request.getRequestDispatcher("/WEB-INF/admin/media-manager.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/admin/file-manager-frame.jsp").forward(request, response);
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String uploadPathTarget = ContextOperations.getPathToRoot(getServletContext().getRealPath("")) + UPLOAD_DIRECTORY_TARGET;

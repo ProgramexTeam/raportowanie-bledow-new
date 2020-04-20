@@ -22,7 +22,11 @@
                 if(request.getAttribute("searchOption") != null){ searchOption = (int)request.getAttribute("searchOption"); } else { searchOption = 2; }
                 if(request.getAttribute("searchByProductName") != null){ searchByProductName = (String) request.getAttribute("searchByProductName"); } else { searchByProductName = ""; }
             %>
+<<<<<<< HEAD
             <form action="/admin/ticket-manager" method="post">
+=======
+            <form action="${pageContext.request.contextPath}/admin/ticket-manager" method="post">
+>>>>>>> origin/master
                 <p>Ile produktów na jedną stronę:
                     <select name="amountPerPage">
                         <option <% if(amountPerPage==5){ out.println("selected");} %>>5</option>
