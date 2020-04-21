@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import util.DataConnect;
 
+@SuppressWarnings({"SqlResolve", "SqlNoDataSourceInspection"})
 public class LoginDAO {
 
     public static boolean validate(String user, String password) throws SQLException {
