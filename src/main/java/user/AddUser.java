@@ -16,22 +16,15 @@ public class AddUser extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String user_login = request.getParameter("userlogin");
-        String user_pass = request.getParameter("pwd");
-        String first_name = request.getParameter("firstname");
-        String last_name = request.getParameter("lastname");
-        String user_email = request.getParameter("email");
-        String role = request.getParameter("role");
+        String title = request.getParameter("title");
+        String description = request.getParameter("description");
+        int user_id = Integer.parseInt(request.getParameter("user"));
 
-        if(user_login == null){ request.setAttribute("msg", "Nie podano loginu");
-        } else if (user_pass == null){ request.setAttribute("msg", "Nie podano hasła");
-        } else if (first_name == null){ request.setAttribute("msg", "Nie podano imienia");
-        } else if (last_name == null){ request.setAttribute("msg", "Nie podano nazwiska");
-        } else if (user_email == null){ request.setAttribute("msg", "Nie podano emaila");
-        } else if(!RegisterDAO.validateUserEmail(user_email)){ request.setAttribute("msg", "Podany email jest już zajęty");
-        } else if(!RegisterDAO.validateUserLogin(user_login)){ request.setAttribute("msg", "Podany login jest już zajęty");
+        if(title == null){ request.setAttribute("msg", "Nie podano tytułu");
+        } else if (description == null){ request.setAttribute("msg", "Nie podano opisu");
+        } else if (user_id < 0){ request.setAttribute("msg", "Nie podano użytkownika");
         } else {
-            boolean done = RegisterDAO.addUser(user_login, user_pass, first_name, last_name, user_email, "", role);
+            boolean done = RegisterDAO.addProject(title, description, user_id);
             if(done) {
                 request.setAttribute("msg", "Pomyślnie dodano użytkownika do bazy");
             } else {

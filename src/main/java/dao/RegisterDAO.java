@@ -119,6 +119,39 @@ public class RegisterDAO {
             return false;
         }
     }
+
+    public static boolean addProject(String title, String description, int user_id) {
+        if (title != null || description != null || user_id < 0 ) {
+            PreparedStatement ps = null;
+            Connection con = null;
+            try {
+                con = DataConnect.getConnection();
+                if (con != null) {
+                    String sql = "INSERT INTO projects(title, description) VALUES(?,?)";
+                    ps = con.prepareStatement(sql);
+                    ps.setString(1, title);
+                    ps.setString(2, description);
+                    ps.executeUpdate();
+                }
+            } catch (Exception ex) {
+                System.out.println("Registration error when executing query; RegisterDAO.addUser() -->" + ex.getMessage());
+            } finally {
+                try {
+                    if (ps != null) {
+                        ps.close();
+                    }
+                    DataConnect.close(con);
+                } catch (Exception ex) {
+                    System.out.println("Registration error when closing database connection or prepared statement; RegisterDAO.addUser() -->" + ex.getMessage());
+                } finally {
+                    return true;
+                }
+            }
+        } else {
+            System.out.println("All data must be delivered to this method; RegisterDAO.addUser() -->");
+            return false;
+        }
+    }
     public static boolean checkActivationKeyAndDelete(String user_activation_key) throws SQLException {
         if (user_activation_key != null) {
             PreparedStatement ps = null;
