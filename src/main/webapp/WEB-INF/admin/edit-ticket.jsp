@@ -20,9 +20,9 @@
                     <p class="input-element"><span>Nazwa ticketu:</span> <br /> <span style="font-size: 8px">Nazwa produktu musi zawierać minimum 3 znaki.</span> <br />
                         <input type="text" name="product_name" pattern=".{3,}" value="<% out.print(singleTicket.getTitle()); %>" title="Nazwa ticketu musi zawierać minimum 3 znaki" required></p>
                     <% ArrayList<Project> projectList = ProjectDAO.getCategoriesList(); %>
-                    <p class="input-element"><span>Kategoria: </span> <br /> <span style="font-size: 8px">Kategorię można wybrać wyłącznie z listy utworzonych kategorii. Jeśli chcesz użyć kategorii, która nie znajduje się na liście przejdź do menadżera kategorii.</span> <br />
-                        <select name="project" title="Kategorię można wybrać wyłącznie z listy utworzonych kategorii. Jeśli chcesz użyć kategorii, która nie znajduje się na liście przejdź do menadżera kategorii." required>
-                            <% for (Project cat: projectList) { %>
+                    <p class="input-element"><span>Projekt: </span> <br /> <span style="font-size: 8px">Projekt można wybrać wyłącznie z listy utworzonych projektów. Jeśli chcesz użyć projektu, który nie znajduje się na liście przejdź do menadżera projektów.</span> <br />
+                        <select name="project" title="Projekt można wybrać wyłącznie z listy utworzonych projektów. Jeśli chcesz użyć projektu, który nie znajduje się na liście przejdź do menadżera projektów." required>
+                        <% for (Project cat: projectList) { %>
                             <option value="<% out.print(cat.getId()); %>" <%
                                 if(cat.getCategoryName().equals(singleTicket.getStatus()))
                                     out.print("selected");

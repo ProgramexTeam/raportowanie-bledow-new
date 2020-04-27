@@ -23,11 +23,6 @@
 				<li class="backend-navigation-element"><i class="fas fa-cogs"></i> Ustawienia główne</li>
 			</div>
 		</a>
-        <a href="${pageContext.request.contextPath}/admin/media-manager" class="backend-navigation-link" title="Menadżer mediów">
-            <div class="Navbar__Link">
-                <li class="backend-navigation-element"><i class="fas fa-photo-video"></i> Menadżer mediów</li>
-            </div>
-        </a>
 		<div class="Navbar__Link">
 			<a href="${pageContext.request.contextPath}/admin/ticket-manager" class="backend-navigation-link" title="Przejdź do menadżera produktów">
 				<li class="backend-navigation-element"><i class="fas fa-shopping-cart"></i> Produkty</li>
