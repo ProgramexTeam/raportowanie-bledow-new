@@ -33,36 +33,5 @@
 </div>
 <!-- Koniec Bannera -->
 
-<% out.print(configuration.get("hookBeforeHomepageFeatured")); %>
-
-<% if(configuration.get("featuredSectionDisplay").equals("on")) { %>
-<!-- Początek wyróżnionych produktów -->
-<div class="featured-items">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="section-heading">
-                    <div class="line-dec"></div>
-                    <h1><% out.print(configuration.get("featuredHeader")); %></h1>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="owl-carousel owl-theme">
-                    <%
-                        ArrayList<Ticket> lista = TicketDAO.getFeaturedProductsList(10);
-                        for (Ticket produkt: lista) {
-                    } %>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Koniec wyróżnionych produktów -->
-<% } %>
-
-<% out.print(configuration.get("hookAfterHomepageFeatured")); %>
-
-<!-- Formularz do subskrypcji -->
-<jsp:include page="/WEB-INF/parts/subscribe-form.jsp"/>
 <!-- Stopka -->
 <jsp:include page="/WEB-INF/parts/overall-footer.jsp"/>
