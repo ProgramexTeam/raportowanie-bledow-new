@@ -41,11 +41,11 @@
     </singleConf>
     <singleConf id="12">
         <name>sliderButtonText</name>
-        <value>Sklep</value>
+        <value>Zaloguj</value>
     </singleConf>
     <singleConf id="13">
         <name>sliderButtonLink</name>
-        <value>/sklep</value>
+        <value>/login</value>
     </singleConf>
     <singleConf id="14">
         <name>sliderButtonLinkFollow</name>
