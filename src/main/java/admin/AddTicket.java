@@ -25,35 +25,22 @@ public class AddTicket extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        String product_name = request.getParameter("product_name");
-        String category = request.getParameter("category");
-        String quantity = request.getParameter("quantity");
-        String quantity_sold = request.getParameter("quantity_sold");
-        String price = request.getParameter("price");
-        String sale_price = request.getParameter("sale_price");
-        String date_added = request.getParameter("date_added");
+        int author_id = Integer.parseInt(request.getParameter("author_id"));
+        int project_id = Integer.parseInt(request.getParameter("project_id"));
+        String status = request.getParameter("status");
+        String title = request.getParameter("title");
         String description = request.getParameter("description");
-        String photoLinkOne = request.getParameter("photoLinkOne");
-        String photoLinkTwo = request.getParameter("photoLinkTwo");
-        String photoLinkThree = request.getParameter("photoLinkThree");
-        String photoLinkFour = request.getParameter("photoLinkFour");
-        String featured = request.getParameter("featured");
 
-        if(product_name == null){ request.setAttribute("msg", "Nie podano nazwy produktu");
-        } else if(category == null){ request.setAttribute("msg", "Nie podano kategorii produktu");
-        } else if(quantity == null){ request.setAttribute("msg", "Nie podano ilości produktów na stanie");
-        } else if(quantity_sold == null){ request.setAttribute("msg", "Nie podano ilości sprzedanych produktów");
-        } else if(sale_price == null){ request.setAttribute("msg", "Nie podano ilości sprzedanych produktów");
-        } else if(date_added == null){ request.setAttribute("msg", "Nie podano daty dodania produktu");
-        } else if(price == null){ request.setAttribute("msg", "Nie podano ceny produktu");
-        } else if(description == null){ request.setAttribute("msg", "Nie podano opisu produktu");
+        if(project_id == -1){ request.setAttribute("msg", "Nie przypisano ticketu do projektu");
+        } else if(status == null){ request.setAttribute("msg", "Nie podano statusu ticketu");
+        } else if(title == null){ request.setAttribute("msg", "Nie podano tytułu ticketu");
+        } else if(description == null){ request.setAttribute("msg", "Nie podano opisu ticketu");
         } else {
-            boolean done = TicketDAO.addProduct(product_name, category, quantity, quantity_sold, sale_price, date_added, price,
-                    description, photoLinkOne, photoLinkTwo, photoLinkThree, photoLinkFour, featured);
-            if(done){
-                request.setAttribute("msg", "Pomyślnie dodano produkt do bazy");
+            boolean done = TicketDAO.addProduct(author_id, project_id, status, title, description);
+            if(done) {
+                request.setAttribute("msg", "Pomyślnie dodano ticket do bazy");
             } else {
-                request.setAttribute("msg", "Wystąpił problem w trakcie dodawania produktu do bazy, spróbuj ponownie, albo zweryfikuj logi serwera");
+                request.setAttribute("msg", "Wystąpił problem w trakcie dodawania ticketu do bazy, spróbuj ponownie, albo zweryfikuj logi serwera");
             }
         }
 

@@ -413,8 +413,8 @@ public class TicketDAO {
         }
         return null;
     }
-    public static boolean editGivenProduct(String author_id, String project_id, String status, String title, String description, String featured) {
-        if (author_id != null || project_id != null) {
+    public static boolean editGivenProduct(int author_id, int project_id, String status, String title, String description) {
+        if (author_id != -1 || project_id != -1) {
             PreparedStatement ps = null;
             Connection con = null;
 
@@ -423,16 +423,11 @@ public class TicketDAO {
                 if (con != null) {
                     ps = con.prepareStatement("UPDATE tickets SET author_id = ?, project_id = ?, status = ?, title = ?" +
                             " description = ? WHERE ticket_id = ? ");
-                    ps.setString(1, author_id);
-                    ps.setString(2, project_id);
+                    ps.setInt(1, author_id);
+                    ps.setInt(2, project_id);
                     ps.setString(3, status);
                     ps.setString(4, title);
                     ps.setString(5, description);
-                    int boolToInt;
-                    if(featured.equals("true")) { boolToInt = 1; }
-                    else { boolToInt = 0; }
-                    ps.setString(7, String.valueOf(boolToInt));
-                    ps.setString(8, author_id);
                     ps.executeUpdate();
                 }
             } catch (Exception ex) {
@@ -446,24 +441,20 @@ public class TicketDAO {
             return false;
         }
     }
-    public static boolean addProduct(String author_id, String project_id, String status, String title, String description, String featured) {
-        if (author_id != null || project_id != null) {
+    public static boolean addProduct(int author_id, int project_id, String status, String title, String description) {
+        if (author_id != -1 || project_id != -1) {
             PreparedStatement ps = null;
             Connection con = null;
             try {
                 con = DataConnect.getConnection();
                 if (con != null) {
                     ps = con.prepareStatement("INSERT INTO tickets (author_id, project_id, status, title " +
-                            "description, featured) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
-                    ps.setString(1, author_id);
-                    ps.setString(2, project_id);
+                            "description) VALUES(?,?,?,?,?)");
+                    ps.setInt(1, author_id);
+                    ps.setInt(2, project_id);
                     ps.setString(3, status);
                     ps.setString(4, title);
                     ps.setString(5, description);
-                    int boolToInt;
-                    if(featured.equals("true")) { boolToInt = 1; }
-                    else { boolToInt = 0; }
-                    ps.setString(7, String.valueOf(boolToInt));
                     ps.executeUpdate();
                 }
             } catch (Exception ex) {
