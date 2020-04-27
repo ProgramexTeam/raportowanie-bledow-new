@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+@SuppressWarnings({"SqlResolve", "SqlNoDataSourceInspection"})
 public class ProjectDAO {
     public static Project getCategory(long id) {
         PreparedStatement ps = null;
