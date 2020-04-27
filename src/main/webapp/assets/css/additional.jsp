@@ -1,4 +1,4 @@
-<%@ page import="java.util.HashMap"%><%@ page import="files.GeneralConfigFile"%><%@ page contentType="text/css;charset=UTF-8" %>
+<%@ page import="java.util.HashMap"%><%@ page import="config.GeneralConfigFile"%><%@ page contentType="text/css;charset=UTF-8" %>
 <%  GeneralConfigFile file = new GeneralConfigFile(request.getServletContext()); HashMap<String, String> configuration = file.getMap() ;%>
 h1 {
     font-size: <% out.print(configuration.get("h1FontSize")); %>px;

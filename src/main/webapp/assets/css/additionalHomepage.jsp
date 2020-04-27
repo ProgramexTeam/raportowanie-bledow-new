@@ -1,4 +1,4 @@
-<%@ page import="java.util.HashMap"%><%@ page import="files.HomePageConfigFile"%><%@ page contentType="text/css;charset=UTF-8" %>
+<%@ page import="java.util.HashMap"%><%@ page import="config.HomePageConfigFile"%><%@ page contentType="text/css;charset=UTF-8" %>
 <%  HomePageConfigFile file = new HomePageConfigFile(request.getServletContext()); HashMap<String, String> configuration = file.getMap() ;%>
 /* Banner Style */
 .banner {

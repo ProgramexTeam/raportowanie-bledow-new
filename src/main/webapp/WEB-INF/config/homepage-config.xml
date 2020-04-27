@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><configuration>
+    <singleConf id="1">
+        <name>sliderBackgroundUrl</name>
+        <value>/assets/images/banner-bg.jpg</value>
+    </singleConf>
+    <singleConf id="3">
+        <name>sliderBackgroundTitle</name>
+        <value>System Raportowania Błędów - Dżira</value>
+    </singleConf>
+    <singleConf id="4">
+        <name>sliderEffectsUsage</name>
+        <value>off</value>
+    </singleConf>
+    <singleConf id="5">
+        <name>sliderBackgroundColor</name>
+        <value>#004284</value>
+    </singleConf>
+    <singleConf id="6">
+        <name>sliderMixedBlendMode</name>
+        <value>hard-light</value>
+    </singleConf>
+    <singleConf id="7">
+        <name>sliderHeader</name>
+        <value>Wybierz coś dla siebie</value>
+    </singleConf>
+    <singleConf id="8">
+        <name>sliderText</name>
+        <value>Dżira błędy Twe pokona!
+            Jesteś deweloperem, testerem lub analitykiem? Twój projekt potrzebuje swojego miejsca? A może Twój team powinien być bardziej zorganizowany? Dżira jest odpowiedzią na wszystkie te problemy!</value>
+    </singleConf>
+    <singleConf id="9">
+        <name>sliderBlockBackgroundColor</name>
+        <value>#fafafa</value>
+    </singleConf>
+    <singleConf id="10">
+        <name>sliderBlockOpacity</name>
+        <value>0.9</value>
+    </singleConf>
+    <singleConf id="11">
+        <name>sliderButton</name>
+        <value>on</value>
+    </singleConf>
+    <singleConf id="12">
+        <name>sliderButtonText</name>
+        <value>Sklep</value>
+    </singleConf>
+    <singleConf id="13">
+        <name>sliderButtonLink</name>
+        <value>/sklep</value>
+    </singleConf>
+    <singleConf id="14">
+        <name>sliderButtonLinkFollow</name>
+        <value>dofollow</value>
+    </singleConf>
+    <singleConf id="15">
+        <name>sliderButtonLinkTarget</name>
+        <value>_self</value>
+    </singleConf>
+    <singleConf id="16">
+        <name>featuredSectionDisplay</name>
+        <value>on</value>
+    </singleConf>
+    <singleConf id="17">
+        <name>featuredHeader</name>
+        <value>Wyróżnione produkty</value>
+    </singleConf>
+    <singleConf id="18">
+        <name>featuredProductsGrid</name>
+        <value>4</value>
+    </singleConf>
+    <singleConf id="19">
+        <name>featuredProductsAmount</name>
+        <value>12</value>
+    </singleConf>
+    <singleConf id="20">
+        <name>additionalHomepageCss</name>
+        <value/>
+    </singleConf>
+    <singleConf id="21">
+        <name>additionalHomepageJs</name>
+        <value/>
+    </singleConf>
+    <singleConf id="22">
+        <name>hookBeforeHomepageFeatured</name>
+        <value>&lt;div class="tester" style="display: none;"&gt;&#13;
+&lt;h1&gt;tester1&lt;/h1&gt;&#13;
+&lt;/div&gt;&#13;
+&lt;div class="tester2" style="display: none;"&gt;&#13;
+&lt;h1&gt;tester2&lt;/h1&gt;&#13;
+&lt;/div&gt;</value>
+    </singleConf>
+    <singleConf id="23">
+        <name>hookAfterHomepageFeatured</name>
+        <value/>
+    </singleConf>
+</configuration>
