@@ -21,12 +21,11 @@
     </singleConf>
     <singleConf id="7">
         <name>sliderHeader</name>
-        <value>Wybierz coś dla siebie</value>
+        <value>Dżira błędy Twe pokona!</value>
     </singleConf>
     <singleConf id="8">
         <name>sliderText</name>
-        <value>Dżira błędy Twe pokona!
-            Jesteś deweloperem, testerem lub analitykiem? Twój projekt potrzebuje swojego miejsca? A może Twój team powinien być bardziej zorganizowany? Dżira jest odpowiedzią na wszystkie te problemy!</value>
+        <value>Jesteś deweloperem, testerem lub analitykiem? Twój projekt potrzebuje swojego miejsca? A może Twój team powinien być bardziej zorganizowany? Dżira jest odpowiedzią na wszystkie te problemy!</value>
     </singleConf>
     <singleConf id="9">
         <name>sliderBlockBackgroundColor</name>
