@@ -52,15 +52,7 @@
                     <%
                         ArrayList<Ticket> lista = TicketDAO.getFeaturedProductsList(10);
                         for (Ticket produkt: lista) {
-                    %>
-                    <a href="${pageContext.request.contextPath}/portal/produkt?id=<% out.print(produkt.getId()); %>">
-                        <div class="featured-item">
-                            <img src="<% out.print(produkt.getImageOne()); %>" alt="Produkt - <% out.print(produkt.getProduct_name()); %>">
-                            <h4><% out.print(produkt.getProduct_name()); %></h4>
-                            <h6><% out.print(produkt.getPrice()); %> zł</h6>
-                        </div>
-                    </a>
-                    <% } %>
+                    } %>
                 </div>
             </div>
         </div>
