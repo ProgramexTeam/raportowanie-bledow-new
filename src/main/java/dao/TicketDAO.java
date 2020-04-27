@@ -449,7 +449,7 @@ public class TicketDAO {
             try {
                 con = DataConnect.getConnection();
                 if (con != null) {
-                    ps = con.prepareStatement("INSERT INTO tickets (author_id, project_id, status, title " +
+                    ps = con.prepareStatement("INSERT INTO tickets (author_id, project_id, status, title, " +
                             "description) VALUES(?,?,?,?,?)");
                     ps.setInt(1, author_id);
                     ps.setInt(2, project_id);
