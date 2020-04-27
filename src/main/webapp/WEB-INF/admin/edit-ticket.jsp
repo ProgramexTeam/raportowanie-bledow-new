@@ -79,7 +79,7 @@
                 </div>
                 <div style="display: none" id="ImageChooseWindow">
                     <input type="button" class="hideButton showButton" onclick="mediaManagerHide()" value="Schowaj">
-                    <iframe id="MediaFrame" src="${pageContext.request.contextPath}/admin/file-manager-frame"></iframe>
+                    <iframe id="MediaFrame" src="${pageContext.request.contextPath}/admin/media-manager-frame"></iframe>
                 </div>
                 <p class="input-element submit-element"><input type="submit" value="Zapisz zmiany"></p>
             </form>

@@ -34,7 +34,7 @@
                             <% if(p.getImageOne() != null && p.getImageOne().length()>0) { %>
                                 <li><img src="<%out.print(p.getImageOne());%>" alt="<% out.print(p.getProduct_name() + " - " + p.getCategory()); %>" /></li>
                             <% } else { %>
-                                <li><img src="${pageContext.request.contextPath}/assets/images/products/product-placeholder.jpg" alt="<% out.print(p.getProduct_name() + " - " + p.getCategory()); %>" /></li>
+                                <li><img src="/assets/images/products/ticket-placeholder.jpg" alt="<% out.print(p.getProduct_name() + " - " + p.getCategory()); %>" /></li>
                             <% } %>
                             <% if(p.getImageTwo() != null && p.getImageTwo().length()>0) { %>
                                 <li><img src="<%out.print(p.getImageTwo());%>" alt="<% out.print(p.getProduct_name() + " - " + p.getCategory()); %>" /></li>
@@ -76,7 +76,7 @@
                     <% } %>
                     <p>Na stanie: <span id="inStock"><% out.print(p.getQuantity()); %></span> szt.</p>
                     <div class="add-to-cart-form">
-                        <form action="${pageContext.request.contextPath}/portal/ticket?id=<% out.print(p.getId()); %>" method="post">
+                        <form action="/portal/produkt?id=<% out.print(p.getId()); %>" method="post">
                             <label>ilość: <input id="quantity" name="amount" type="number" class="quantity-text" min="1" max="<% out.print(p.getQuantity()); %>"
                                     onfocusout="verifyQuantity(<% out.print(p.getQuantity()); %>);" value="<% if(p.getQuantity()==0){out.print(0);}else{out.print(1);} %>"
                                     <% if(p.getQuantity()==0){ out.print("disabled"); } %>></label>
@@ -113,7 +113,7 @@
                 <div class="owl-carousel owl-theme">
                     <%  ArrayList<Ticket> lista = TicketDAO.getFeaturedProductsList(10);
                         for (Ticket produkt: lista) { %>
-                    <a href="${pageContext.request.contextPath}/portal/ticket?id=<% out.print(produkt.getId()); %>">
+                    <a href="${pageContext.request.contextPath}/portal/produkt?id=<% out.print(produkt.getId()); %>">
                         <div class="featured-item">
                             <img src="<% out.print(produkt.getImageOne()); %>" alt="Produkt - <% out.print(produkt.getProduct_name()); %>">
                             <h4><% out.print(produkt.getProduct_name()); %></h4>
