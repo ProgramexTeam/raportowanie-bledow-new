@@ -27,7 +27,7 @@
     if (session.getAttribute("user_role")!=null){
     	rola = session.getAttribute("user_role").toString();
     	if (rola.equals("ADMIN")) { %>
-    		<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/adminbar.css">
+    		<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bar-admin.css">
     	<%}
     }%>
     <% if(request.getAttribute("isHomepage")=="is") { %>
@@ -43,7 +43,7 @@
 
   	<%  if (session.getAttribute("user_role")!=null){
             if (rola.equals("ADMIN")) { %>
-                <jsp:include page="/WEB-INF/parts/adminbar.jsp"/>
+                <jsp:include page="/WEB-INF/parts/bar-admin.jsp"/>
             <%}
 	    }%>
 	<%  if (session.getAttribute("user_role")!=null){
