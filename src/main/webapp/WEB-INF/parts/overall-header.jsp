@@ -27,7 +27,7 @@
     if (session.getAttribute("user_role")!=null){
     	rola = session.getAttribute("user_role").toString();
     	if (rola.equals("ADMIN")) { %>
-    		<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bar-admin.css">
+    		<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/adminbar.css">
     	<%}
     }%>
     <% if(request.getAttribute("isHomepage")=="is") { %>
@@ -42,12 +42,23 @@
     <% out.print(configuration.get("hookAfterBody")); %>
 
   	<%  if (session.getAttribute("user_role")!=null){
-            if (rola.equals("ADMIN")) { %>
+            if (rola.equals("admin")) { %>
                 <jsp:include page="/WEB-INF/parts/bar-admin.jsp"/>
             <%}
 	    }%>
 	<%  if (session.getAttribute("user_role")!=null){
-            if (rola.equals("USER")) { %>
-                <h1>TODO: userbar.jsp i userbar.css</h1>
+            if (rola.equals("analyst")) { %>
+                <jsp:include page="/WEB-INF/parts/bar-analyst.jsp"/>
             <%}
 	    }%>
+    <%  if (session.getAttribute("user_role")!=null){
+            if (rola.equals("tester")) { %>
+                <jsp:include page="/WEB-INF/parts/bar-tester.jsp"/>
+            <%}
+        }%>
+    <%  if (session.getAttribute("user_role")!=null){
+            if (rola.equals("developer")) { %>
+                <jsp:include page="/WEB-INF/parts/bar-developer.jsp"/>
+        <%}
+    }%>
+
