@@ -1,8 +1,7 @@
-<%@ page import="files.HomePageConfigFile" %>
+<%@ page import="config.HomePageConfigFile" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="dao.TicketDAO" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="objects.Ticket" %>
 <%@ page import="objects.Ticket" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <jsp:include page="/WEB-INF/parts/overall-header.jsp"/>

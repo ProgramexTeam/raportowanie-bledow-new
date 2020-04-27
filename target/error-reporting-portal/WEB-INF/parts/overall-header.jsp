@@ -1,5 +1,5 @@
 <%@ page import="java.util.HashMap" %>
-<%@ page import="files.GeneralConfigFile" %>
+<%@ page import="config.GeneralConfigFile" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%  GeneralConfigFile file = new GeneralConfigFile(request.getServletContext());
     HashMap<String, String> configuration = file.getMap() ;%>
@@ -27,7 +27,7 @@
     if (session.getAttribute("user_role")!=null){
     	rola = session.getAttribute("user_role").toString();
     	if (rola.equals("ADMIN")) { %>
-    		<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/adminbar.css">
+    		<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bar-admin.css">
     	<%}
     }%>
     <% if(request.getAttribute("isHomepage")=="is") { %>
@@ -42,7 +42,7 @@
     <% out.print(configuration.get("hookAfterBody")); %>
 
   	<%  if (session.getAttribute("user_role")!=null){
-            if (rola.equals("admin")) { %>
+            if (rola.equals("user")) { %>
                 <jsp:include page="/WEB-INF/parts/bar-admin.jsp"/>
             <%}
 	    }%>

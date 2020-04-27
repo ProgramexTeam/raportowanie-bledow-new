@@ -2,8 +2,7 @@
 <%@ page import="dao.TicketDAO" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %>
-<%@ page import="files.HomePageConfigFile" %>
-<%@ page import="objects.Ticket" %>
+<%@ page import="config.HomePageConfigFile" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/parts/overall-header.jsp"/>
 <jsp:include page="/WEB-INF/parts/sloganbar.jsp"/>
