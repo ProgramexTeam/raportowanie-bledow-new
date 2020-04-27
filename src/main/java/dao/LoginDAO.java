@@ -9,8 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+@SuppressWarnings({"SqlResolve", "SqlNoDataSourceInspection"})
 public class LoginDAO {
-
     public static boolean validate(String user, String password) throws SQLException {
         Connection con = null;
         PreparedStatement ps = null;

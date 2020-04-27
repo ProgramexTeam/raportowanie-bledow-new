@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+@SuppressWarnings({"SqlResolve", "SqlNoDataSourceInspection"})
 public class TicketDAO {
     public static Ticket getProduct(long id) {
         PreparedStatement ps = null;
