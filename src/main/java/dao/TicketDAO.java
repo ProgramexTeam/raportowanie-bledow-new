@@ -413,7 +413,7 @@ public class TicketDAO {
         }
         return null;
     }
-    public static boolean editGivenProduct(int author_id, int project_id, String status, String title, String description) {
+    public static boolean editGivenProduct(int ticket_id, int author_id, int project_id, String status, String title, String description) {
         if (author_id != -1 || project_id != -1) {
             PreparedStatement ps = null;
             Connection con = null;
@@ -428,6 +428,7 @@ public class TicketDAO {
                     ps.setString(3, status);
                     ps.setString(4, title);
                     ps.setString(5, description);
+                    ps.setInt(6, ticket_id);
                     ps.executeUpdate();
                 }
             } catch (Exception ex) {

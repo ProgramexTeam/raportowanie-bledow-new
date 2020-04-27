@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -25,7 +26,8 @@ public class AddTicket extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        int author_id = Integer.parseInt(request.getParameter("author_id"));
+        HttpSession session = request.getSession(false);
+        int author_id =  Integer.parseInt(session.getAttribute("user_id").toString());
         int project_id = Integer.parseInt(request.getParameter("project_id"));
         String status = request.getParameter("status");
         String title = request.getParameter("title");
