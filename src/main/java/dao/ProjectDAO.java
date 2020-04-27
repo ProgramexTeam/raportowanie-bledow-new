@@ -34,7 +34,7 @@ public class ProjectDAO {
             System.out.println("Category request error when executing query; CategoryDAO.getCategory() -->" + ex.getMessage());
         } finally {
             DataConnect.close(con);
-            try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; ProductDAO.getCategory() -->" + ex.getMessage()); }
+            try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; ProjectDAO.getCategory() -->" + ex.getMessage()); }
         }
         return project;
     }
@@ -51,10 +51,10 @@ public class ProjectDAO {
                 amount = rs.getLong("amount");
             }
         } catch (SQLException ex) {
-            System.out.println("Error while getting product data from db; ProductDAO.amountOfCategories() -->" + ex.getMessage());
+            System.out.println("Error while getting product data from db; ProjectDAO.amountOfCategories() -->" + ex.getMessage());
         } finally {
             DataConnect.close(con);
-            try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; ProductDAO.amountOfCategories() -->" + ex.getMessage()); }
+            try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; ProjectDAO.amountOfCategories() -->" + ex.getMessage()); }
         }
         return amount;
     }
@@ -79,14 +79,14 @@ public class ProjectDAO {
                 amount = rs.getLong("amount");
             }
         } catch (SQLException ex) {
-            System.out.println("Error while getting products data from db; ProductDAO.amountOfCategoriesOfPattern() -->" + ex.getMessage());
+            System.out.println("Error while getting products data from db; ProjectDAO.amountOfCategoriesOfPattern() -->" + ex.getMessage());
         } finally {
             DataConnect.close(con);
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException ex) {
-                    System.out.println("Error while closing PreparedStatement; ProductDAO.amountOfCategoriesOfPattern() -->" + ex.getMessage());
+                    System.out.println("Error while closing PreparedStatement; ProjectDAO.amountOfCategoriesOfPattern() -->" + ex.getMessage());
                 }
             }
         }
@@ -109,10 +109,10 @@ public class ProjectDAO {
                 categoriesList.add(temp);
             }
         } catch (SQLException ex) {
-            System.out.println("Error while getting products data from db; ProductDAO.getCategoriesList() -->" + ex.getMessage());
+            System.out.println("Error while getting products data from db; ProjectDAO.getCategoriesList() -->" + ex.getMessage());
         } finally {
             DataConnect.close(con);
-            try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; ProductDAO.getCategoriesList() -->" + ex.getMessage()); }
+            try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; ProjectDAO.getCategoriesList() -->" + ex.getMessage()); }
         }
         return categoriesList;
     }
@@ -131,10 +131,10 @@ public class ProjectDAO {
                 categoriesList.add(temp);
             }
         } catch (SQLException ex) {
-            System.out.println("Error while getting products data from db; ProductDAO.getCategoriesList() -->" + ex.getMessage());
+            System.out.println("Error while getting products data from db; ProjectDAO.getCategoriesList() -->" + ex.getMessage());
         } finally {
             DataConnect.close(con);
-            try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; ProductDAO.getCategoriesList() -->" + ex.getMessage()); }
+            try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; ProjectDAO.getCategoriesList() -->" + ex.getMessage()); }
         }
         return categoriesList;
     }
@@ -162,10 +162,10 @@ public class ProjectDAO {
                 categoriesList.add(temp);
             }
         } catch (SQLException ex) {
-            System.out.println("Error while getting products data from db; ProductDAO.getCategoriesListOfPattern() -->" + ex.getMessage());
+            System.out.println("Error while getting products data from db; ProjectDAO.getCategoriesListOfPattern() -->" + ex.getMessage());
         } finally {
             DataConnect.close(con);
-            if (ps != null) { try { ps.close(); } catch (SQLException ex) { System.out.println("Error while closing PreparedStatement; ProductDAO.getCategoriesListOfPattern() -->" + ex.getMessage()); } }
+            if (ps != null) { try { ps.close(); } catch (SQLException ex) { System.out.println("Error while closing PreparedStatement; ProjectDAO.getCategoriesListOfPattern() -->" + ex.getMessage()); } }
         }
         return categoriesList;
     }
@@ -179,7 +179,7 @@ public class ProjectDAO {
                 ps.setString(1, deleteId);
                 ps.executeUpdate();
             } catch (SQLException ex) {
-                System.out.println("Error while deleting product from db; ProductDAO.deleteSingleCategory() -->" + ex.getMessage());
+                System.out.println("Error while deleting product from db; ProjectDAO.deleteSingleCategory() -->" + ex.getMessage());
                 return false;
             } finally {
                 DataConnect.close(con);
@@ -187,13 +187,13 @@ public class ProjectDAO {
                     try {
                         ps.close();
                     } catch (SQLException ex) {
-                        System.out.println("Error while closing PreparedStatement; ProductDAO.deleteSingleCategory() -->" + ex.getMessage());
+                        System.out.println("Error while closing PreparedStatement; ProjectDAO.deleteSingleCategory() -->" + ex.getMessage());
                     }
                 }
             }
             return true;
         } else {
-            System.out.println("Category with given ID doesn't exist; ProductDAO.deleteSingleCategory()");
+            System.out.println("Category with given ID doesn't exist; ProjectDAO.deleteSingleCategory()");
             return false;
         }
     }
@@ -210,7 +210,7 @@ public class ProjectDAO {
                 return true;
             }
         } catch (SQLException ex) {
-            System.out.println("Error while checking if category exists in db; ProductDAO.checkIfCategoryExists() -->" + ex.getMessage());
+            System.out.println("Error while checking if category exists in db; ProjectDAO.checkIfCategoryExists() -->" + ex.getMessage());
             return false;
         } finally {
             DataConnect.close(con);
@@ -218,7 +218,7 @@ public class ProjectDAO {
                 try {
                     ps.close();
                 } catch (SQLException ex) {
-                    System.out.println("Error while closing PreparedStatement; ProductDAO.checkIfCategoryExists() -->" + ex.getMessage());
+                    System.out.println("Error while closing PreparedStatement; ProjectDAO.checkIfCategoryExists() -->" + ex.getMessage());
                 }
             }
         }
@@ -239,7 +239,7 @@ public class ProjectDAO {
                 return singleProject;
             }
         } catch (SQLException ex) {
-            System.out.println("Error while checking if product exists in db; ProductDAO.getSingleCategoryData() -->" + ex.getMessage());
+            System.out.println("Error while checking if product exists in db; ProjectDAO.getSingleCategoryData() -->" + ex.getMessage());
             return null;
         } finally {
             DataConnect.close(con);
@@ -247,7 +247,7 @@ public class ProjectDAO {
                 try {
                     ps.close();
                 } catch (SQLException ex) {
-                    System.out.println("Error while closing PreparedStatement; ProductDAO.getSingleCategoryData() -->" + ex.getMessage());
+                    System.out.println("Error while closing PreparedStatement; ProjectDAO.getSingleCategoryData() -->" + ex.getMessage());
                 }
             }
         }
@@ -268,10 +268,10 @@ public class ProjectDAO {
                     ps.executeUpdate();
                 }
             } catch (Exception ex) {
-                System.out.println("Error while updating user data; ProductDAO.editGivenCategory() -->" + ex.getMessage());
+                System.out.println("Error while updating user data; ProjectDAO.editGivenCategory() -->" + ex.getMessage());
             } finally {
                 DataConnect.close(con);
-                if (ps != null) { try { ps.close(); } catch (SQLException ex) { System.out.println("Error while closing PreparedStatement; ProductDAO.editGivenCategory() -->" + ex.getMessage()); } }
+                if (ps != null) { try { ps.close(); } catch (SQLException ex) { System.out.println("Error while closing PreparedStatement; ProjectDAO.editGivenCategory() -->" + ex.getMessage()); } }
                 return true;
             }
         } else {
@@ -291,7 +291,7 @@ public class ProjectDAO {
                     ps.executeUpdate();
                 }
             } catch (Exception ex) {
-                System.out.println("Registration error when executing query; ProductDAO.addCategory() -->" + ex.getMessage());
+                System.out.println("Registration error when executing query; ProjectDAO.addCategory() -->" + ex.getMessage());
             } finally {
                 try {
                     if (ps != null) {
@@ -299,13 +299,13 @@ public class ProjectDAO {
                     }
                     DataConnect.close(con);
                 } catch (Exception ex) {
-                    System.out.println("Adding product error when closing database connection or prepared statement; ProductDAO.addCategory() -->" + ex.getMessage());
+                    System.out.println("Adding product error when closing database connection or prepared statement; ProjectDAO.addCategory() -->" + ex.getMessage());
                 } finally {
                     return true;
                 }
             }
         } else {
-            System.out.println("All data must be delivered to this method; ProductDAO.addCategory() -->");
+            System.out.println("All data must be delivered to this method; ProjectDAO.addCategory() -->");
             return false;
         }
     }
