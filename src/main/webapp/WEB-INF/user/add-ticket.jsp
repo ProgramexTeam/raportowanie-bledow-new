@@ -15,10 +15,10 @@
             <form method="post" action="${pageContext.request.contextPath}/user/ticket-manager/add-ticket">
                 <div class="input-row" style="width: 100%">
                     <p class="input-element"><span>Tytuł ticketu:</span> <br /> <span style="font-size: 8px">Nazwa ticketu musi zawierać minimum 3 znaki.</span> <br />
-                        <input type="text" name="ticket_name" pattern=".{3,}" title="Nazwa ticketu musi zawierać minimum 3 znaki" required></p>
+                        <input type="text" name="title" pattern=".{3,}" title="Nazwa ticketu musi zawierać minimum 3 znaki" required></p>
                     <% ArrayList<Project> projectList = ProjectDAO.getCategoriesList(); %>
                     <p class="input-element"><span>Projekt: </span> <br /> <span style="font-size: 8px">Projekt można wybrać wyłącznie z listy utworzonych projektów. Jeśli chcesz użyć projektu, który nie znajduje się na liście przejdź do menadżera projektów.</span> <br />
-                        <select name="project" title="Projekt można wybrać wyłącznie z listy utworzonych projektów. Jeśli chcesz użyć projektu, który nie znajduje się na liście przejdź do menadżera projektów." required>
+                        <select name="project_id" title="Projekt można wybrać wyłącznie z listy utworzonych projektów. Jeśli chcesz użyć projektu, który nie znajduje się na liście przejdź do menadżera projektów." required>
                             <% for (Project cat: projectList) { %>
                                 <option value="<% out.print(cat.getId()); %>"><% out.print(cat.getCategoryName()); %></option>
                             <% } %>

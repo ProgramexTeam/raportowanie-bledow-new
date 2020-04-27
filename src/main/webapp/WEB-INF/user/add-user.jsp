@@ -15,7 +15,7 @@
             <form method="post" action="${pageContext.request.contextPath}/user/user-manager/add-user">
                 <div class="input-row">
                     <p class="input-element"><span>Tytuł projektu:</span> <br /> <span style="font-size: 8px">Nazwa projektu musi zawierać minimum 3 znaki.</span> <br />
-                        <input type="text" name="project_name" pattern=".{3,}" title="Tytuł musi zawierać minimum 3 znaki" required></p>
+                        <input type="text" name="title" pattern=".{3,}" title="Tytuł musi zawierać minimum 3 znaki" required></p>
                 </div>
                 <div class="input-row">
                     <p class="input-element" style="width:100%"><span>Opis:</span> <br /><textarea name="description"></textarea></p>
