@@ -42,12 +42,23 @@
     <% out.print(configuration.get("hookAfterBody")); %>
 
   	<%  if (session.getAttribute("user_role")!=null){
-            if (rola.equals("ADMIN")) { %>
-                <jsp:include page="/WEB-INF/parts/adminbar.jsp"/>
+            if (rola.equals("admin")) { %>
+                <jsp:include page="/WEB-INF/parts/bar-admin.jsp"/>
             <%}
 	    }%>
 	<%  if (session.getAttribute("user_role")!=null){
-            if (rola.equals("USER")) { %>
-                <h1>TODO: userbar.jsp i userbar.css</h1>
+            if (rola.equals("analyst")) { %>
+                <jsp:include page="/WEB-INF/parts/bar-analyst.jsp"/>
             <%}
 	    }%>
+    <%  if (session.getAttribute("user_role")!=null){
+            if (rola.equals("tester")) { %>
+                <jsp:include page="/WEB-INF/parts/bar-tester.jsp"/>
+            <%}
+        }%>
+    <%  if (session.getAttribute("user_role")!=null){
+            if (rola.equals("developer")) { %>
+                <jsp:include page="/WEB-INF/parts/bar-developer.jsp"/>
+        <%}
+    }%>
+
