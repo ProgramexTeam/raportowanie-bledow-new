@@ -40,7 +40,7 @@ public class UserManager extends HttpServlet {
             request.setAttribute("searchByUserName", searchByUserName);
             request.setAttribute("list", list);
         } else {
-            ArrayList<User> list = UserDAO.getUsersList(page*amountPerPage, amountPerPage);
+            ArrayList<User> list = UserDAO.getUsersList();
             amountOfUsers = UserDAO.amountOfUsers();
             request.setAttribute("list", list);
         }

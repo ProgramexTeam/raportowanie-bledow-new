@@ -98,14 +98,14 @@ public class ProjectDAO {
         ArrayList<Project> categoriesList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM categories ORDER BY category_id LIMIT ?, ?");
+            ps = con.prepareStatement("SELECT * FROM projects ORDER BY ID LIMIT ?, ?");
             ps.setLong(1, startPosition);
             ps.setLong(2, amount);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Project temp = new Project(rs.getLong("category_id"),
-                        rs.getString("category_name"),
-                        rs.getString("category_url"));
+                Project temp = new Project(rs.getLong("ID"),
+                        rs.getString("title"),
+                        rs.getString("description"));
                 categoriesList.add(temp);
             }
         } catch (SQLException ex) {
@@ -122,12 +122,12 @@ public class ProjectDAO {
         ArrayList<Project> categoriesList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM categories ORDER BY category_id");
+            ps = con.prepareStatement("SELECT * FROM projects ORDER BY ID");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Project temp = new Project(rs.getLong("category_id"),
-                        rs.getString("category_name"),
-                        rs.getString("category_url"));
+                Project temp = new Project(rs.getLong("ID"),
+                        rs.getString("title"),
+                        rs.getString("description"));
                 categoriesList.add(temp);
             }
         } catch (SQLException ex) {

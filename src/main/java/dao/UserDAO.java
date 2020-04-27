@@ -72,15 +72,13 @@ public class UserDAO {
         }
         return amount;
     }
-    public static ArrayList<User> getUsersList(long startPosition, long amount) {
+    public static ArrayList<User> getUsersList() {
         Connection con = null;
         PreparedStatement ps = null;
         ArrayList<User> usersList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM users ORDER BY ID LIMIT ?, ?");
-            ps.setLong(1, startPosition);
-            ps.setLong(2, amount);
+            ps = con.prepareStatement("SELECT * FROM users ORDER BY ID");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 User temp = new User(rs.getLong("ID"),
