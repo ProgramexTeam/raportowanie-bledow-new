@@ -21,26 +21,18 @@ public class TicketDAO {
         try {
             con = DataConnect.getConnection();
             if (con != null) {
-                String sql = "SELECT * FROM products LEFT JOIN categories ON products.category_id = categories.category_id WHERE products.product_id=?";
+                String sql = "SELECT * FROM tickets LEFT JOIN categories ON products.category_id = categories.category_id WHERE products.product_id=?";
                 ps = con.prepareStatement(sql);
                 ps.setLong(1, id);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     ticket = new Ticket(
-                            rs.getInt("product_id"),
-                            rs.getString("product_name"),
-                            rs.getString("category_name"),
-                            rs.getInt("quantity"),
-                            rs.getInt("quantity_sold"),
-                            rs.getDouble("sale_price"),
-                            rs.getString("date_added"),
-                            rs.getDouble("price"),
-                            rs.getString("description"),
-                            rs.getString("photo_link_one"),
-                            rs.getString("photo_link_two"),
-                            rs.getString("photo_link_three"),
-                            rs.getString("photo_link_four"),
-                            rs.getBoolean("featured"));
+                            rs.getInt("ticket_id"),
+                            rs.getInt("author_id"),
+                            rs.getInt("project_id"),
+                            rs.getString("status"),
+                            rs.getString("title"),
+                            rs.getString("description"));
                 }
             }
         } catch (Exception ex) {
@@ -111,25 +103,17 @@ public class TicketDAO {
         ArrayList<Ticket> productsList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM products LEFT JOIN categories ON products.category_id = categories.category_id ORDER BY products.product_id LIMIT ?, ?");
+            ps = con.prepareStatement("SELECT * FROM tickets LEFT JOIN projects ON products.category_id = categories.category_id ORDER BY products.product_id LIMIT ?, ?");
             ps.setLong(1, startPosition);
             ps.setLong(2, amount);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Ticket temp = new Ticket(rs.getInt("product_id"),
-                        rs.getString("product_name"),
-                        rs.getString("category_name"),
-                        rs.getInt("quantity"),
-                        rs.getInt("quantity_sold"),
-                        rs.getDouble("sale_price"),
-                        rs.getString("date_added"),
-                        rs.getDouble("price"),
-                        rs.getString("description"),
-                        rs.getString("photo_link_one"),
-                        rs.getString("photo_link_two"),
-                        rs.getString("photo_link_three"),
-                        rs.getString("photo_link_four"),
-                        rs.getBoolean("featured"));
+                Ticket temp = new Ticket(rs.getInt("ticket_id"),
+                        rs.getInt("author_id"),
+                        rs.getInt("project_id"),
+                        rs.getString("status"),
+                        rs.getString("title"),
+                        rs.getString("description"));
                 productsList.add(temp);
             }
         } catch (SQLException ex) {
@@ -140,32 +124,24 @@ public class TicketDAO {
         }
         return productsList;
     }
-    public static ArrayList<Ticket> getProductsListByCategory(long category_id, long startPosition, long amount) {
+    public static ArrayList<Ticket> getProductsListByCategory(long ticket_id, long startPosition, long amount) {
         Connection con = null;
         PreparedStatement ps = null;
         ArrayList<Ticket> productsList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM products LEFT JOIN categories ON products.category_id = categories.category_id WHERE products.category_id = ? ORDER BY products.product_id LIMIT ?, ?");
-            ps.setLong(1, category_id);
+            ps = con.prepareStatement("SELECT * FROM tikcets LEFT JOIN categories ON products.category_id = categories.category_id WHERE products.category_id = ? ORDER BY products.product_id LIMIT ?, ?");
+            ps.setLong(1, ticket_id);
             ps.setLong(2, startPosition);
             ps.setLong(3, amount);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Ticket temp = new Ticket(rs.getInt("product_id"),
-                        rs.getString("product_name"),
-                        rs.getString("category_name"),
-                        rs.getInt("quantity"),
-                        rs.getInt("quantity_sold"),
-                        rs.getDouble("sale_price"),
-                        rs.getString("date_added"),
-                        rs.getDouble("price"),
-                        rs.getString("description"),
-                        rs.getString("photo_link_one"),
-                        rs.getString("photo_link_two"),
-                        rs.getString("photo_link_three"),
-                        rs.getString("photo_link_four"),
-                        rs.getBoolean("featured"));
+                Ticket temp = new Ticket(rs.getInt("ticket_id"),
+                        rs.getInt("author_id"),
+                        rs.getInt("project_id"),
+                        rs.getString("status"),
+                        rs.getString("title"),
+                        rs.getString("description"));
                 productsList.add(temp);
             }
         } catch (SQLException ex) {
@@ -185,20 +161,12 @@ public class TicketDAO {
             ps = con.prepareStatement(statement);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Ticket temp = new Ticket(rs.getInt("product_id"),
-                        rs.getString("product_name"),
-                        rs.getString("category_name"),
-                        rs.getInt("quantity"),
-                        rs.getInt("quantity_sold"),
-                        rs.getDouble("sale_price"),
-                        rs.getString("date_added"),
-                        rs.getDouble("price"),
-                        rs.getString("description"),
-                        rs.getString("photo_link_one"),
-                        rs.getString("photo_link_two"),
-                        rs.getString("photo_link_three"),
-                        rs.getString("photo_link_four"),
-                        rs.getBoolean("featured"));
+                Ticket temp = new Ticket(rs.getInt("ticket_id"),
+                        rs.getInt("author_id"),
+                        rs.getInt("project_id"),
+                        rs.getString("status"),
+                        rs.getString("title"),
+                        rs.getString("description"));
                 productsList.add(temp);
             }
         } catch (SQLException ex) {
@@ -242,25 +210,17 @@ public class TicketDAO {
         ArrayList<Ticket> productsList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM products WHERE featured = ? ORDER BY product_id LIMIT ?");
+            ps = con.prepareStatement("SELECT * FROM tickets WHERE featured = ? ORDER BY product_id LIMIT ?");
             ps.setBoolean(1, true);
             ps.setLong(2, amount);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Ticket temp = new Ticket(rs.getInt("product_id"),
-                        rs.getString("product_name"),
-                        rs.getString("category_id"),
-                        rs.getInt("quantity"),
-                        rs.getInt("quantity_sold"),
-                        rs.getDouble("sale_price"),
-                        rs.getString("date_added"),
-                        rs.getDouble("price"),
-                        rs.getString("description"),
-                        rs.getString("photo_link_one"),
-                        rs.getString("photo_link_two"),
-                        rs.getString("photo_link_three"),
-                        rs.getString("photo_link_four"),
-                        rs.getBoolean("featured"));
+                Ticket temp = new Ticket(rs.getInt("ticket_id"),
+                        rs.getInt("author_id"),
+                        rs.getInt("project_id"),
+                        rs.getString("status"),
+                        rs.getString("title"),
+                        rs.getString("description"));
                 productsList.add(temp);
             }
         } catch (SQLException ex) {
@@ -284,20 +244,12 @@ public class TicketDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 builder.add(Json.createObjectBuilder()
-                        .add("product_id", rs.getString("product_id"))
-                        .add("product_name", rs.getString("product_name"))
-                        .add("category_id", rs.getString("category_id"))
-                        .add("quantity", rs.getString("quantity"))
-                        .add("quantity_sold", rs.getString("quantity_sold"))
-                        .add("sale_price", rs.getString("sale_price"))
-                        .add("date_added", rs.getString("date_added"))
-                        .add("price", rs.getString("price"))
-                        .add("description",  rs.getString("description"))
-                        .add("photo_link_one", rs.getString("photo_link_one"))
-                        .add("photo_link_two", rs.getString("photo_link_two"))
-                        .add("photo_link_three", rs.getString("photo_link_three"))
-                        .add("photo_link_four", rs.getString("photo_link_four"))
-                        .add("featured", rs.getString("featured")));
+                        .add("ticket_id", rs.getString("ticket_id"))
+                        .add("author_id", rs.getString("author_id"))
+                        .add("project_id", rs.getString("project_id"))
+                        .add("status", rs.getString("status"))
+                        .add("title", rs.getString("title"))
+                        .add("description", rs.getString("description")));
             }
             productsList = builder.build();
         } catch (SQLException ex) {
@@ -314,7 +266,7 @@ public class TicketDAO {
         ArrayList<Ticket> ticketList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM products LEFT JOIN categories ON products.category_id = categories.category_id WHERE products.product_name LIKE ? ORDER BY products.product_id LIMIT ?, ?");
+            ps = con.prepareStatement("SELECT * FROM tickets LEFT JOIN categories ON products.category_id = categories.category_id WHERE products.product_name LIKE ? ORDER BY products.product_id LIMIT ?, ?");
             if(searchOption==1){
                 ps.setString(1, searchByProductName + "%");
             } else if(searchOption==3) {
@@ -326,20 +278,12 @@ public class TicketDAO {
             ps.setLong(3, amountPerPage);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Ticket temp = new Ticket(rs.getLong("product_id"),
-                        rs.getString("product_name"),
-                        rs.getString("category_name"),
-                        rs.getLong("quantity"),
-                        rs.getLong("quantity_sold"),
-                        rs.getDouble("sale_price"),
-                        rs.getString("date_added"),
-                        rs.getDouble("price"),
-                        rs.getString("description"),
-                        rs.getString("photo_link_one"),
-                        rs.getString("photo_link_two"),
-                        rs.getString("photo_link_three"),
-                        rs.getString("photo_link_four"),
-                        rs.getBoolean("featured"));
+                Ticket temp = new Ticket(rs.getInt("ticket_id"),
+                        rs.getInt("author_id"),
+                        rs.getInt("project_id"),
+                        rs.getString("status"),
+                        rs.getString("title"),
+                        rs.getString("description"));
                 ticketList.add(temp);
             }
         } catch (SQLException ex) {
@@ -356,7 +300,7 @@ public class TicketDAO {
         if(checkIfProductExists(deleteId)) {
             try {
                 con = DataConnect.getConnection();
-                ps = con.prepareStatement("DELETE FROM products WHERE product_id = ?");
+                ps = con.prepareStatement("DELETE FROM tickets WHERE ticket_id = ?");
                 ps.setString(1, deleteId);
                 ps.executeUpdate();
             } catch (SQLException ex) {
@@ -384,7 +328,7 @@ public class TicketDAO {
 
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM products WHERE product_id = ?");
+            ps = con.prepareStatement("SELECT * FROM tickets WHERE ticket_id = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -410,24 +354,16 @@ public class TicketDAO {
         PreparedStatement ps = null;
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM products LEFT JOIN categories ON products.category_id = categories.category_id WHERE products.product_id = ?");
+            ps = con.prepareStatement("SELECT * FROM tickets LEFT JOIN categories ON products.category_id = categories.category_id WHERE products.product_id = ?");
             ps.setString(1, productId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                Ticket singleTicket = new Ticket(rs.getLong("product_id"),
-                        rs.getString("product_name"),
-                        rs.getString("category_name"),
-                        rs.getLong("quantity"),
-                        rs.getLong("quantity_sold"),
-                        rs.getDouble("sale_price"),
-                        rs.getString("date_added"),
-                        rs.getDouble("price"),
-                        rs.getString("description"),
-                        rs.getString("photo_link_one"),
-                        rs.getString("photo_link_two"),
-                        rs.getString("photo_link_three"),
-                        rs.getString("photo_link_four"),
-                        rs.getBoolean("featured"));
+                Ticket singleTicket = new Ticket(rs.getInt("ticket_id"),
+                        rs.getInt("author_id"),
+                        rs.getInt("project_id"),
+                        rs.getString("status"),
+                        rs.getString("title"),
+                        rs.getString("description"));
                 return singleTicket;
             }
         } catch (SQLException ex) {
@@ -445,29 +381,21 @@ public class TicketDAO {
         }
         return null;
     }
-    public static Ticket getSingleProductDataForCart(String productId, Integer quantity) {
+    public static Ticket getSingleProductDataForCart(String ticketId, Integer quantity) {
         Connection con = null;
         PreparedStatement ps = null;
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM products LEFT JOIN categories ON products.category_id = categories.category_id WHERE products.product_id = ?");
-            ps.setString(1, productId);
+            ps = con.prepareStatement("SELECT * FROM tickets LEFT JOIN categories ON products.category_id = categories.category_id WHERE products.product_id = ?");
+            ps.setString(1, ticketId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                Ticket singleTicket = new Ticket(rs.getLong("product_id"),
-                        rs.getString("product_name"),
-                        rs.getString("category_name"),
-                        rs.getLong("quantity"),
-                        rs.getLong("quantity_sold"),
-                        rs.getDouble("sale_price"),
-                        rs.getString("date_added"),
-                        rs.getDouble("price"),
-                        rs.getString("description"),
-                        rs.getString("photo_link_one"),
-                        rs.getString("photo_link_two"),
-                        rs.getString("photo_link_three"),
-                        rs.getString("photo_link_four"),
-                        rs.getBoolean("featured"));
+                Ticket singleTicket = new Ticket(rs.getInt("ticket_id"),
+                        rs.getInt("author_id"),
+                        rs.getInt("project_id"),
+                        rs.getString("status"),
+                        rs.getString("title"),
+                        rs.getString("description"));
                 return singleTicket;
             }
         } catch (SQLException ex) {
@@ -485,34 +413,26 @@ public class TicketDAO {
         }
         return null;
     }
-    public static boolean editGivenProduct(String product_id, String product_name, String category_id, String quantity, String quantity_sold, String sale_price,
-                                           String date_added, String price, String description, String photoLinkOne, String photoLinkTwo, String photoLinkThree, String photoLinkFour, String featured) {
-        if (product_id != null || product_name != null || category_id != null) {
+    public static boolean editGivenProduct(String author_id, String project_id, String status, String title, String description, String featured) {
+        if (author_id != null || project_id != null) {
             PreparedStatement ps = null;
             Connection con = null;
 
             try {
                 con = DataConnect.getConnection();
                 if (con != null) {
-                    ps = con.prepareStatement("UPDATE products SET product_name = ?, category_id = ?, quantity = ?, quantity_sold = ?, sale_price = ?, date_added = ?, " +
-                            "price = ?, description = ?, photo_link_one = ?, photo_link_two = ?, photo_link_three = ?, photo_link_four = ?, featured = ? WHERE product_id = ? ");
-                    ps.setString(1, product_name);
-                    ps.setString(2, category_id);
-                    ps.setString(3, quantity);
-                    ps.setString(4, quantity_sold);
-                    ps.setString(5, sale_price);
-                    ps.setString(6, date_added);
-                    ps.setString(7, price);
-                    ps.setString(8, description);
-                    ps.setString(9, photoLinkOne);
-                    ps.setString(10, photoLinkTwo);
-                    ps.setString(11, photoLinkThree);
-                    ps.setString(12, photoLinkFour);
+                    ps = con.prepareStatement("UPDATE tickets SET author_id = ?, project_id = ?, status = ?, title = ?" +
+                            " description = ? WHERE ticket_id = ? ");
+                    ps.setString(1, author_id);
+                    ps.setString(2, project_id);
+                    ps.setString(3, status);
+                    ps.setString(4, title);
+                    ps.setString(5, description);
                     int boolToInt;
                     if(featured.equals("true")) { boolToInt = 1; }
                     else { boolToInt = 0; }
-                    ps.setString(13, String.valueOf(boolToInt));
-                    ps.setString(14, product_id);
+                    ps.setString(7, String.valueOf(boolToInt));
+                    ps.setString(8, author_id);
                     ps.executeUpdate();
                 }
             } catch (Exception ex) {
@@ -526,32 +446,24 @@ public class TicketDAO {
             return false;
         }
     }
-    public static boolean addProduct(String product_name, String category_id, String quantity, String quantity_sold, String sale_price, String date_added, String price,
-                                     String description, String photoLinkOne, String photoLinkTwo, String photoLinkThree, String photoLinkFour, String featured) {
-        if (product_name != null || category_id != null || quantity != null) {
+    public static boolean addProduct(String author_id, String project_id, String status, String title, String description, String featured) {
+        if (author_id != null || project_id != null) {
             PreparedStatement ps = null;
             Connection con = null;
             try {
                 con = DataConnect.getConnection();
                 if (con != null) {
-                    ps = con.prepareStatement("INSERT INTO products (product_name, category_id, quantity, quantity_sold, sale_price, date_added, price, " +
-                            "description, photo_link_one, photo_link_two, photo_link_three, photo_link_four, featured) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
-                    ps.setString(1, product_name);
-                    ps.setString(2, category_id);
-                    ps.setString(3, quantity);
-                    ps.setString(4, quantity_sold);
-                    ps.setString(5, sale_price);
-                    ps.setString(6, date_added);
-                    ps.setString(7, price);
-                    ps.setString(8, description);
-                    ps.setString(9, photoLinkOne);
-                    ps.setString(10, photoLinkTwo);
-                    ps.setString(11, photoLinkThree);
-                    ps.setString(12, photoLinkFour);
+                    ps = con.prepareStatement("INSERT INTO tickets (author_id, project_id, status, title " +
+                            "description, featured) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+                    ps.setString(1, author_id);
+                    ps.setString(2, project_id);
+                    ps.setString(3, status);
+                    ps.setString(4, title);
+                    ps.setString(5, description);
                     int boolToInt;
                     if(featured.equals("true")) { boolToInt = 1; }
                     else { boolToInt = 0; }
-                    ps.setString(13, String.valueOf(boolToInt));
+                    ps.setString(7, String.valueOf(boolToInt));
                     ps.executeUpdate();
                 }
             } catch (Exception ex) {
