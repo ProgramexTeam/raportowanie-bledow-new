@@ -9,7 +9,7 @@
 <!-- Kontent -->
 <div class="content ticket-manager">
     <div class="content-inside">
-        <h1 class="backend-page-title"><i class="fas fa-shopping-cart"></i> Menadżer ticketów - dodaj ticket</h1>
+        <h1 class="backend-page-title"> Menadżer ticketów - dodaj ticket</h1>
         <p class="info-msg"><% if(request.getAttribute("msg") != null){ out.println(request.getAttribute("msg")); request.setAttribute("msg", null); } %></p>
         <div class="form-container">
             <form method="post" action="${pageContext.request.contextPath}/user/ticket-manager/add-ticket">
