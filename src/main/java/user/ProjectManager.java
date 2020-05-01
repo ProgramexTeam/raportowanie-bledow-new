@@ -14,15 +14,15 @@ import java.util.ArrayList;
 @WebServlet("/user/project-manager")
 public class ProjectManager extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        long page, amountPerPage, amountOfCategories;
-        String deleteId, searchByCategoryName;
+        long page, amountPerPage, amountOfProjects;
+        String deleteId, searchByProjectsTitle;
         int searchOption;
 
         if(request.getParameter("page") == null){ page = 0; } else { page = Long.parseLong(request.getParameter("page")); }
         if(request.getParameter("amountPerPage") == null){ amountPerPage = 20; } else { amountPerPage = Long.parseLong(request.getParameter("amountPerPage")); }
         if(request.getParameter("searchOption") != null) { searchOption = Integer.parseInt(request.getParameter("searchOption")); } else { searchOption = 2; }
         if(request.getParameter("deleteId") != null){ deleteId = String.valueOf(request.getParameter("deleteId"));
-            if(ProjectDAO.deleteSingleCategory(deleteId)){
+            if(ProjectDAO.deleteSingleCategory(deleteId)) {
                 request.setAttribute("msg", "Pomyślnie usunięto projekt");
             } else {
                 request.setAttribute("msg", "Wystąpił problem w trakcie usuwania projektu");
@@ -30,27 +30,27 @@ public class ProjectManager extends HttpServlet {
         }
 
         // Zwraca inną listę użytkowników w zależności od tego czy zostało coś wpisane w szukajkę
-        if(request.getParameter("searchByCategoryName") != null){
-            searchByCategoryName = request.getParameter("searchByCategoryName");
-            ArrayList<Project> list = ProjectDAO.getProjectsListOfPattern(page*amountPerPage, amountPerPage, searchByCategoryName, searchOption);
+        if(request.getParameter("searchByProjectsTitle") != null){
+            searchByProjectsTitle = request.getParameter("searchByProjectsTitle");
+            ArrayList<Project> list = ProjectDAO.getProjectsListOfPattern(page*amountPerPage, amountPerPage, searchByProjectsTitle, searchOption);
 
-            amountOfCategories = ProjectDAO.amountOfCategoriesOfPattern(searchByCategoryName, searchOption);
+            amountOfProjects = ProjectDAO.amountOfProjectsOfPattern(searchByProjectsTitle, searchOption);
             request.setAttribute("searchOption", searchOption);
-            request.setAttribute("searchByCategoryName", searchByCategoryName);
+            request.setAttribute("searchByProjectsTitle", searchByProjectsTitle);
             request.setAttribute("list", list);
         } else {
-            ArrayList<Project> list = ProjectDAO.getCategoriesList(page*amountPerPage, amountPerPage);
-            amountOfCategories = ProjectDAO.amountOfCategories();
+            ArrayList<Project> list = ProjectDAO.getProjectsList(page*amountPerPage, amountPerPage);
+            amountOfProjects = ProjectDAO.amountOfProjects();
             request.setAttribute("list", list);
         }
 
         // Ile stron wydrukować
-        int pagesToPrint = (int)Math.ceil((double)amountOfCategories / (double)amountPerPage);
+        int pagesToPrint = (int)Math.ceil((double)amountOfProjects / (double)amountPerPage);
 
         request.setAttribute("pagesToPrint", pagesToPrint);
         request.setAttribute("currentPage", page);
         request.setAttribute("amountPerPage", amountPerPage);
-        request.setAttribute("amountOfCategories", amountOfCategories);
+        request.setAttribute("amountOfProjects", amountOfProjects);
 
         request.getRequestDispatcher("/WEB-INF/user/project-manager.jsp").forward(request, response);
     }
