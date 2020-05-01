@@ -9,7 +9,7 @@
 <!-- Kontent -->
 <div class="content ticket-manager">
     <div class="content-inside">
-        <h1 class="backend-page-title"> Menadżer ticketów - dodaj ticket</h1>
+        <h1 class="backend-page-title"> Dodawanie ticketów</h1>
         <p class="info-msg"><% if(request.getAttribute("msg") != null){ out.println(request.getAttribute("msg")); request.setAttribute("msg", null); } %></p>
         <div class="form-container">
             <form method="post" action="${pageContext.request.contextPath}/user/ticket-manager/add-ticket">
@@ -32,7 +32,7 @@
                     <p class="input-element" style="width:100%"><span>Status:</span> <br /><textarea name="status"></textarea></p>
                 </div>
                 <div class="input-row">
-                    <p class="input-element submit-element"><input type="submit" value="Dodaj produkt"></p>
+                    <p class="input-element submit-element"><input type="submit" value="Dodaj ticket"></p>
                 </div>
             </form>
             <p style="color: red; font-weight: bold">
