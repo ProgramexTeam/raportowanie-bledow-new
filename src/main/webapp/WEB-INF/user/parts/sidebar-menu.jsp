@@ -19,7 +19,7 @@
                 </ul>
             </div>
             <a href="${pageContext.request.contextPath}/user/general-conf" class="backend-navigation-link" title="Ustawienia główne">
-                <li class="backend-navigation-element"><i class="fas fa-cogs"></i> Ustawienia główne</li>
+                <li class="backend-navigation-element"><i class="fas fa-cogs"></i> Ustawienia głównee</li>
             </a>
             <div class="products-link">
                 <a href="${pageContext.request.contextPath}/user/ticket-manager" class="backend-navigation-link" title="Przejdź do menadżera produktów">
