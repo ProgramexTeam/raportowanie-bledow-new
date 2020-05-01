@@ -39,8 +39,8 @@ public class TicketManager extends HttpServlet {
             request.setAttribute("searchByProductName", searchByProductName);
             request.setAttribute("list", list);
         } else {
-            ArrayList<Ticket> list = TicketDAO.getProductsList(page*amountPerPage, amountPerPage);
-            amountOfProducts = TicketDAO.amountOfProducts();
+            ArrayList<Ticket> list = TicketDAO.getTicketList(page*amountPerPage, amountPerPage);
+            amountOfProducts = TicketDAO.amountOfTickets();
             request.setAttribute("list", list);
         }
 
