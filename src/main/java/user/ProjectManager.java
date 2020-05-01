@@ -36,7 +36,7 @@ public class ProjectManager extends HttpServlet {
 
             amountOfProjects = ProjectDAO.amountOfProjectsOfPattern(searchByProjectName, searchOption);
             request.setAttribute("searchOption", searchOption);
-            request.setAttribute("searchByProjectsName", searchByProjectName);
+            request.setAttribute("searchByProjectName", searchByProjectName);
             request.setAttribute("list", list);
         } else {
             ArrayList<Project> list = ProjectDAO.getProjectsList(page*amountPerPage, amountPerPage);

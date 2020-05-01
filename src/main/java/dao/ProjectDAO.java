@@ -143,7 +143,7 @@ public class ProjectDAO {
         ArrayList<Project> projectList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM tickets WHERE title LIKE ? ORDER BY ID DESC LIMIT ?, ?");
+            ps = con.prepareStatement("SELECT * FROM projects WHERE title LIKE ? ORDER BY ID DESC LIMIT ?, ?");
             if(searchOption==1){
                 ps.setString(1, searchByProjectTitle + "%");
             } else if(searchOption==3) {
