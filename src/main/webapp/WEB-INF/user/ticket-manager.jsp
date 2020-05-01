@@ -68,8 +68,10 @@
                                     "<a href=\"" + request.getContextPath() + "/user/ticket-manager/edit-ticket?productId=" + ticket.getId() + "\">edytuj</a> / " +
                                     "<a href=\"" + request.getContextPath() + "/user/ticket-manager?page=" + currentPage + "&amountPerPage=" + amountPerPage + "&searchOption=" + searchOption + "&searchByTicketName=" + searchByTicketName + "&deleteId=" + ticket.getId() + "\">usuń</a>" +
                                     "</td>" +
+                                    "<td class=\"ticket-row-item ticket-name\">" + ticket.getAuthor_id() + "</td>" +
                                     "<td class=\"ticket-row-item ticket-name\">" + ticket.getTitle() + "</td>" +
                                     "<td class=\"ticket-row-item ticket-project\">" + ticket.getProject_id() + "</td>" +
+                                    "<td class=\"ticket-row-item ticket-name\">" + ticket.getStatus() + "</td>" +
                                     "</tr>");
                             i++;
                         }

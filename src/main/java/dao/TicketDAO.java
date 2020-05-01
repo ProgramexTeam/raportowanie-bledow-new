@@ -100,7 +100,7 @@ public class TicketDAO {
     public static ArrayList<Ticket> getTicketList(long startPosition, long amount) {
         Connection con = null;
         PreparedStatement ps = null;
-        ArrayList<Ticket> productsList = new ArrayList<>();
+        ArrayList<Ticket> tickets = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
             ps = con.prepareStatement("SELECT * FROM tickets LEFT JOIN projects ON tickets.project_ID = projects.ID ORDER BY tickets.ID DESC LIMIT ?, ?");
@@ -108,21 +108,21 @@ public class TicketDAO {
             ps.setLong(2, amount);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Ticket temp = new Ticket(rs.getInt("ticket_id"),
-                        rs.getInt("author_id"),
-                        rs.getInt("project_id"),
+                Ticket temp = new Ticket(rs.getInt("ID"),
+                        rs.getInt("author_ID"),
+                        rs.getInt("project_ID"),
                         rs.getString("status"),
                         rs.getString("title"),
                         rs.getString("description"));
-                productsList.add(temp);
+                tickets.add(temp);
             }
         } catch (SQLException ex) {
-            System.out.println("Error while getting products data from db; TicketDAO.getProductsList() -->" + ex.getMessage());
+            System.out.println("Error while getting products data from db; TicketDAO.getTicketList() -->" + ex.getMessage());
         } finally {
             DataConnect.close(con);
             try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; TicketDAO.getProductsList() -->" + ex.getMessage()); }
         }
-        return productsList;
+        return tickets;
     }
     public static ArrayList<Ticket> getProductsListByCategory(long ticket_id, long startPosition, long amount) {
         Connection con = null;
@@ -145,10 +145,10 @@ public class TicketDAO {
                 productsList.add(temp);
             }
         } catch (SQLException ex) {
-            System.out.println("Error while getting products data from db; TicketDAO.getProductsList() -->" + ex.getMessage());
+            System.out.println("Error while getting products data from db; TicketDAO.getTicketList() -->" + ex.getMessage());
         } finally {
             DataConnect.close(con);
-            try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; TicketDAO.getProductsList() -->" + ex.getMessage()); }
+            try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; TicketDAO.getTicketList() -->" + ex.getMessage()); }
         }
         return productsList;
     }
