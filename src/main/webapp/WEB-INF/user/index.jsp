@@ -5,7 +5,7 @@
 <jsp:include page="/WEB-INF/user/parts/sidebar-menu.jsp"/>
 <!-- Kontent -->
 <div class="content">
-    <h1>Homepage</h1>
+    <h1>Panel użykownika</h1>
 </div>
 <!-- Stopka -->
 <jsp:include page="/WEB-INF/user/parts/overall-footer.jsp"/>

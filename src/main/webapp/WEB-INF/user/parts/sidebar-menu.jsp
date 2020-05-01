@@ -5,8 +5,8 @@
             <a href="${pageContext.request.contextPath}/" class="backend-navigation-link" title="Powrót do strony głównej">
                 <li class="backend-navigation-element"><i class="fas fa-home"></i> Home</li>
             </a>
-            <a href="${pageContext.request.contextPath}/user" class="backend-navigation-link" title="Powrót do strony głównej backendu">
-                <li class="backend-navigation-element"><i class="fas fa-igloo"></i> Backend Home</li>
+            <a href="${pageContext.request.contextPath}/user" class="backend-navigation-link" title="Powrót do strony głównej panelu">
+                <li class="backend-navigation-element"><i class="fas fa-home"></i> Panel użytkownika</li>
             </a>
             <div class="users-link">
                 <a href="${pageContext.request.contextPath}/user/user-manager" class="backend-navigation-link" title="Przejdź do menadżera projektów">
