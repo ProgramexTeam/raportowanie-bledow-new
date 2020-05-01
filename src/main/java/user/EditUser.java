@@ -20,7 +20,7 @@ public class EditUser extends HttpServlet {
         }
 
         if(UserDAO.checkIfUserExists(userId)){
-            User singleUser = UserDAO.getSingleUserData(userId);
+            User singleUser = UserDAO.getSingleUserData(Integer.parseInt(userId));
             request.setAttribute("singleUser", singleUser);
         }
 

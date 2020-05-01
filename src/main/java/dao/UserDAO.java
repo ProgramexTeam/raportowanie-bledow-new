@@ -214,13 +214,13 @@ public class UserDAO {
         }
         return true;
     }
-    public static User getSingleUserData(String userId) {
+    public static User getSingleUserData(int userId) {
         Connection con = null;
         PreparedStatement ps = null;
         try {
             con = DataConnect.getConnection();
             ps = con.prepareStatement("SELECT * FROM users WHERE ID = ?");
-            ps.setString(1, userId);
+            ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 User singleUser = new User(rs.getLong("ID"),

@@ -71,7 +71,7 @@ body {
 
 /* kolorystyka menadżera uzytkowników */
 .user-manager .backend-page-title, .user-manager .data .user-list-header-item, .user-manager .pages-list a:hover div,
-.user-manager .pages-list .pagination-active, .user-manager .submit-element input[type=submit] {
+.user-manager .pages-list .pagination-active, .user-manager .submit-element input[type=submit], .project-list-header-item {
     background-color: #6c7ae0;
 }
 .user-manager .pages-list a div {
@@ -82,7 +82,7 @@ body {
 }
 
 /* kolorystyka menadżera uzytkowników */
-.ticket-manager .backend-page-title, .ticket-manager .data .category-list-header-item, .ticket-manager .pages-list a:hover div,
+.ticket-manager .backend-page-title, .ticket-manager .data .ticket-list-header-item, .ticket-manager .pages-list a:hover div,
 .ticket-manager .pages-list .pagination-active, .ticket-manager .submit-element input[type=submit] {
     background-color: #e4d27a;
 }
@@ -122,14 +122,14 @@ body {
 }
 
 /* kolorystyka menadżera produktów */
-.product-manager .backend-page-title, .product-manager .data .product-list-header-item, .product-manager .pages-list a:hover div,
-.product-manager .pages-list .pagination-active, .product-manager .submit-element input[type=submit] {
+.ticket-manager .backend-page-title, .ticket-manager .data .ticket-list-header-item, .ticket-manager .pages-list a:hover div,
+.ticket-manager .pages-list .pagination-active, .ticket-manager .submit-element input[type=submit] {
     background-color: #c0e06c;
 }
-.product-manager .pages-list a div {
+.ticket-manager .pages-list a div {
     border-color: #c0e06c;
 }
-.product-manager .submit-element input[type=submit]:hover {
+.ticket-manager .submit-element input[type=submit]:hover {
     background-color: #d2e996;
 }
 
@@ -162,20 +162,20 @@ body {
 }
 
 /* kolorystyka menadżera produktów */
-.product-manager .backend-page-title, .product-manager .data .product-list-header-item, .product-manager .pages-list a:hover div,
-.product-manager .pages-list .pagination-active, .product-manager .submit-element input[type=submit] {
+.ticket-manager .backend-page-title, .ticket-manager .data .ticket-list-header-item, .ticket-manager .pages-list a:hover div,
+.ticket-manager .pages-list .pagination-active, .ticket-manager .submit-element input[type=submit] {
     background-color: #c0e06c;
 }
-.product-manager .pages-list a div {
+.ticket-manager .pages-list a div {
     border-color: #c0e06c;
 }
-.product-manager .submit-element input[type=submit]:hover {
+.ticket-manager .submit-element input[type=submit]:hover {
     background-color: #d2e996;
 }
 
 /* kolorystyka menadżera mediów */
-.media-manager .backend-page-title, .media-manager .data .product-list-header-item, .media-manager .pages-list a:hover div,
-.media-manager .pages-list .pagination-active, .media-manager .submit-element input[type=submit], .product-manager .showButton {
+.media-manager .backend-page-title, .media-manager .data .ticket-list-header-item, .media-manager .pages-list a:hover div,
+.media-manager .pages-list .pagination-active, .media-manager .submit-element input[type=submit], .ticket-manager .showButton {
     background-color: #c0e06c;
 }
 .media-manager .pages-list a div {
@@ -253,16 +253,19 @@ body {
     width: 100%;
     border-spacing: 0px;
 }
-.data .user-list-header td:first-child, .data .product-list-header td:first-child,
-.data .category-list-header td:first-child {
+.data .user-list-header td:first-child, .data .ticket-list-header td:first-child,
+.data .ticket-list-header td:first-child,
+.project-list-header td:first-child {
     border-radius: 30px 0px 0px 0px;
 }
-.data .user-list-header td:last-child, .data .product-list-header td:last-child,
-.data .category-list-header td:last-child {
+.data .user-list-header td:last-child, .data .ticket-list-header td:last-child,
+.data .ticket-list-header td:last-child,
+.project-list-header td:last-child {
     border-radius: 0px 30px 0px 0px;
 }
-.data .user-list-header-item, .data .product-list-header-item,
-.data .category-list-header-item {
+.data .user-list-header-item, .data .ticket-list-header-item,
+.data .ticket-list-header-item,
+.project-list-header-item {
     font-weight: bold;
     font-size: 18px;
     color: #fff;
@@ -271,15 +274,15 @@ body {
     padding-bottom: 18px;
     text-align: center;
 }
-.data .user-row-item, .data .product-row-item,
-.data .category-row-item {
+.data .user-row-item, .data .ticket-row-item,
+.data .project-row-item {
     font-size: 15px;
     color: gray;
     line-height: 1.4;
     padding: 10px 0px 10px 20px;
 }
-body .data tbody .user-row:nth-child(even), body .data tbody .product-row:nth-child(even),
-body .data tbody .category-row:nth-child(even) {
+body .data tbody .user-row:nth-child(even), body .data tbody .ticket-row:nth-child(even),
+body .data tbody .project-row:nth-child(even) {
     background-color: #f8f6ff!important;
 }
 .pages-list {
@@ -325,7 +328,7 @@ body .data tbody .category-row:nth-child(even) {
     border-radius: 4px;
     box-sizing: border-box;
 }
-.user-manager .input-element, .product-manager .input-element,
+.user-manager .input-element, .ticket-manager .input-element,
 .media-manager .input-element, .ticket-manager .input-element {
     display: inline-block;
 }
@@ -334,7 +337,7 @@ body .data tbody .category-row:nth-child(even) {
     margin-right: 20px;
 }
 
-.submit-element input[type=submit], .product-manager .showButton {
+.submit-element input[type=submit], .ticket-manager .showButton {
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
