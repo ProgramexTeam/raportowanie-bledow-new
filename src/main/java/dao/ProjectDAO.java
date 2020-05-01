@@ -94,7 +94,7 @@ public class ProjectDAO {
     public static ArrayList<Project> getProjectsList(long startPosition, long amount) {
         Connection con = null;
         PreparedStatement ps = null;
-        ArrayList<Project> categoriesList = new ArrayList<>();
+        ArrayList<Project> projects = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
             ps = con.prepareStatement("SELECT * FROM projects ORDER BY ID LIMIT ?, ?");
@@ -105,7 +105,7 @@ public class ProjectDAO {
                 Project temp = new Project(rs.getLong("ID"),
                         rs.getString("title"),
                         rs.getString("description"));
-                categoriesList.add(temp);
+                projects.add(temp);
             }
         } catch (SQLException ex) {
             System.out.println("Error while getting products data from db; ProjectDAO.getProjectsList() -->" + ex.getMessage());
@@ -113,7 +113,7 @@ public class ProjectDAO {
             DataConnect.close(con);
             try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; ProjectDAO.getProjectsList() -->" + ex.getMessage()); }
         }
-        return categoriesList;
+        return projects;
     }
     public static ArrayList<Project> getCategoriesList() {
         Connection con = null;
@@ -137,19 +137,19 @@ public class ProjectDAO {
         }
         return categoriesList;
     }
-    public static ArrayList<Project> getProjectsListOfPattern(long startPosition, long amountPerPage, String searchByTicketTitle, int searchOption) {
+    public static ArrayList<Project> getProjectsListOfPattern(long startPosition, long amountPerPage, String searchByProjectTitle, int searchOption) {
         Connection con = null;
         PreparedStatement ps = null;
-        ArrayList<Project> categoriesList = new ArrayList<>();
+        ArrayList<Project> projectList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
             ps = con.prepareStatement("SELECT * FROM tickets WHERE title LIKE ? ORDER BY ID DESC LIMIT ?, ?");
             if(searchOption==1){
-                ps.setString(1, searchByTicketTitle + "%");
+                ps.setString(1, searchByProjectTitle + "%");
             } else if(searchOption==3) {
-                ps.setString(1, "%" + searchByTicketTitle);
+                ps.setString(1, "%" + searchByProjectTitle);
             } else {
-                ps.setString(1, "%" + searchByTicketTitle + "%");
+                ps.setString(1, "%" + searchByProjectTitle + "%");
             }
             ps.setLong(2, startPosition);
             ps.setLong(3, amountPerPage);
@@ -158,7 +158,7 @@ public class ProjectDAO {
                 Project temp = new Project(rs.getLong("ID"),
                         rs.getString("title"),
                         rs.getString("description"));
-                categoriesList.add(temp);
+                projectList.add(temp);
             }
         } catch (SQLException ex) {
             System.out.println("Error while getting projects data from db; ProjectDAO.getProjectsListOfPattern() -->" + ex.getMessage());
@@ -166,7 +166,7 @@ public class ProjectDAO {
             DataConnect.close(con);
             if (ps != null) { try { ps.close(); } catch (SQLException ex) { System.out.println("Error while closing PreparedStatement; ProjectDAO.getProjectsListOfPattern() -->" + ex.getMessage()); } }
         }
-        return categoriesList;
+        return projectList;
     }
     public static boolean deleteSingleCategory(String deleteId) {
         Connection con = null;
