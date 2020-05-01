@@ -311,7 +311,7 @@ body .data tbody .category-row:nth-child(even) {
     width: 75px;
 }
 .input-element select {
-    width: 100px;
+    width: 200px;
 }
 .input-element input[type=text], .input-element input[type=email], .input-element input[type=date], .input-element input[type=password] {
     width: 300px;
