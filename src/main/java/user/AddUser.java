@@ -12,10 +12,12 @@ import java.io.IOException;
 @WebServlet("/user/user-manager/add-user")
 public class AddUser extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         request.getRequestDispatcher("/WEB-INF/user/add-user.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String title = request.getParameter("title");
         String description = request.getParameter("description");
         int user_id = Integer.parseInt(request.getParameter("user"));
