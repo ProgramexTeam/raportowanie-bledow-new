@@ -98,29 +98,6 @@
                 </div>
             </div>
             <div id="ListOfProducts" class="col-md-9 row">
-                <%--<% ArrayList<Product> productsList = (ArrayList<Product>) request.getAttribute("productsList");
-                    if(productsList==null) {
-                        productsList = ProductDAO.getProductsList(0, 9);
-                    }
-                    for(Product ticket: productsList) { %>
-                        <div id="ticket-<% out.print(ticket.getId()); %>" class="item col-md-4">
-                            <a href="${pageContext.request.contextPath}/portal/produkt?id=<% out.print(ticket.getId()); %>">
-                                <div class="featured-item">
-                                    <% if(!ticket.getImageOne().isEmpty()) { %>
-                                        <img src="<% out.print(ticket.getImageOne()); %>" alt="<% out.print(ticket.getProduct_name() + " - " + ticket.getCategory()); %>">
-                                    <% } else { %>
-                                        <img src="/assets/images/products/ticket-placeholder.jpg" alt="<% out.print(ticket.getProduct_name() + " - " + ticket.getCategory()); %>">
-                                    <% } %>
-                                    <h4><% out.print(ticket.getProduct_name()); %></h4>
-                                    <% if(ticket.getSale_price()>0) { %>
-                                        <h6><span style="font-size: 10px; color: darkgrey; text-decoration: line-through"><% out.print(ticket.getPrice()); %> zł</span> <% out.print(ticket.getSale_price()); %> zł</h6>
-                                    <% } else { %>
-                                        <h6><% out.print(ticket.getPrice()); %> zł</h6>
-                                    <% } %>
-                                </div>
-                            </a>
-                        </div>
-                    <% } %>--%>
             </div>
         </div>
     </div>
@@ -148,7 +125,5 @@
     </div>
     <!-- Koniec produktów -->
 
-    <!-- Formularz do subskrypcji -->
-	<jsp:include page="/WEB-INF/parts/subscribe-form.jsp"/>
     <!-- Stopka -->
     <jsp:include page="/WEB-INF/parts/overall-footer.jsp"/>

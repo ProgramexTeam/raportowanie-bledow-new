@@ -9,12 +9,12 @@
                 <li class="backend-navigation-element"><i class="fas fa-igloo"></i> Backend Home</li>
             </a>
             <div class="users-link">
-                <a href="${pageContext.request.contextPath}/user/user-manager" class="backend-navigation-link" title="Przejdź do menadżera użytkowników">
-                    <li class="backend-navigation-element"><i class="fas fa-users"></i> Użytkownicy</li>
+                <a href="${pageContext.request.contextPath}/user/user-manager" class="backend-navigation-link" title="Przejdź do menadżera projektów">
+                    <li class="backend-navigation-element"><i class="fas fa-users"></i> Projekty</li>
                 </a>
                 <ul class="dropdown users-dropdown">
-                    <a href="${pageContext.request.contextPath}/user/user-manager/add-user" class="backend-navigation-link" title="Dodaj nowego użytkownika">
-                        <li><i class="fas fa-user-plus"></i> Dodaj nowego użytkownika</li>
+                    <a href="${pageContext.request.contextPath}/user/user-manager/add-user" class="backend-navigation-link" title="Dodaj nowy projekt">
+                        <li><i class="fas fa-user-plus"></i> Dodaj nowy projekt</li>
                     </a>
                 </ul>
             </div>
@@ -22,12 +22,12 @@
                 <li class="backend-navigation-element"><i class="fas fa-cogs"></i> Ustawienia główne</li>
             </a>
             <div class="products-link">
-                <a href="${pageContext.request.contextPath}/user/ticket-manager" class="backend-navigation-link" title="Przejdź do menadżera produktów">
-                    <li class="backend-navigation-element"><i class="fas fa-shopping-cart"></i> Produkty</li>
+                <a href="${pageContext.request.contextPath}/user/ticket-manager" class="backend-navigation-link" title="Przejdź do menadżera ticketów">
+                    <li class="backend-navigation-element"><i class="fas fa-shopping-cart"></i> Tickety</li>
                 </a>
                 <ul class="dropdown ticket-dropdown">
-                    <a href="${pageContext.request.contextPath}/user/ticket-manager/add-ticket" class="backend-navigation-link" title="Dodaj nowy produkt">
-                        <li><i class="fas fa-cart-plus"></i> Dodaj nowy produkt</li>
+                    <a href="${pageContext.request.contextPath}/user/ticket-manager/add-ticket" class="backend-navigation-link" title="Dodaj nowy ticket">
+                        <li><i class="fas fa-cart-plus"></i> Dodaj nowy ticket</li>
                     </a>
                 </ul>
             </div>
