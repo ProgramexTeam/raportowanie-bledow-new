@@ -23,16 +23,16 @@ public class ProjectManager extends HttpServlet {
         if(request.getParameter("searchOption") != null) { searchOption = Integer.parseInt(request.getParameter("searchOption")); } else { searchOption = 2; }
         if(request.getParameter("deleteId") != null){ deleteId = String.valueOf(request.getParameter("deleteId"));
             if(ProjectDAO.deleteSingleCategory(deleteId)){
-                request.setAttribute("msg", "Pomyślnie usunięto kategorię");
+                request.setAttribute("msg", "Pomyślnie usunięto projekt");
             } else {
-                request.setAttribute("msg", "Wystąpił problem w trakcie usuwania kategorii");
+                request.setAttribute("msg", "Wystąpił problem w trakcie usuwania projektu");
             }
         }
 
         // Zwraca inną listę użytkowników w zależności od tego czy zostało coś wpisane w szukajkę
         if(request.getParameter("searchByCategoryName") != null){
             searchByCategoryName = request.getParameter("searchByCategoryName");
-            ArrayList<Project> list = ProjectDAO.getCategoriesListOfPattern(page*amountPerPage, amountPerPage, searchByCategoryName, searchOption);
+            ArrayList<Project> list = ProjectDAO.getProjectsListOfPattern(page*amountPerPage, amountPerPage, searchByCategoryName, searchOption);
 
             amountOfCategories = ProjectDAO.amountOfCategoriesOfPattern(searchByCategoryName, searchOption);
             request.setAttribute("searchOption", searchOption);
