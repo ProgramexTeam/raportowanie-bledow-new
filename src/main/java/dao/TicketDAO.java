@@ -43,14 +43,14 @@ public class TicketDAO {
         }
         return ticket;
     }
-    public static long amountOfProducts() {
+    public static long amountOfTickets() {
         Connection con = null;
         long amount = 0;
         PreparedStatement ps = null;
 
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT COUNT(*) AS `amount` FROM products");
+            ps = con.prepareStatement("SELECT COUNT(*) AS `amount` FROM tickets");
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 amount = rs.getLong("amount");
@@ -97,13 +97,13 @@ public class TicketDAO {
         }
         return amount;
     }
-    public static ArrayList<Ticket> getProductsList(long startPosition, long amount) {
+    public static ArrayList<Ticket> getTicketList(long startPosition, long amount) {
         Connection con = null;
         PreparedStatement ps = null;
         ArrayList<Ticket> productsList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM tickets LEFT JOIN projects ON products.category_id = categories.category_id ORDER BY products.product_id LIMIT ?, ?");
+            ps = con.prepareStatement("SELECT * FROM tickets LEFT JOIN projects ON tickets.project_ID = projects.ID ORDER BY tickets.ID DESC LIMIT ?, ?");
             ps.setLong(1, startPosition);
             ps.setLong(2, amount);
             ResultSet rs = ps.executeQuery();
@@ -231,7 +231,7 @@ public class TicketDAO {
         }
         return productsList;
     }
-    public static JsonArray getProductsList(String statement) {
+    public static JsonArray getTicketList(String statement) {
         Connection con = null;
         PreparedStatement ps = null;
         JsonArray productsList = null;
