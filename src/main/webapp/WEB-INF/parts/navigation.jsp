@@ -17,9 +17,6 @@
 				<a class="nav-link" href="${pageContext.request.contextPath}/">Home</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="${pageContext.request.contextPath}/portal">Portal</a>
-			</li>
-			<li class="nav-item">
 				<a class="nav-link" href="${pageContext.request.contextPath}/o-nas">O nas</a>
 			</li>
 			<li class="nav-item">
