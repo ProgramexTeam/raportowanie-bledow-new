@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="programex">
+    <output-path>$PROJECT_DIR$/out/artifacts/programex</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="System-raportowania-bledow/web/Web" />
+    </root>
+  </artifact>
+</component>
