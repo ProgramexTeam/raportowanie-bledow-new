@@ -10,7 +10,7 @@
 <!-- Kontent -->
 <div class="content ticket-manager">
     <div class="content-inside">
-        <h1 class="backend-page-title"><i class="fas fa-shopping-bag"></i> Menadżer ticketówf</h1>
+        <h1 class="backend-page-title"><i class="fas fa-shopping-bag"></i> Menadżer ticketów</h1>
         <p class="info-msg"><% if(request.getAttribute("msg") != null){ out.println(request.getAttribute("msg")); request.setAttribute("msg", null); } %></p>
         <div class="filters">
             <%
