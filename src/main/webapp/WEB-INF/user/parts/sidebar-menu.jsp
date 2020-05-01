@@ -13,7 +13,7 @@
                     <li class="backend-navigation-element"><i class="fas fa-users"></i> Projekty</li>
                 </a>
                 <ul class="dropdown users-dropdown">
-                    <a href="${pageContext.request.contextPath}/user/user-manager/add-user" class="backend-navigation-link" title="Dodaj nowy projekt">
+                    <a href="${pageContext.request.contextPath}/user/project-manager/add-project" class="backend-navigation-link" title="Dodaj nowy projekt">
                         <li><i class="fas fa-user-plus"></i> Dodaj nowy projekt</li>
                     </a>
                 </ul>
