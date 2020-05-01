@@ -44,7 +44,7 @@
         </div>
         <table class="data">
             <%
-                if(request.getAttribute("list") != null){
+                if(request.getAttribute("list") != null) {
                     ArrayList<Project> list = (ArrayList<Project>) request.getAttribute("list");
                     long i = 0;
 

@@ -1,7 +1,6 @@
 package dao;
 
 import objects.Project;
-import objects.Project;
 import util.DataConnect;
 
 import java.sql.Connection;
@@ -138,19 +137,19 @@ public class ProjectDAO {
         }
         return categoriesList;
     }
-    public static ArrayList<Project> getCategoriesListOfPattern(long startPosition, long amountPerPage, String searchByCategoryName, int searchOption) {
+    public static ArrayList<Project> getProjectsListOfPattern(long startPosition, long amountPerPage, String searchByTicketTitle, int searchOption) {
         Connection con = null;
         PreparedStatement ps = null;
         ArrayList<Project> categoriesList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM categories WHERE category_name LIKE ? ORDER BY category_id LIMIT ?, ?");
+            ps = con.prepareStatement("SELECT * FROM tickets WHERE category_name LIKE ? ORDER BY category_id LIMIT ?, ?");
             if(searchOption==1){
-                ps.setString(1, searchByCategoryName + "%");
+                ps.setString(1, searchByTicketTitle + "%");
             } else if(searchOption==3) {
-                ps.setString(1, "%" + searchByCategoryName);
+                ps.setString(1, "%" + searchByTicketTitle);
             } else {
-                ps.setString(1, "%" + searchByCategoryName + "%");
+                ps.setString(1, "%" + searchByTicketTitle + "%");
             }
             ps.setLong(2, startPosition);
             ps.setLong(3, amountPerPage);
