@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class ProjectManager extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long page, amountPerPage, amountOfProjects;
-        String deleteId, searchByProjectsTitle;
+        String deleteId, searchByProjectName;
         int searchOption;
 
         if(request.getParameter("page") == null){ page = 0; } else { page = Long.parseLong(request.getParameter("page")); }
@@ -30,13 +30,13 @@ public class ProjectManager extends HttpServlet {
         }
 
         // Zwraca inną listę użytkowników w zależności od tego czy zostało coś wpisane w szukajkę
-        if(request.getParameter("searchByProjectsTitle") != null){
-            searchByProjectsTitle = request.getParameter("searchByProjectsTitle");
-            ArrayList<Project> list = ProjectDAO.getProjectsListOfPattern(page*amountPerPage, amountPerPage, searchByProjectsTitle, searchOption);
+        if(request.getParameter("searchByProjectName") != null){
+            searchByProjectName = request.getParameter("searchByProjectName");
+            ArrayList<Project> list = ProjectDAO.getProjectsListOfPattern(page*amountPerPage, amountPerPage, searchByProjectName, searchOption);
 
-            amountOfProjects = ProjectDAO.amountOfProjectsOfPattern(searchByProjectsTitle, searchOption);
+            amountOfProjects = ProjectDAO.amountOfProjectsOfPattern(searchByProjectName, searchOption);
             request.setAttribute("searchOption", searchOption);
-            request.setAttribute("searchByProjectsTitle", searchByProjectsTitle);
+            request.setAttribute("searchByProjectName", searchByProjectName);
             request.setAttribute("list", list);
         } else {
             ArrayList<Project> list = ProjectDAO.getProjectsList(page*amountPerPage, amountPerPage);

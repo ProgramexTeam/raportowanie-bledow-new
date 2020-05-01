@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class TicketManager extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long page, amountPerPage, amountOfProducts;
-        String deleteId, searchByProductName;
+        String deleteId, searchByTicketName;
         int searchOption;
 
         if(request.getParameter("page") == null){ page = 0; } else { page = Long.parseLong(request.getParameter("page")); }
@@ -23,20 +23,20 @@ public class TicketManager extends HttpServlet {
         if(request.getParameter("searchOption") != null) { searchOption = Integer.parseInt(request.getParameter("searchOption")); } else { searchOption = 2; }
         if(request.getParameter("deleteId") != null){ deleteId = String.valueOf(request.getParameter("deleteId"));
             if(TicketDAO.deleteSingleProduct(deleteId)){
-                request.setAttribute("msg", "Pomyślnie usunięto produkt");
+                request.setAttribute("msg", "Pomyślnie usunięto ticket");
             } else {
-                request.setAttribute("msg", "Wystąpił problem w trakcie usuwania produktu");
+                request.setAttribute("msg", "Wystąpił problem w trakcie usuwania ticketu");
             }
         }
 
         // Zwraca inną listę użytkowników w zależności od tego czy zostało coś wpisane w szukajkę
-        if(request.getParameter("searchByProductName") != null){
-            searchByProductName = request.getParameter("searchByProductName");
-            ArrayList<Ticket> list = TicketDAO.getProductListOfPattern(page*amountPerPage, amountPerPage, searchByProductName, searchOption);
+        if(request.getParameter("searchByTicketName") != null){
+            searchByTicketName = request.getParameter("searchByTicketName");
+            ArrayList<Ticket> list = TicketDAO.getTicketsListOfPattern(page*amountPerPage, amountPerPage, searchByTicketName, searchOption);
 
-            amountOfProducts = TicketDAO.amountOfProductsOfPattern(searchByProductName, searchOption);
+            amountOfProducts = TicketDAO.amountOfTicketsOfPattern(searchByTicketName, searchOption);
             request.setAttribute("searchOption", searchOption);
-            request.setAttribute("searchByProductName", searchByProductName);
+            request.setAttribute("searchByTicketName", searchByTicketName);
             request.setAttribute("list", list);
         } else {
             ArrayList<Ticket> list = TicketDAO.getTicketList(page*amountPerPage, amountPerPage);
