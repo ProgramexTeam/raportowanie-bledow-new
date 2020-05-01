@@ -9,9 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-@SuppressWarnings({"SqlResolve", "SqlNoDataSourceInspection"})
+@SuppressWarnings({"SqlResolve", "SqlNoDataSourceInspection", "ConstantConditions"})
 public class ProjectDAO {
-    public static Project getCategory(long id) {
+    public static Project getProject(String id) {
         PreparedStatement ps = null;
         Connection con = null;
         Project project = null;
@@ -20,11 +20,11 @@ public class ProjectDAO {
             if (con != null) {
                 String sql = "SELECT * FROM categories WHERE caegory_id=?";
                 ps = con.prepareStatement(sql);
-                ps.setLong(1, id);
+                ps.setString(1, id);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     project = new Project(
-                            rs.getLong("category_id"),
+                            rs.getInt("category_id"),
                             rs.getString("category_name"),
                             rs.getString("category_url"));
                 }
@@ -102,7 +102,7 @@ public class ProjectDAO {
             ps.setLong(2, amount);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Project temp = new Project(rs.getLong("ID"),
+                Project temp = new Project(rs.getInt("ID"),
                         rs.getString("title"),
                         rs.getString("description"));
                 categoriesList.add(temp);
@@ -115,7 +115,7 @@ public class ProjectDAO {
         }
         return categoriesList;
     }
-    public static ArrayList<Project> getCategoriesList() {
+    public static ArrayList<Project> getProjectsList() {
         Connection con = null;
         PreparedStatement ps = null;
         ArrayList<Project> categoriesList = new ArrayList<>();
@@ -124,7 +124,7 @@ public class ProjectDAO {
             ps = con.prepareStatement("SELECT * FROM projects ORDER BY ID");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Project temp = new Project(rs.getLong("ID"),
+                Project temp = new Project(rs.getInt("ID"),
                         rs.getString("title"),
                         rs.getString("description"));
                 categoriesList.add(temp);
@@ -155,7 +155,7 @@ public class ProjectDAO {
             ps.setLong(3, amountPerPage);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Project temp = new Project(rs.getLong("ID"),
+                Project temp = new Project(rs.getInt("ID"),
                         rs.getString("title"),
                         rs.getString("description"));
                 categoriesList.add(temp);
@@ -171,7 +171,7 @@ public class ProjectDAO {
     public static boolean deleteSingleCategory(String deleteId) {
         Connection con = null;
         PreparedStatement ps = null;
-        if(checkIfCategoryExists(deleteId)) {
+        if(checkIfProjectExists(deleteId)) {
             try {
                 con = DataConnect.getConnection();
                 ps = con.prepareStatement("DELETE FROM categories WHERE category_id = ?");
@@ -196,13 +196,13 @@ public class ProjectDAO {
             return false;
         }
     }
-    public static boolean checkIfCategoryExists(String id) {
+    public static boolean checkIfProjectExists(String id) {
         Connection con = null;
         PreparedStatement ps = null;
 
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM categories WHERE category_id = ?");
+            ps = con.prepareStatement("SELECT * FROM projects WHERE ID = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -232,10 +232,9 @@ public class ProjectDAO {
             ps.setInt(1, projectId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                Project singleProject = new Project(rs.getLong("ID"),
+                return new Project(rs.getInt("ID"),
                         rs.getString("title"),
                         rs.getString("description"));
-                return singleProject;
             }
         } catch (SQLException ex) {
             System.out.println("Error while checking if product exists in db; ProjectDAO.getSingleProjectData() -->" + ex.getMessage());
@@ -271,8 +270,8 @@ public class ProjectDAO {
             } finally {
                 DataConnect.close(con);
                 if (ps != null) { try { ps.close(); } catch (SQLException ex) { System.out.println("Error while closing PreparedStatement; ProjectDAO.editGivenCategory() -->" + ex.getMessage()); } }
-                return true;
             }
+            return true;
         } else {
             return false;
         }
@@ -299,10 +298,9 @@ public class ProjectDAO {
                     DataConnect.close(con);
                 } catch (Exception ex) {
                     System.out.println("Adding product error when closing database connection or prepared statement; ProjectDAO.addCategory() -->" + ex.getMessage());
-                } finally {
-                    return true;
                 }
             }
+            return true;
         } else {
             System.out.println("All data must be delivered to this method; ProjectDAO.addCategory() -->");
             return false;

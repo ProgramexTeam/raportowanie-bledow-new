@@ -24,7 +24,7 @@
                 if(request.getAttribute("searchOption") != null){ searchOption = (int)request.getAttribute("searchOption"); } else { searchOption = 2; }
                 if(request.getAttribute("searchByTicketName") != null){ searchByTicketName = (String) request.getAttribute("searchByTicketName"); } else { searchByTicketName = ""; }
             %>
-            <form action="/user/ticket-manager" method="post">
+            <form action="${pageContext.request.contextPath}/user/ticket-manager" method="post">
                 <p>Ile ticketów na jedną stronę:
                     <select name="amountPerPage">
                         <option <% if(amountPerPage==5){ out.println("selected");} %>>5</option>
@@ -69,7 +69,7 @@
                             Project project = ProjectDAO.getSingleProjectData(ticket.getProject_id());
                             out.println("<tr class=\"ticket-row ticket-no-" + i + "\">" +
                                     "<td class=\"ticket-row-item ticket-edit\">" +
-                                    "<a href=\"" + request.getContextPath() + "/user/ticket-manager/edit-ticket?productId=" + ticket.getId() + "\">edytuj</a> / " +
+                                    "<a href=\"" + request.getContextPath() + "/user/ticket-manager/edit-ticket?ticketId=" + ticket.getId() + "\">edytuj</a> / " +
                                     "<a href=\"" + request.getContextPath() + "/user/ticket-manager?page=" + currentPage + "&amountPerPage=" + amountPerPage + "&searchOption=" + searchOption + "&searchByTicketName=" + searchByTicketName + "&deleteId=" + ticket.getId() + "\">usuń</a>" +
                                     "</td>" +
                                     "<td class=\"ticket-row-item ticket-name\">" + user.getUser_login() + "</td>" +

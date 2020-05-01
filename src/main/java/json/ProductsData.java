@@ -37,7 +37,7 @@ public class ProductsData extends HttpServlet {
         boolean isWhereInStatement = false;
 
         String statement = "SELECT * FROM products AS P LEFT JOIN categories AS C ON P.category_id = C.category_id";
-        ArrayList<Project> projectList = ProjectDAO.getCategoriesList();
+        ArrayList<Project> projectList = ProjectDAO.getProjectsList();
 
         for(Project project : projectList) {
             if(path!=null) {
@@ -146,7 +146,7 @@ public class ProductsData extends HttpServlet {
         boolean isWhereInStatement = false;
 
         String statement = "";
-        ArrayList<Project> projectList = ProjectDAO.getCategoriesList();
+        ArrayList<Project> projectList = ProjectDAO.getProjectsList();
 
         if(chosenCategory!=null) {
             for (Project project : projectList) {

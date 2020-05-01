@@ -13,7 +13,7 @@
             <% if(request.getAttribute("singleProject") != null) { Project singleProject = (Project) request.getAttribute("singleProject"); %>
             <form method="post" action="${pageContext.request.contextPath}/user/project-manager/edit-project">
                 <div class="input-row">
-                    <p class="input-element"><span>ID:</span> <br /> <input style="max-width: 70px" type="text" name="categoryId" value="<% out.print(singleProject.getId()); %>" title="Id nie może zostać zmienione" readonly></p>
+                    <p class="input-element"><span>ID:</span> <br /> <input style="max-width: 70px" type="text" name="projectId" value="<% out.print(singleProject.getId()); %>" title="Id nie może zostać zmienione" readonly></p>
                     <p class="input-element"><span>Nazwa kategorii:</span> <br /> <span style="font-size: 8px">Nazwa kategorii musi zawierać minimum 3 znaki.</span> <br />
                         <input type="text" name="category_name" pattern=".{3,}" value="<% out.print(singleProject.getTitle()); %>" title="Nazwa kategorii musi zawierać minimum 3 znaki" required></p>
                     <p class="input-element"><span>URL kategorii: </span> <br /> <span style="font-size: 8px">URL kategorii musi zawierać minimum 3 znaki. Dozwolone są wyłącznie małe litery i cyfry. Nie należy korzystać ze spacji. Zamiastego należy używać znaku: '-'.</span> <br />

@@ -28,17 +28,17 @@ public class AddTicket extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession(false);
         int author_id =  Integer.parseInt(session.getAttribute("user_id").toString());
-        int project_id = Integer.parseInt(request.getParameter("project_id"));
+        int projectId = Integer.parseInt(request.getParameter("projectId"));
         String status = request.getParameter("status");
         String title = request.getParameter("title");
         String description = request.getParameter("description");
 
-        if(project_id == -1){ request.setAttribute("msg", "Nie przypisano ticketu do projektu");
+        if(projectId == -1){ request.setAttribute("msg", "Nie przypisano ticketu do projektu");
         } else if(status == null){ request.setAttribute("msg", "Nie podano statusu ticketu");
         } else if(title == null){ request.setAttribute("msg", "Nie podano tytułu ticketu");
         } else if(description == null){ request.setAttribute("msg", "Nie podano opisu ticketu");
         } else {
-            boolean done = TicketDAO.addProduct(author_id, project_id, status, title, description);
+            boolean done = TicketDAO.addProduct(author_id, projectId, status, title, description);
             if(done) {
                 request.setAttribute("msg", "Pomyślnie dodano ticket do bazy");
             } else {

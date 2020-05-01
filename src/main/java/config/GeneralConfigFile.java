@@ -48,9 +48,8 @@ public class GeneralConfigFile {
             }
         } catch (Exception e) {
             System.out.println("Error while getting data config.xml; GeneralConfigFile.readConfigFile() ---> " + e.getMessage());
-        } finally {
-            return configuration;
         }
+        return configuration;
     }
     public void updateConfigFile(ServletContext context, HashMap<String, String> configuration, String pathToConfig){
         try {

@@ -18,10 +18,6 @@
             </div>
         </a>
         <div class="bottom-links">
-            <a href="${pageContext.request.contextPath}/polityka-prywatnosci">Polityka prywatności</a>
-            <span>---</span>
-            <a href="${pageContext.request.contextPath}/faq">FAQ</a>
-            <span>---</span>
             <a href="${pageContext.request.contextPath}/kontakt">Kontakt</a>
         </div>
     </div>

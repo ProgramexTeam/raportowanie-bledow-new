@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-@SuppressWarnings({"SqlResolve", "SqlNoDataSourceInspection"})
+@SuppressWarnings({"SqlResolve", "SqlNoDataSourceInspection", "ConstantConditions"})
 public class UserDAO {
     public static long amountOfUsers() {
         Connection con = null;
@@ -223,7 +223,7 @@ public class UserDAO {
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                User singleUser = new User(rs.getLong("ID"),
+                return new User(rs.getLong("ID"),
                         rs.getString("user_login"),
                         rs.getString("user_pass"),
                         rs.getString("first_name"),
@@ -231,7 +231,6 @@ public class UserDAO {
                         rs.getString("user_email"),
                         rs.getString("user_activation_key"),
                         rs.getString("user_role"));
-                return singleUser;
             }
         } catch (SQLException ex) {
             System.out.println("Error while checking if user exists in db; UserDAO.checkIfUserExists() -->" + ex.getMessage());
@@ -272,8 +271,8 @@ public class UserDAO {
             } finally {
                 DataConnect.close(con);
                 if (ps != null) { try { ps.close(); } catch (SQLException ex) { System.out.println("Error while closing PreparedStatement; UserDAO.editGivenUser() -->" + ex.getMessage()); } }
-                return true;
             }
+            return true;
         } else {
             return false;
         }

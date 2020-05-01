@@ -20,7 +20,7 @@
                 if(request.getAttribute("searchOption") != null){ searchOption = (int)request.getAttribute("searchOption"); } else { searchOption = 2; }
                 if(request.getAttribute("searchByCategoryName") != null){ searchByCategoryName = (String) request.getAttribute("searchByCategoryName"); } else { searchByCategoryName = ""; }
             %>
-            <form action="/user/project-manager" method="post">
+            <form action="${pageContext.request.contextPath}/user/project-manager" method="post">
                 <p>Ile projektów na jedną stronę:
                     <select name="amountPerPage">
                         <option <% if(amountPerPage==5){ out.println("selected");} %>>5</option>
@@ -59,7 +59,7 @@
                         for (Project project : list) {
                             out.println("<tr class=\"project-row ticket-no-" + i + "\">" +
                                     "<td class=\"project-row-item project-edit\">" +
-                                    "<a href=\"" + request.getContextPath() + "/user/project-manager/edit-project?categoryId=" + project.getId() + "\">edytuj</a> / " +
+                                    "<a href=\"" + request.getContextPath() + "/user/project-manager/edit-project?projectId=" + project.getId() + "\">edytuj</a> / " +
                                     "<a href=\"" + request.getContextPath() + "/user/project-manager?page=" + currentPage + "&amountPerPage=" + amountPerPage + "&searchOption=" + searchOption + "&searchByCategoryName=" + searchByCategoryName + "&deleteId=" + project.getId() + "\">usuń</a>" +
                                     "</td>" +
                                     "<td class=\"project-row-item project-name\">" + project.getTitle() + "</td>" +

@@ -12,24 +12,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-@SuppressWarnings({"SqlResolve", "SqlNoDataSourceInspection"})
+@SuppressWarnings({"SqlResolve", "SqlNoDataSourceInspection", "ConstantConditions"})
 public class TicketDAO {
-    public static Ticket getProduct(long id) {
+    public static Ticket getProduct(int id) {
         PreparedStatement ps = null;
         Connection con = null;
         Ticket ticket = null;
         try {
             con = DataConnect.getConnection();
             if (con != null) {
-                String sql = "SELECT * FROM tickets LEFT JOIN categories ON products.category_id = categories.category_id WHERE products.product_id=?";
+                String sql = "SELECT * FROM tickets LEFT JOIN categories ON products.category_ID = categories.category_ID WHERE products.product_ID=?";
                 ps = con.prepareStatement(sql);
-                ps.setLong(1, id);
+                ps.setInt(1, id);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     ticket = new Ticket(
-                            rs.getInt("ticket_id"),
-                            rs.getInt("author_id"),
-                            rs.getInt("project_id"),
+                            rs.getInt("ID"),
+                            rs.getInt("author_ID"),
+                            rs.getInt("project_ID"),
                             rs.getString("status"),
                             rs.getString("title"),
                             rs.getString("description"));
@@ -56,10 +56,10 @@ public class TicketDAO {
                 amount = rs.getLong("amount");
             }
         } catch (SQLException ex) {
-            System.out.println("Error while getting product data from db; TicketDAO.amountOfProducts() -->" + ex.getMessage());
+            System.out.println("Error while getting product data from db; TicketDAO.amountOfTickets() -->" + ex.getMessage());
         } finally {
             DataConnect.close(con);
-            try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; TicketDAO.amountOfProducts() -->" + ex.getMessage()); }
+            try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; TicketDAO.amountOfTickets() -->" + ex.getMessage()); }
         }
         return amount;
     }
@@ -124,21 +124,21 @@ public class TicketDAO {
         }
         return tickets;
     }
-    public static ArrayList<Ticket> getProductsListByCategory(long ticket_id, long startPosition, long amount) {
+    public static ArrayList<Ticket> getProductsListByCategory(String id, String startPosition, String amount) {
         Connection con = null;
         PreparedStatement ps = null;
         ArrayList<Ticket> productsList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM tikcets LEFT JOIN categories ON products.category_id = categories.category_id WHERE products.category_id = ? ORDER BY products.product_id LIMIT ?, ?");
-            ps.setLong(1, ticket_id);
-            ps.setLong(2, startPosition);
-            ps.setLong(3, amount);
+            ps = con.prepareStatement("SELECT * FROM tikcets LEFT JOIN categories ON products.category_ID = categories.category_ID WHERE products.category_ID = ? ORDER BY products.product_ID LIMIT ?, ?");
+            ps.setString(1, id);
+            ps.setString(2, startPosition);
+            ps.setString(3, amount);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Ticket temp = new Ticket(rs.getInt("ticket_id"),
-                        rs.getInt("author_id"),
-                        rs.getInt("project_id"),
+                Ticket temp = new Ticket(rs.getInt("ID"),
+                        rs.getInt("author_ID"),
+                        rs.getInt("project_ID"),
                         rs.getString("status"),
                         rs.getString("title"),
                         rs.getString("description"));
@@ -161,9 +161,9 @@ public class TicketDAO {
             ps = con.prepareStatement(statement);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Ticket temp = new Ticket(rs.getInt("ticket_id"),
-                        rs.getInt("author_id"),
-                        rs.getInt("project_id"),
+                Ticket temp = new Ticket(rs.getInt("ID"),
+                        rs.getInt("author_ID"),
+                        rs.getInt("project_ID"),
                         rs.getString("status"),
                         rs.getString("title"),
                         rs.getString("description"));
@@ -210,14 +210,14 @@ public class TicketDAO {
         ArrayList<Ticket> productsList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM tickets WHERE featured = ? ORDER BY product_id LIMIT ?");
+            ps = con.prepareStatement("SELECT * FROM tickets WHERE featured = ? ORDER BY product_ID LIMIT ?");
             ps.setBoolean(1, true);
             ps.setLong(2, amount);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Ticket temp = new Ticket(rs.getInt("ticket_id"),
-                        rs.getInt("author_id"),
-                        rs.getInt("project_id"),
+                Ticket temp = new Ticket(rs.getInt("ID"),
+                        rs.getInt("author_ID"),
+                        rs.getInt("project_ID"),
                         rs.getString("status"),
                         rs.getString("title"),
                         rs.getString("description"));
@@ -244,9 +244,9 @@ public class TicketDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 builder.add(Json.createObjectBuilder()
-                        .add("ticket_id", rs.getString("ticket_id"))
-                        .add("author_id", rs.getString("author_id"))
-                        .add("project_id", rs.getString("project_id"))
+                        .add("ID", rs.getInt("ID"))
+                        .add("author_ID", rs.getInt("author_ID"))
+                        .add("project_ID", rs.getInt("project_ID"))
                         .add("status", rs.getString("status"))
                         .add("title", rs.getString("title"))
                         .add("description", rs.getString("description")));
@@ -266,7 +266,7 @@ public class TicketDAO {
         ArrayList<Ticket> ticketList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM tickets LEFT JOIN categories ON products.category_id = categories.category_id WHERE products.product_name LIKE ? ORDER BY products.product_id LIMIT ?, ?");
+            ps = con.prepareStatement("SELECT * FROM tickets LEFT JOIN categories ON products.category_ID = categories.category_ID WHERE products.product_name LIKE ? ORDER BY products.product_ID LIMIT ?, ?");
             if(searchOption==1){
                 ps.setString(1, searchByProductName + "%");
             } else if(searchOption==3) {
@@ -278,9 +278,9 @@ public class TicketDAO {
             ps.setLong(3, amountPerPage);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Ticket temp = new Ticket(rs.getInt("ticket_id"),
-                        rs.getInt("author_id"),
-                        rs.getInt("project_id"),
+                Ticket temp = new Ticket(rs.getInt("ID"),
+                        rs.getInt("author_ID"),
+                        rs.getInt("project_ID"),
                         rs.getString("status"),
                         rs.getString("title"),
                         rs.getString("description"));
@@ -297,10 +297,10 @@ public class TicketDAO {
     public static boolean deleteSingleProduct(String deleteId) {
         Connection con = null;
         PreparedStatement ps = null;
-        if(checkIfProductExists(deleteId)) {
+        if(checkIfTicketExists(deleteId)) {
             try {
                 con = DataConnect.getConnection();
-                ps = con.prepareStatement("DELETE FROM tickets WHERE ticket_id = ?");
+                ps = con.prepareStatement("DELETE FROM tickets WHERE ID = ?");
                 ps.setString(1, deleteId);
                 ps.executeUpdate();
             } catch (SQLException ex) {
@@ -322,13 +322,13 @@ public class TicketDAO {
             return false;
         }
     }
-    public static boolean checkIfProductExists(String id) {
+    public static boolean checkIfTicketExists(String id) {
         Connection con = null;
         PreparedStatement ps = null;
 
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM tickets WHERE ticket_id = ?");
+            ps = con.prepareStatement("SELECT * FROM tickets WHERE ID = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -349,25 +349,24 @@ public class TicketDAO {
         }
         return false;
     }
-    public static Ticket getSingleProductData(String productId) {
+    public static Ticket getSingleTicketData(String id) {
         Connection con = null;
         PreparedStatement ps = null;
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM tickets LEFT JOIN categories ON products.category_id = categories.category_id WHERE products.product_id = ?");
-            ps.setString(1, productId);
+            ps = con.prepareStatement("SELECT * FROM tickets LEFT JOIN projects ON tickets.ID = projects.ID WHERE tickets.ID = ?");
+            ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                Ticket singleTicket = new Ticket(rs.getInt("ticket_id"),
-                        rs.getInt("author_id"),
-                        rs.getInt("project_id"),
+                return new Ticket(rs.getInt("ID"),
+                        rs.getInt("author_ID"),
+                        rs.getInt("project_ID"),
                         rs.getString("status"),
                         rs.getString("title"),
                         rs.getString("description"));
-                return singleTicket;
             }
         } catch (SQLException ex) {
-            System.out.println("Error while checking if product exists in db; TicketDAO.getSingleProductData() -->" + ex.getMessage());
+            System.out.println("Error while checking if product exists in db; TicketDAO.getSingleTicketData() -->" + ex.getMessage());
             return null;
         } finally {
             DataConnect.close(con);
@@ -375,84 +374,52 @@ public class TicketDAO {
                 try {
                     ps.close();
                 } catch (SQLException ex) {
-                    System.out.println("Error while closing PreparedStatement; TicketDAO.getSingleProductData() -->" + ex.getMessage());
+                    System.out.println("Error while closing PreparedStatement; TicketDAO.getSingleTicketData() -->" + ex.getMessage());
                 }
             }
         }
         return null;
     }
-    public static Ticket getSingleProductDataForCart(String ticketId, Integer quantity) {
-        Connection con = null;
-        PreparedStatement ps = null;
-        try {
-            con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM tickets LEFT JOIN categories ON products.category_id = categories.category_id WHERE products.product_id = ?");
-            ps.setString(1, ticketId);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                Ticket singleTicket = new Ticket(rs.getInt("ticket_id"),
-                        rs.getInt("author_id"),
-                        rs.getInt("project_id"),
-                        rs.getString("status"),
-                        rs.getString("title"),
-                        rs.getString("description"));
-                return singleTicket;
-            }
-        } catch (SQLException ex) {
-            System.out.println("Error while checking if product exists in db; TicketDAO.getSingleProductData() -->" + ex.getMessage());
-            return null;
-        } finally {
-            DataConnect.close(con);
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException ex) {
-                    System.out.println("Error while closing PreparedStatement; TicketDAO.getSingleProductData() -->" + ex.getMessage());
-                }
-            }
-        }
-        return null;
-    }
-    public static boolean editGivenProduct(int ticket_id, int author_id, int project_id, String status, String title, String description) {
-        if (author_id != -1 || project_id != -1) {
+      public static boolean editGivenTicket(int ID, int author_ID, int project_ID, String status, String title, String description) {
+        if (author_ID != -1 || project_ID != -1) {
             PreparedStatement ps = null;
             Connection con = null;
 
             try {
                 con = DataConnect.getConnection();
                 if (con != null) {
-                    ps = con.prepareStatement("UPDATE tickets SET author_id = ?, project_id = ?, status = ?, title = ?" +
-                            " description = ? WHERE ticket_id = ? ");
-                    ps.setInt(1, author_id);
-                    ps.setInt(2, project_id);
+                    ps = con.prepareStatement("UPDATE tickets SET author_ID = ?, project_ID = ?, status = ?, title = ?," +
+                            " description = ? WHERE ID = ? ");
+                    ps.setInt(1, author_ID);
+                    ps.setInt(2, project_ID);
                     ps.setString(3, status);
                     ps.setString(4, title);
                     ps.setString(5, description);
-                    ps.setInt(6, ticket_id);
+                    ps.setInt(6, ID);
                     ps.executeUpdate();
                 }
             } catch (Exception ex) {
-                System.out.println("Error while updating user data; TicketDAO.editGivenProduct() -->" + ex.getMessage());
+                System.out.println("Error while updating user data; TicketDAO.editGivenTickets() -->" + ex.getMessage());
             } finally {
                 DataConnect.close(con);
-                if (ps != null) { try { ps.close(); } catch (SQLException ex) { System.out.println("Error while closing PreparedStatement; TicketDAO.editGivenProduct() -->" + ex.getMessage()); } }
-                return true;
+                if (ps != null) { try { ps.close(); } catch (SQLException ex) { System.out.println("Error while closing PreparedStatement; TicketDAO.editGivenTickets() -->" + ex.getMessage()); } }
             }
+            return true;
         } else {
             return false;
         }
     }
-    public static boolean addProduct(int author_id, int project_id, String status, String title, String description) {
-        if (author_id != -1 || project_id != -1) {
+    public static boolean addProduct(int author_ID, int project_ID, String status, String title, String description) {
+        if (author_ID != -1 || project_ID != -1) {
             PreparedStatement ps = null;
             Connection con = null;
             try {
                 con = DataConnect.getConnection();
                 if (con != null) {
-                    ps = con.prepareStatement("INSERT INTO tickets (author_id, project_id, status, title, " +
+                    ps = con.prepareStatement("INSERT INTO tickets (author_ID, project_ID, status, title, " +
                             "description) VALUES(?,?,?,?,?)");
-                    ps.setInt(1, author_id);
-                    ps.setInt(2, project_id);
+                    ps.setInt(1, author_ID);
+                    ps.setInt(2, project_ID);
                     ps.setString(3, status);
                     ps.setString(4, title);
                     ps.setString(5, description);
@@ -468,10 +435,9 @@ public class TicketDAO {
                     DataConnect.close(con);
                 } catch (Exception ex) {
                     System.out.println("Adding product error when closing database connection or prepared statement; TicketDAO.addProduct() -->" + ex.getMessage());
-                } finally {
-                    return true;
                 }
             }
+            return true;
         } else {
             System.out.println("All data must be delivered to this method; TicketDAO.addProduct() -->");
             return false;

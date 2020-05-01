@@ -14,15 +14,15 @@ import java.io.IOException;
 public class EditProject extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        String categoryId;
-        if(request.getParameter("categoryId")!=null) {
-            categoryId = request.getParameter("categoryId");
+        String projectId;
+        if(request.getParameter("projectId")!=null) {
+            projectId = request.getParameter("projectId");
         } else {
-            categoryId = (String) request.getAttribute("categoryId");
+            projectId = (String) request.getAttribute("projectId");
         }
-        if(ProjectDAO.checkIfCategoryExists(categoryId)){
-            Project singleProject = ProjectDAO.getSingleProjectData(Integer.parseInt(categoryId));
-            request.setAttribute("singleCategory", singleProject);
+        if(ProjectDAO.checkIfProjectExists(projectId)){
+            Project singleProject = ProjectDAO.getSingleProjectData(Integer.parseInt(projectId));
+            request.setAttribute("singleProject", singleProject);
         }
 
         request.getRequestDispatcher("/WEB-INF/user/edit-project.jsp").forward(request, response);
@@ -30,17 +30,17 @@ public class EditProject extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        String categoryId = request.getParameter("categoryId");
-        request.setAttribute("categoryId", categoryId);
+        String projectId = request.getParameter("projectId");
+        request.setAttribute("projectId", projectId);
         String category_name = request.getParameter("category_name");
         String category_url = request.getParameter("category_url");
 
-        if(categoryId == null){ request.setAttribute("msg", "Nie rozpoznano id edytowanej kategorii. Spróbuj ponownie wyszukać kategorię " +
+        if(projectId == null){ request.setAttribute("msg", "Nie rozpoznano id edytowanej kategorii. Spróbuj ponownie wyszukać kategorię " +
                 "w menadżerze kategorii i zedytuj jej dane jeszcze raz.");
         } else if(category_name == null){ request.setAttribute("msg", "Nie podano nazwy kategorii");
         } else if(category_url == null){ request.setAttribute("msg", "Nie podano url kategorii");
         } else {
-            boolean done = ProjectDAO.editGivenCategory(categoryId, category_name, category_url);
+            boolean done = ProjectDAO.editGivenCategory(projectId, category_name, category_url);
             if(done){
                 request.setAttribute("msg", "Pomyślnie zedytowano kategorię");
             } else {

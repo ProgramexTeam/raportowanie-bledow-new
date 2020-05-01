@@ -1,11 +1,11 @@
 package objects;
 
 public class Project {
-    private long id;
+    private int id;
     private String title;
     private String description;
 
-    public Project(long id, String title, String description) {
+    public Project(int id, String title, String description) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -18,7 +18,7 @@ public class Project {
     public long getId() {
         return id;
     }
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
     public String getTitle() {

@@ -30,7 +30,7 @@
                 <div class="right-content">
                     <h4><% out.print(p.getTitle()); %></h4>
                     <div class="add-to-cart-form">
-                        <form action="/portal/produkt?id=<% out.print(p.getId()); %>" method="post">
+                        <form action="${pageContext.request.contextPath}/portal/ticket?id=<% out.print(p.getId()); %>" method="post">
                         </form>
                     </div>
                     <div class="down-content">
@@ -63,7 +63,7 @@
                 <div class="owl-carousel owl-theme">
                     <%  ArrayList<Ticket> lista = TicketDAO.getFeaturedProductsList(10);
                         for (Ticket produkt: lista) { %>
-                    <a href="${pageContext.request.contextPath}/portal/produkt?id=<% out.print(produkt.getId()); %>">
+                    <a href="${pageContext.request.contextPath}/portal/ticket?id=<% out.print(produkt.getId()); %>">
                     </a>
                     <% } %>
                 </div>

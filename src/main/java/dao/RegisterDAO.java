@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@SuppressWarnings({"SqlResolve", "SqlNoDataSourceInspection"})
+@SuppressWarnings({"SqlResolve", "SqlNoDataSourceInspection", "ConstantConditions"})
 public class RegisterDAO {
     public static String getAlphaNumericString(int n) {
         String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -110,10 +110,9 @@ public class RegisterDAO {
                     DataConnect.close(con);
                 } catch (Exception ex) {
                     System.out.println("Registration error when closing database connection or prepared statement; RegisterDAO.addUser() -->" + ex.getMessage());
-                } finally {
-                    return true;
                 }
             }
+            return true;
         } else {
             System.out.println("All data must be delivered to this method; RegisterDAO.addUser() -->");
             return false;
@@ -143,10 +142,9 @@ public class RegisterDAO {
                     DataConnect.close(con);
                 } catch (Exception ex) {
                     System.out.println("Registration error when closing database connection or prepared statement; RegisterDAO.addUser() -->" + ex.getMessage());
-                } finally {
-                    return true;
                 }
             }
+            return true;
         } else {
             System.out.println("All data must be delivered to this method; RegisterDAO.addUser() -->");
             return false;

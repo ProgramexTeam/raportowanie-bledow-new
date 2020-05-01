@@ -3,7 +3,6 @@ package pages;
 
 import dao.TicketDAO;
 import objects.Ticket;
-import util.ConstantValues;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,15 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Map;
 
 @WebServlet("/portal/ticket")
 public class SingleTicket extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String id = request.getParameter("id");
-            Ticket ticket = TicketDAO.getSingleProductData(id);
+            Ticket ticket = TicketDAO.getSingleTicketData(id);
             if (ticket != null) {
                 request.setAttribute("ticket", ticket);
                 request.getRequestDispatcher("/WEB-INF/pages/single-ticket.jsp").forward(request, response);

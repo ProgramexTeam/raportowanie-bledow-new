@@ -10,7 +10,7 @@ public class DataConnect {
     private final static String DBPASS = "12345678";
     private final static String DBDRIVER = "com.mysql.cj.jdbc.Driver";
 
-    private static ArrayBlockingQueue<Integer> queue = new ArrayBlockingQueue<>(5);
+    private static final ArrayBlockingQueue<Integer> queue = new ArrayBlockingQueue<>(5);
     public static Connection getConnection() {
         try {
             queue.put(1);

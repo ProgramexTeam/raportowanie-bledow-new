@@ -48,9 +48,8 @@ public class HomePageConfigFile {
             }
         } catch (Exception e) {
             System.out.println("Error while getting data homepage-config.xml; HomePageConfigFile.readConfigFile() ---> " + e.getMessage());
-        } finally {
-            return configuration;
         }
+        return configuration;
     }
     public void updateConfigFile(ServletContext context, HashMap<String, String> configuration, String pathToConfig){
         try {
