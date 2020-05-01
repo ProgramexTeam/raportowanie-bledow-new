@@ -73,7 +73,5 @@
 </div>
 <!-- Koniec podobnych pozycji -->
 
-<!-- Formularz do subskrypcji -->
-<jsp:include page="/WEB-INF/parts/subscribe-form.jsp"/>
 <!-- Stopka -->
 <jsp:include page="/WEB-INF/parts/overall-footer.jsp"/>

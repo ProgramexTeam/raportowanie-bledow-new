@@ -40,7 +40,5 @@
     </div>
     <!-- Koniec zawartości strony -->
 
-    <!-- Formularz do subskrypcji -->
-	<jsp:include page="/WEB-INF/parts/subscribe-form.jsp"/>
     <!-- Stopka -->
     <jsp:include page="/WEB-INF/parts/overall-footer.jsp"/>

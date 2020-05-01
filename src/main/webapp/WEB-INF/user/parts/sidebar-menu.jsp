@@ -9,7 +9,7 @@
                 <li class="backend-navigation-element"><i class="fas fa-igloo"></i> Backend Home</li>
             </a>
             <div class="users-link">
-                <a href="${pageContext.request.contextPath}/user/user-manager" class="backend-navigation-link" title="Przejdź do menadżera użytkowników">
+                <a href="${pageContext.request.contextPath}/user/user-manager" class="backend-navigation-link" title="Przejdź do menadżera projektów">
                     <li class="backend-navigation-element"><i class="fas fa-users"></i> Projekty</li>
                 </a>
                 <ul class="dropdown users-dropdown">
@@ -22,7 +22,7 @@
                 <li class="backend-navigation-element"><i class="fas fa-cogs"></i> Ustawienia główne</li>
             </a>
             <div class="products-link">
-                <a href="${pageContext.request.contextPath}/user/ticket-manager" class="backend-navigation-link" title="Przejdź do menadżera produktów">
+                <a href="${pageContext.request.contextPath}/user/ticket-manager" class="backend-navigation-link" title="Przejdź do menadżera ticketów">
                     <li class="backend-navigation-element"><i class="fas fa-shopping-cart"></i> Tickety</li>
                 </a>
                 <ul class="dropdown ticket-dropdown">
