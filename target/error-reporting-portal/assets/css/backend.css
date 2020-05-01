@@ -82,14 +82,14 @@ body {
 }
 
 /* kolorystyka menadżera uzytkowników */
-.category-manager .backend-page-title, .category-manager .data .category-list-header-item, .category-manager .pages-list a:hover div,
-.category-manager .pages-list .pagination-active, .category-manager .submit-element input[type=submit] {
+.ticket-manager .backend-page-title, .ticket-manager .data .category-list-header-item, .ticket-manager .pages-list a:hover div,
+.ticket-manager .pages-list .pagination-active, .ticket-manager .submit-element input[type=submit] {
     background-color: #e4d27a;
 }
-.category-manager .pages-list a div {
+.ticket-manager .pages-list a div {
     border-color: #e4d27a;
 }
-.category-manager .submit-element input[type=submit]:hover {
+.ticket-manager .submit-element input[type=submit]:hover {
     background-color: #ede0a4;
 }
 
@@ -326,7 +326,7 @@ body .data tbody .category-row:nth-child(even) {
     box-sizing: border-box;
 }
 .user-manager .input-element, .product-manager .input-element,
-.media-manager .input-element, .category-manager .input-element {
+.media-manager .input-element, .ticket-manager .input-element {
     display: inline-block;
 }
 
