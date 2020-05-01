@@ -63,7 +63,7 @@ public class TicketDAO {
         }
         return amount;
     }
-    public static long amountOfProductsOfPattern(String pattern, int searchOption) {
+    public static long amountOfTicketsOfPattern(String pattern, int searchOption) {
         Connection con = null;
         long amount = 0;
         PreparedStatement ps = null;
@@ -260,7 +260,7 @@ public class TicketDAO {
         }
         return productsList;
     }
-    public static ArrayList<Ticket> getProductListOfPattern(long startPosition, long amountPerPage, String searchByProductName, int searchOption) {
+    public static ArrayList<Ticket> getTicketsListOfPattern(long startPosition, long amountPerPage, String searchByProductName, int searchOption) {
         Connection con = null;
         PreparedStatement ps = null;
         ArrayList<Ticket> ticketList = new ArrayList<>();

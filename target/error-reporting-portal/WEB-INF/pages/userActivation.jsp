@@ -17,17 +17,13 @@
     <div class="content">
         <h1>Aktywacja konta zakończona powodzeniem!</h1>
         <img class="email-image" src="${pageContext.request.contextPath}/assets/images/mail-activation-tick.png" />
-        <p>Twój email został potwierdzony. Oznacza to, że możesz już bez problemu zalogować się na swoje nowe konto i rozpocząć zakupy. W razie pytań możesz skontaktować się z nami mailowo: <a href="mailto:kontakt@monopolowy24h.pl">kontakt@monopolowy24h.pl</a> lub telefonicznie: <a href="tel:+48123456789">+48 123 456 789</p>
+        <p>Twój email został potwierdzony. Oznacza to, że możesz już bez problemu zalogować się na swoje nowe konto i rozpocząć zakupy. W razie pytań możesz skontaktować się z nami mailowo: <a href="mailto:kontakt@monopolowy24h.pl">kontakt@monopolowy24h.pl</a> lub telefonicznie: <a href="tel:+48123456789">+48 123 456 789</a></p>
         <a href="${pageContext.request.contextPath}/login" title="Naciśnij aby przejść do logowania">
             <div class="button-go-to-login">
                 <span>Przejdź do logowania</span>
             </div>
         </a>
         <div class="bottom-links">
-            <a href="${pageContext.request.contextPath}/polityka-prywatnosci">Polityka prywatności</a>
-            <span>---</span>
-            <a href="${pageContext.request.contextPath}/faq">FAQ</a>
-            <span>---</span>
             <a href="${pageContext.request.contextPath}/kontakt">Kontakt</a>
         </div>
     </div>
@@ -41,17 +37,13 @@
     <div class="content">
         <h1>Ups! Coś poszło nie tak...</h1>
         <img class="email-image" src="${pageContext.request.contextPath}/assets/images/mail-activation-cross.png" />
-        <p>Weryfikacja maila nie przebiegła zgodnie z planem. Link aktywujący jest niepoprawny. Spróbuj wysłać link aktywujący ponownie. Aby to zrobić zaloguj się na swoje nieaktywne konto i kliknij przycisk "Wyślij ponownie". W razie pytań możesz skontaktować się z nami mailowo: <a href="mailto:kontakt@monopolowy24h.pl">kontakt@monopolowy24h.pl</a> lub telefonicznie: <a href="tel:+48123456789">+48 123 456 789</p>
+        <p>Weryfikacja maila nie przebiegła zgodnie z planem. Link aktywujący jest niepoprawny. Spróbuj wysłać link aktywujący ponownie. Aby to zrobić zaloguj się na swoje nieaktywne konto i kliknij przycisk "Wyślij ponownie". W razie pytań możesz skontaktować się z nami mailowo: <a href="mailto:kontakt@monopolowy24h.pl">kontakt@monopolowy24h.pl</a> lub telefonicznie: <a href="tel:+48123456789">+48 123 456 789</a></p>
         <a href="${pageContext.request.contextPath}/login" title="Naciśnij aby przejść do logowania">
             <div class="button-go-to-login">
                 <span>Przejdź do logowania</span>
             </div>
         </a>
         <div class="bottom-links">
-            <a href="${pageContext.request.contextPath}/polityka-prywatnosci">Polityka prywatności</a>
-            <span>---</span>
-            <a href="${pageContext.request.contextPath}/faq">FAQ</a>
-            <span>---</span>
             <a href="${pageContext.request.contextPath}/kontakt">Kontakt</a>
         </div>
     </div>

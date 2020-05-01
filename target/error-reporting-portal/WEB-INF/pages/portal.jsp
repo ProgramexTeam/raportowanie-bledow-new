@@ -50,7 +50,7 @@
                         <input type="hidden" id="chosenCategory" name="chosenCategory" value="">
                         <ul class="categories-list">
                             <li class="project-button project-button-0 all-categories"><button onclick="changeCategory(null, 'project-button-0')">Wszystko</button></li>
-                            <% ArrayList<Project> projectList = ProjectDAO.getCategoriesList();
+                            <% ArrayList<Project> projectList = ProjectDAO.getProjectsList();
                                 for(Project project : projectList) { %>
                             <li class="project-button project-button-<% out.print(project.getId()); %>"><button onclick="changeCategory('<% out.print(project.getDescription()); %>', 'project-button-<% out.print(project.getId()); %>')"><% out.print(project.getTitle()); %></button></li>
                             <% } %>
@@ -61,10 +61,10 @@
                         <input type="hidden" id="ChosenLayout" value="2">
                         <div class="styles-row">
                             <button class="style-button col-md-4" id="style-1" onclick="changeStyle(1, 'style-1');">
-                                <img src="/assets/images/simple.png" alt="Style - simple">
+                                <img src="${pageContext.request.contextPath}/assets/images/simple.png" alt="Style - simple">
                                 <div class="tooltip-content">
                                     <div class="tooltip-header">
-                                        <img src="/assets/images/simple.png" alt="Style - simple">
+                                        <img src="${pageContext.request.contextPath}/assets/images/simple.png" alt="Style - simple">
                                     </div>
                                     <div class="tooltip-body">
                                         <p>Styl prosty - jedna kolumna produktów wraz z opisem.</p>
@@ -72,10 +72,10 @@
                                 </div>
                             </button>
                             <button class="style-button col-md-4" id="style-2" onclick="changeStyle(2, 'style-2');">
-                                <img src="/assets/images/grid-3-elements.png" alt="Style - grid 3 columns">
+                                <img src="${pageContext.request.contextPath}/assets/images/grid-3-elements.png" alt="Style - grid 3 columns">
                                 <div class="tooltip-content">
                                     <div class="tooltip-header">
-                                        <img src="/assets/images/grid-3-elements.png" alt="Style - grid 3 columns">
+                                        <img src="${pageContext.request.contextPath}/assets/images/grid-3-elements.png" alt="Style - grid 3 columns">
                                     </div>
                                     <div class="tooltip-body">
                                         <p>Siatka - trzy kolumny. Brak opisów produktów.</p>
@@ -83,10 +83,10 @@
                                 </div>
                             </button>
                             <button class="style-button col-md-4" id="style-3" onclick="changeStyle(3, 'style-3');">
-                                <img src="/assets/images/grid-4-elements.png" alt="Style - grid 4 columns">
+                                <img src="${pageContext.request.contextPath}/assets/images/grid-4-elements.png" alt="Style - grid 4 columns">
                                 <div class="tooltip-content">
                                     <div class="tooltip-header">
-                                        <img src="/assets/images/grid-4-elements.png" alt="Style - grid 4 columns">
+                                        <img src="${pageContext.request.contextPath}/assets/images/grid-4-elements.png" alt="Style - grid 4 columns">
                                     </div>
                                     <div class="tooltip-body">
                                         <p>Siatka - cztery kolumny. Brak opisów produktów.</p>
