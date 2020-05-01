@@ -37,34 +37,34 @@ public class ProjectDAO {
         }
         return project;
     }
-    public static long amountOfCategories() {
+    public static long amountOfProjects() {
         Connection con = null;
         long amount = 0;
         PreparedStatement ps = null;
 
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT COUNT(*) AS `amount` FROM categories");
+            ps = con.prepareStatement("SELECT COUNT(*) AS `amount` FROM projects");
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 amount = rs.getLong("amount");
             }
         } catch (SQLException ex) {
-            System.out.println("Error while getting product data from db; ProjectDAO.amountOfCategories() -->" + ex.getMessage());
+            System.out.println("Error while getting project data from db; ProjectDAO.amountOfProjects() -->" + ex.getMessage());
         } finally {
             DataConnect.close(con);
-            try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; ProjectDAO.amountOfCategories() -->" + ex.getMessage()); }
+            try { ps.close(); } catch (Exception ex) { System.out.println("Project delete error when closing database connection or prepared statement; ProjectDAO.amountOfProjects() -->" + ex.getMessage()); }
         }
         return amount;
     }
-    public static long amountOfCategoriesOfPattern(String pattern, int searchOption) {
+    public static long amountOfProjectsOfPattern(String pattern, int searchOption) {
         Connection con = null;
         long amount = 0;
         PreparedStatement ps = null;
 
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT COUNT(*) AS `amount` FROM categories WHERE category_name LIKE ?");
+            ps = con.prepareStatement("SELECT COUNT(*) AS `amount` FROM projects WHERE title LIKE ?");
             if(searchOption==1){
                 ps.setString(1, pattern + "%"); //zaczyna się na
             } else if(searchOption==3) {
@@ -78,20 +78,20 @@ public class ProjectDAO {
                 amount = rs.getLong("amount");
             }
         } catch (SQLException ex) {
-            System.out.println("Error while getting products data from db; ProjectDAO.amountOfCategoriesOfPattern() -->" + ex.getMessage());
+            System.out.println("Error while getting projects data from db; ProjectDAO.amountOfProjectsOfPattern() -->" + ex.getMessage());
         } finally {
             DataConnect.close(con);
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException ex) {
-                    System.out.println("Error while closing PreparedStatement; ProjectDAO.amountOfCategoriesOfPattern() -->" + ex.getMessage());
+                    System.out.println("Error while closing PreparedStatement; ProjectDAO.amountOfProjectsOfPattern() -->" + ex.getMessage());
                 }
             }
         }
         return amount;
     }
-    public static ArrayList<Project> getCategoriesList(long startPosition, long amount) {
+    public static ArrayList<Project> getProjectsList(long startPosition, long amount) {
         Connection con = null;
         PreparedStatement ps = null;
         ArrayList<Project> categoriesList = new ArrayList<>();
@@ -108,10 +108,10 @@ public class ProjectDAO {
                 categoriesList.add(temp);
             }
         } catch (SQLException ex) {
-            System.out.println("Error while getting products data from db; ProjectDAO.getCategoriesList() -->" + ex.getMessage());
+            System.out.println("Error while getting products data from db; ProjectDAO.getProjectsList() -->" + ex.getMessage());
         } finally {
             DataConnect.close(con);
-            try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; ProjectDAO.getCategoriesList() -->" + ex.getMessage()); }
+            try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; ProjectDAO.getProjectsList() -->" + ex.getMessage()); }
         }
         return categoriesList;
     }
@@ -143,7 +143,7 @@ public class ProjectDAO {
         ArrayList<Project> categoriesList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM tickets WHERE category_name LIKE ? ORDER BY category_id LIMIT ?, ?");
+            ps = con.prepareStatement("SELECT * FROM tickets WHERE title LIKE ? ORDER BY ID DESC LIMIT ?, ?");
             if(searchOption==1){
                 ps.setString(1, searchByTicketTitle + "%");
             } else if(searchOption==3) {
@@ -155,16 +155,16 @@ public class ProjectDAO {
             ps.setLong(3, amountPerPage);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Project temp = new Project(rs.getLong("category_id"),
-                        rs.getString("category_name"),
-                        rs.getString("category_url"));
+                Project temp = new Project(rs.getLong("ID"),
+                        rs.getString("title"),
+                        rs.getString("description"));
                 categoriesList.add(temp);
             }
         } catch (SQLException ex) {
-            System.out.println("Error while getting products data from db; ProjectDAO.getCategoriesListOfPattern() -->" + ex.getMessage());
+            System.out.println("Error while getting projects data from db; ProjectDAO.getProjectsListOfPattern() -->" + ex.getMessage());
         } finally {
             DataConnect.close(con);
-            if (ps != null) { try { ps.close(); } catch (SQLException ex) { System.out.println("Error while closing PreparedStatement; ProjectDAO.getCategoriesListOfPattern() -->" + ex.getMessage()); } }
+            if (ps != null) { try { ps.close(); } catch (SQLException ex) { System.out.println("Error while closing PreparedStatement; ProjectDAO.getProjectsListOfPattern() -->" + ex.getMessage()); } }
         }
         return categoriesList;
     }
