@@ -26,7 +26,7 @@ public class AddUser extends HttpServlet {
         } else {
             boolean done = RegisterDAO.addProject(title, description, user_id);
             if(done) {
-                request.setAttribute("msg", "Pomyślnie dodano użytkownika do bazy");
+                request.setAttribute("msg", "Pomyślnie dodano projekt do bazy");
             } else {
                 request.setAttribute("msg", "Wystąpił problem w trakcie dodawania uzytkownika do bazy, spróbuj ponownie, albo zweryfikuj logi serwera");
             }
