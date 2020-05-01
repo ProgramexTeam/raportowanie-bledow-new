@@ -52,7 +52,7 @@
                             <li class="project-button project-button-0 all-categories"><button onclick="changeCategory(null, 'project-button-0')">Wszystko</button></li>
                             <% ArrayList<Project> projectList = ProjectDAO.getCategoriesList();
                                 for(Project project : projectList) { %>
-                            <li class="project-button project-button-<% out.print(project.getId()); %>"><button onclick="changeCategory('<% out.print(project.getCategoryURL()); %>', 'project-button-<% out.print(project.getId()); %>')"><% out.print(project.getCategoryName()); %></button></li>
+                            <li class="project-button project-button-<% out.print(project.getId()); %>"><button onclick="changeCategory('<% out.print(project.getDescription()); %>', 'project-button-<% out.print(project.getId()); %>')"><% out.print(project.getTitle()); %></button></li>
                             <% } %>
                         </ul>
                     </div>

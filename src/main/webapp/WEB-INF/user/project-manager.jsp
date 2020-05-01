@@ -6,22 +6,22 @@
 <!-- Nawigacja sidebar -->
 <jsp:include page="/WEB-INF/user/parts/sidebar-menu.jsp"/>
 <!-- Kontent -->
-<div class="content project-manager">
+<div class="content user-manager">
     <div class="content-inside">
-        <h1 class="backend-page-title"><i class="fas fa-tag"></i> Menadżer kategorii</h1>
+        <h1 class="backend-page-title"> Menadżer projektów</h1>
         <p class="info-msg"><% if(request.getAttribute("msg") != null){ out.println(request.getAttribute("msg")); request.setAttribute("msg", null); } %></p>
         <div class="filters">
             <%
                 int amountPerPage, currentPage, searchOption;
                 String searchByCategoryName;
-                if(request.getAttribute("amountOfCategories") != null) { out.println("<p>Ilość kategorii spełniających wymagania: " + request.getAttribute("amountOfCategories") + "</p>"); }
+                if(request.getAttribute("amountOfCategories") != null) { out.println("<p>Ilość projektów spełniających wymagania: " + request.getAttribute("amountOfCategories") + "</p>"); }
                 if(request.getAttribute("amountPerPage") != null){ amountPerPage = (int)((long)request.getAttribute("amountPerPage")); } else { amountPerPage = 0; }
                 if(request.getAttribute("currentPage") != null){ currentPage = (int)((long)request.getAttribute("currentPage")); } else { currentPage = 0; }
                 if(request.getAttribute("searchOption") != null){ searchOption = (int)request.getAttribute("searchOption"); } else { searchOption = 2; }
                 if(request.getAttribute("searchByCategoryName") != null){ searchByCategoryName = (String) request.getAttribute("searchByCategoryName"); } else { searchByCategoryName = ""; }
             %>
             <form action="/user/project-manager" method="post">
-                <p>Ile kategorii na jedną stronę:
+                <p>Ile projektów na jedną stronę:
                     <select name="amountPerPage">
                         <option <% if(amountPerPage==5){ out.println("selected");} %>>5</option>
                         <option <% if(amountPerPage==10){ out.println("selected");} %>>10</option>
@@ -32,7 +32,7 @@
                             out.println("<option selected>" + amountPerPage + "</option>");
                         } %>
                     </select></p>
-                <p>Wyszukaj kategorie o nazwie, która
+                <p>Wyszukaj projekty o nazwie, która
                     <select name="searchOption">
                         <option value="1" <% if(searchOption==1){ out.println("selected");} %>>zaczyna się na</option>
                         <option value="2" <% if(searchOption==2){ out.println("selected");} %>>zawiera</option>
@@ -51,8 +51,7 @@
                     out.println("<thead>" +
                             "<tr class=\"project-list-header\">" +
                             "<td class=\"project-list-header-item project-edit\">edytuj / usuń</td>" +
-                            "<td class=\"project-list-header-item project-name\">Nazwa</td>" +
-                            "<td class=\"project-list-header-item project-url\">URL</td>" +
+                            "<td class=\"project-list-header-item project-name\">Tytuł</td>" +
                             "</tr>" +
                             "</thead>" +
                             "<tbody>");
@@ -63,8 +62,7 @@
                                     "<a href=\"" + request.getContextPath() + "/user/project-manager/edit-project?categoryId=" + project.getId() + "\">edytuj</a> / " +
                                     "<a href=\"" + request.getContextPath() + "/user/project-manager?page=" + currentPage + "&amountPerPage=" + amountPerPage + "&searchOption=" + searchOption + "&searchByCategoryName=" + searchByCategoryName + "&deleteId=" + project.getId() + "\">usuń</a>" +
                                     "</td>" +
-                                    "<td class=\"project-row-item project-name\">" + project.getCategoryName() + "</td>" +
-                                    "<td class=\"project-row-item project-url\">/" + project.getCategoryURL() + "</td>" +
+                                    "<td class=\"project-row-item project-name\">" + project.getTitle() + "</td>" +
                                     "</tr>");
                             i++;
                         }

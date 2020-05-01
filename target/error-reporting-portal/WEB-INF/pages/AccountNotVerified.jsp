@@ -18,7 +18,6 @@
                 <input type="hidden" name="authkey" value="<% out.println(session.getAttribute("user_activation_key")); %>">
                 <input type="submit" class="submit-resend-activation-email" value="Wyślij ponownie link aktywacyjny">
             </form>
-            <a href="${pageContext.request.contextPath}/faq" class="theme-button-link"><span class="theme-button">FAQ</span></a>
             <a href="${pageContext.request.contextPath}/kontakt" class="theme-button-link"><span class="theme-button">Kontakt</span></a>
         </div>
     </div>

@@ -7,8 +7,6 @@ import com.google.gson.JsonObject;
 import dao.ProjectDAO;
 import dao.TicketDAO;
 import objects.Project;
-import objects.Project;
-import objects.Ticket;
 import objects.Ticket;
 
 import javax.json.JsonArray;
@@ -43,9 +41,9 @@ public class ProductsData extends HttpServlet {
 
         for(Project project : projectList) {
             if(path!=null) {
-                if (path.equals("/" + project.getCategoryURL())) {
-                    request.setAttribute("categoryURL", project.getCategoryURL());
-                    request.setAttribute("categoryName", project.getCategoryName());
+                if (path.equals("/" + project.getDescription())) {
+                    request.setAttribute("categoryURL", project.getDescription());
+                    request.setAttribute("categoryName", project.getTitle());
                     statement += " WHERE P.category_id = " + project.getId();
                     isWhereInStatement = true;
                 }
@@ -152,9 +150,9 @@ public class ProductsData extends HttpServlet {
 
         if(chosenCategory!=null) {
             for (Project project : projectList) {
-                if (chosenCategory.equals(project.getCategoryURL())) {
-                    request.setAttribute("categoryURL", project.getCategoryURL());
-                    request.setAttribute("categoryName", project.getCategoryName());
+                if (chosenCategory.equals(project.getDescription())) {
+                    request.setAttribute("categoryURL", project.getDescription());
+                    request.setAttribute("categoryName", project.getTitle());
                     statement += " WHERE P.category_id = " + project.getId();
                     isWhereInStatement = true;
                 }

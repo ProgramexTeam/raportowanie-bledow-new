@@ -24,9 +24,9 @@
                         <select name="project" title="Projekt można wybrać wyłącznie z listy utworzonych projektów. Jeśli chcesz użyć projektu, który nie znajduje się na liście przejdź do menadżera projektów." required>
                         <% for (Project cat: projectList) { %>
                             <option value="<% out.print(cat.getId()); %>" <%
-                                if(cat.getCategoryName().equals(singleTicket.getStatus()))
+                                if(cat.getTitle().equals(singleTicket.getStatus()))
                                     out.print("selected");
-                            %>><% out.print(cat.getCategoryName()); %></option>
+                            %>><% out.print(cat.getTitle()); %></option>
                             <% } %>
                         </select>
                     </p>

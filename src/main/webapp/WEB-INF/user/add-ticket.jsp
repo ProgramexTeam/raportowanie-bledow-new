@@ -20,7 +20,7 @@
                     <p class="input-element"><span>Projekt: </span> <br /> <span style="font-size: 8px">Projekt można wybrać wyłącznie z listy utworzonych projektów. Jeśli chcesz użyć projektu, który nie znajduje się na liście przejdź do menadżera projektów.</span> <br />
                         <select name="project_id" title="Projekt można wybrać wyłącznie z listy utworzonych projektów. Jeśli chcesz użyć projektu, który nie znajduje się na liście przejdź do menadżera projektów." required>
                             <% for (Project cat: projectList) { %>
-                                <option value="<% out.print(cat.getId()); %>"><% out.print(cat.getCategoryName()); %></option>
+                                <option value="<% out.print(cat.getId()); %>"><% out.print(cat.getTitle()); %></option>
                             <% } %>
                         </select>
                     </p>

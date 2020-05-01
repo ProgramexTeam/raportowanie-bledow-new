@@ -9,7 +9,7 @@
                 <li class="backend-navigation-element"><i class="fas fa-home"></i> Panel użytkownika</li>
             </a>
             <div class="users-link">
-                <a href="${pageContext.request.contextPath}/user/user-manager" class="backend-navigation-link" title="Przejdź do menadżera projektów">
+                <a href="${pageContext.request.contextPath}/user/project-manager" class="backend-navigation-link" title="Przejdź do menadżera projektów">
                     <li class="backend-navigation-element"><i class="fas fa-users"></i> Projekty</li>
                 </a>
                 <ul class="dropdown users-dropdown">
@@ -35,8 +35,8 @@
                 <li class="backend-navigation-element"><i class="fas fa-cogs"></i> Homepage Editor</li>
             </a>
             <div class="project-link">
-                <a href="${pageContext.request.contextPath}/user/project-manager" class="backend-navigation-link" title="Menadżer kategorii">
-                    <li class="backend-navigation-element"><i class="fa fa-tag" aria-hidden="true"></i> Menadżer kategorii</li>
+                <a href="${pageContext.request.contextPath}/user/user-manager" class="backend-navigation-link" title="Menadżer kategorii">
+                    <li class="backend-navigation-element"><i class="fa fa-tag" aria-hidden="true"></i> Menadżer użytkowników</li>
                 </a>
                 <ul class="dropdown project-dropdown">
                     <a href="${pageContext.request.contextPath}/user/project-manager/add-project" class="backend-navigation-link" title="Dodaj nową kategorię">

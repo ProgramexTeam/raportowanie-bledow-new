@@ -2,18 +2,18 @@ package objects;
 
 public class Project {
     private long id;
-    private String categoryName;
-    private String categoryURL;
+    private String title;
+    private String description;
 
-    public Project(long id, String categoryName, String categoryURL) {
+    public Project(long id, String title, String description) {
         this.id = id;
-        this.categoryName = categoryName;
-        this.categoryURL = categoryURL;
+        this.title = title;
+        this.description = description;
     }
     public Project() {
         this.id = 0;
-        this.categoryName = "";
-        this.categoryURL = "";
+        this.title = "";
+        this.description = "";
     }
     public long getId() {
         return id;
@@ -21,16 +21,16 @@ public class Project {
     public void setId(long id) {
         this.id = id;
     }
-    public String getCategoryName() {
-        return categoryName;
+    public String getTitle() {
+        return title;
     }
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setTitle(String categoryName) {
+        this.description = categoryName;
     }
-    public String getCategoryURL() {
-        return categoryURL;
+    public String getDescription() {
+        return description;
     }
-    public void setCategoryURL(String categoryURL) {
-        this.categoryURL = categoryURL;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
