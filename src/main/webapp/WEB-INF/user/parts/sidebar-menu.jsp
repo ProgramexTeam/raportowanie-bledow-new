@@ -23,7 +23,7 @@
             </a>
             <div class="products-link">
                 <a href="${pageContext.request.contextPath}/user/ticket-manager" class="backend-navigation-link" title="Przejdź do menadżera ticketów">
-                    <li class="backend-navigation-element"><i class="fas fa-shopping-cart"></i> Tickety</li>
+                    <li class="backend-navigation-element"><i class="fas fa-tag"></i></i> Tickety</li>
                 </a>
                 <ul class="dropdown ticket-dropdown">
                     <a href="${pageContext.request.contextPath}/user/ticket-manager/add-ticket" class="backend-navigation-link" title="Dodaj nowy ticket">
