@@ -23,69 +23,20 @@
             <div class="col-md-12">
                 <div class="section-heading">
                     <div class="line-dec"></div>
-                    <h1><% out.print(p.getProduct_name());%></h1>
+                    <h1><% out.print(p.getTitle());%></h1>
                   </div>
             </div>
             <div class="col-md-6">
-                <div class="ticket-slider">
-                    <div id="slider" class="flexslider">
-                        <ul class="slides">
-                            <% if(p.getImageOne() != null && p.getImageOne().length()>0) { %>
-                                <li><img src="<%out.print(p.getImageOne());%>" alt="<% out.print(p.getProduct_name() + " - " + p.getCategory()); %>" /></li>
-                            <% } else { %>
-                                <li><img src="/assets/images/products/ticket-placeholder.jpg" alt="<% out.print(p.getProduct_name() + " - " + p.getCategory()); %>" /></li>
-                            <% } %>
-                            <% if(p.getImageTwo() != null && p.getImageTwo().length()>0) { %>
-                                <li><img src="<%out.print(p.getImageTwo());%>" alt="<% out.print(p.getProduct_name() + " - " + p.getCategory()); %>" /></li>
-                            <% } %>
-                            <% if(p.getImageThree() != null && p.getImageThree().length()>0) { %>
-                                <li><img src="<%out.print(p.getImageThree());%>" alt="<% out.print(p.getProduct_name() + " - " + p.getCategory()); %>" /></li>
-                            <% } %>
-                            <% if(p.getImageFour() != null && p.getImageFour().length()>0) { %>
-                                <li><img src="<%out.print(p.getImageFour());%>" alt="<% out.print(p.getProduct_name() + " - " + p.getCategory()); %>" /></li>
-                            <% } %>
-                        </ul>
-                    </div>
-                    <div id="carousel" class="flexslider">
-                        <ul class="slides">
-                            <% if(p.getImageOne() != null && p.getImageOne().length()>0) { %>
-                                <li><img src="<%out.print(p.getImageOne());%>" alt="<% out.print(p.getProduct_name() + " - " + p.getCategory()); %>" /></li>
-                            <% } %>
-                            <% if(p.getImageTwo() != null && p.getImageTwo().length()>0) { %>
-                                <li><img src="<%out.print(p.getImageTwo());%>" alt="<% out.print(p.getProduct_name() + " - " + p.getCategory()); %>" /></li>
-                            <% } %>
-                            <% if(p.getImageThree() != null && p.getImageThree().length()>0) { %>
-                                <li><img src="<%out.print(p.getImageThree());%>" alt="<% out.print(p.getProduct_name() + " - " + p.getCategory()); %>" /></li>
-                            <% } %>
-                            <% if(p.getImageFour() != null && p.getImageFour().length()>0) { %>
-                                <li><img src="<%out.print(p.getImageFour());%>" alt="<% out.print(p.getProduct_name() + " - " + p.getCategory()); %>" /></li>
-                            <% } %>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
                 <div class="right-content">
-                    <h4><% out.print(p.getProduct_name()); %></h4>
-                    <% if(p.getSale_price() > 0) { %>
-                        <h6><span style="text-decoration: line-through; font-size: 12px; color: darkgrey"><% out.print(p.getPrice()); %> zł</span>
-                        <span style="font-size: 24px"><% out.print(p.getSale_price()); %> zł</span></h6>
-                    <% } else { %>
-                        <h6><% out.print(p.getPrice()); %> zł</h6>
-                    <% } %>
-                    <p>Na stanie: <span id="inStock"><% out.print(p.getQuantity()); %></span> szt.</p>
+                    <h4><% out.print(p.getTitle()); %></h4>
                     <div class="add-to-cart-form">
                         <form action="/portal/produkt?id=<% out.print(p.getId()); %>" method="post">
-                            <label>ilość: <input id="quantity" name="amount" type="number" class="quantity-text" min="1" max="<% out.print(p.getQuantity()); %>"
-                                    onfocusout="verifyQuantity(<% out.print(p.getQuantity()); %>);" value="<% if(p.getQuantity()==0){out.print(0);}else{out.print(1);} %>"
-                                    <% if(p.getQuantity()==0){ out.print("disabled"); } %>></label>
-                            <input type="submit" class="button" value="Zamów!">
                         </form>
                     </div>
                     <div class="down-content">
                         <div class="categories">
                             <h6>Kategoria: <span>
-                                <% out.print("<a href=\"#\">" + p.getCategory() + "</a>"); %>
+                                <% out.print("<a href=\"#\">" + p.getProject_id() + "</a>"); %>
                             </span>
                             </h6>
                         </div>
@@ -113,16 +64,6 @@
                     <%  ArrayList<Ticket> lista = TicketDAO.getFeaturedProductsList(10);
                         for (Ticket produkt: lista) { %>
                     <a href="${pageContext.request.contextPath}/portal/produkt?id=<% out.print(produkt.getId()); %>">
-                        <div class="featured-item">
-                            <img src="<% out.print(produkt.getImageOne()); %>" alt="Produkt - <% out.print(produkt.getProduct_name()); %>">
-                            <h4><% out.print(produkt.getProduct_name()); %></h4>
-                            <% if(produkt.getSale_price()>0){ %>
-                            <h6><span style="text-decoration: line-through; font-size: 12px; color: darkgrey"><% out.print(produkt.getPrice()); %> zł</span>
-                                <span style="font-size: 18px"><% out.print(produkt.getSale_price()); %> zł!</span></h6>
-                            <% } else { %>
-                            <h6><% out.print(produkt.getPrice()); %> zł</h6>
-                            <% } %>
-                        </div>
                     </a>
                     <% } %>
                 </div>
