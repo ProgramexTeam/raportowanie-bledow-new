@@ -21,7 +21,7 @@ public class EditProject extends HttpServlet {
             categoryId = (String) request.getAttribute("categoryId");
         }
         if(ProjectDAO.checkIfCategoryExists(categoryId)){
-            Project singleProject = ProjectDAO.getSingleCategoryData(categoryId);
+            Project singleProject = ProjectDAO.getSingleProjectData(Integer.parseInt(categoryId));
             request.setAttribute("singleCategory", singleProject);
         }
 

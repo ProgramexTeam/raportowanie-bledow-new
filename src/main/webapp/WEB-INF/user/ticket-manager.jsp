@@ -1,9 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page import="dao.UserDAO" %>
+<%@ page import="objects.Project" %>
 <%@ page import="objects.Ticket" %>
 <%@ page import="objects.User" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="org.w3c.dom.UserDataHandler" %>
-<%@ page import="dao.UserDAO" %>
+<%@ page import="dao.ProjectDAO" %>
 <!-- Nagłówek -->
 <jsp:include page="/WEB-INF/user/parts/overall-header.jsp"/>
 <!-- Nawigacja sidebar -->
@@ -11,7 +12,7 @@
 <!-- Kontent -->
 <div class="content ticket-manager">
     <div class="content-inside">
-        <h1 class="backend-page-title"><i class="fas fa-shopping-bag"></i> Menadżer ticketów</h1>
+        <h1 class="backend-page-title"> Menadżer ticketów</h1>
         <p class="info-msg"><% if(request.getAttribute("msg") != null){ out.println(request.getAttribute("msg")); request.setAttribute("msg", null); } %></p>
         <div class="filters">
             <%
@@ -65,6 +66,7 @@
                     if (!list.isEmpty()) {
                         for (Ticket ticket : list) {
                             User user = UserDAO.getSingleUserData(ticket.getAuthor_id());
+                            Project project = ProjectDAO.getSingleProjectData(ticket.getProject_id());
                             out.println("<tr class=\"ticket-row ticket-no-" + i + "\">" +
                                     "<td class=\"ticket-row-item ticket-edit\">" +
                                     "<a href=\"" + request.getContextPath() + "/user/ticket-manager/edit-ticket?productId=" + ticket.getId() + "\">edytuj</a> / " +
@@ -72,7 +74,7 @@
                                     "</td>" +
                                     "<td class=\"ticket-row-item ticket-name\">" + user.getUser_login() + "</td>" +
                                     "<td class=\"ticket-row-item ticket-name\">" + ticket.getTitle() + "</td>" +
-                                    "<td class=\"ticket-row-item ticket-project\">" + ticket.getProject_id() + "</td>" +
+                                    "<td class=\"ticket-row-item ticket-project\">" + project.getTitle() + "</td>" +
                                     "<td class=\"ticket-row-item ticket-name\">" + ticket.getStatus() + "</td>" +
                                     "</tr>");
                             i++;

@@ -223,22 +223,22 @@ public class ProjectDAO {
         }
         return false;
     }
-    public static Project getSingleCategoryData(String categoryId) {
+    public static Project getSingleProjectData(int projectId) {
         Connection con = null;
         PreparedStatement ps = null;
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM categories WHERE category_id = ?");
-            ps.setString(1, categoryId);
+            ps = con.prepareStatement("SELECT * FROM projects WHERE ID = ?");
+            ps.setInt(1, projectId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                Project singleProject = new Project(rs.getLong("category_id"),
-                        rs.getString("category_name"),
-                        rs.getString("category_url"));
+                Project singleProject = new Project(rs.getLong("ID"),
+                        rs.getString("title"),
+                        rs.getString("description"));
                 return singleProject;
             }
         } catch (SQLException ex) {
-            System.out.println("Error while checking if product exists in db; ProjectDAO.getSingleCategoryData() -->" + ex.getMessage());
+            System.out.println("Error while checking if product exists in db; ProjectDAO.getSingleProjectData() -->" + ex.getMessage());
             return null;
         } finally {
             DataConnect.close(con);
@@ -246,7 +246,7 @@ public class ProjectDAO {
                 try {
                     ps.close();
                 } catch (SQLException ex) {
-                    System.out.println("Error while closing PreparedStatement; ProjectDAO.getSingleCategoryData() -->" + ex.getMessage());
+                    System.out.println("Error while closing PreparedStatement; ProjectDAO.getSingleProjectData() -->" + ex.getMessage());
                 }
             }
         }
