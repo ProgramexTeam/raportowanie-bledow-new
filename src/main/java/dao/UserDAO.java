@@ -247,6 +247,34 @@ public class UserDAO {
         }
         return null;
     }
+
+    public static String getSingleUserLogin(int userId) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = DataConnect.getConnection();
+            ps = con.prepareStatement("SELECT * FROM users WHERE ID = ?");
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new String(rs.getString("user_login"));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error while checking user login in db; UserDAO.getSingleUserLogin() -->" + ex.getMessage());
+            return null;
+        } finally {
+            DataConnect.close(con);
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    System.out.println("Error while closing PreparedStatement; UserDAO.getSingleUserLogin() -->" + ex.getMessage());
+                }
+            }
+        }
+        return null;
+    }
+
     public static boolean editGivenUser(String userId, String user_login, String user_pass, String first_name, String last_name, String user_email, String activation_key, String role) {
         if (user_login != null || user_pass != null || user_email != null) {
             PreparedStatement ps = null;

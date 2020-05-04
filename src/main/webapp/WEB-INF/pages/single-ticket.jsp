@@ -59,15 +59,6 @@
                     <h1><% out.print(configuration.get("featuredHeader")); %></h1>
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="owl-carousel owl-theme">
-                    <%  ArrayList<Ticket> lista = TicketDAO.getFeaturedProductsList(10);
-                        for (Ticket produkt: lista) { %>
-                    <a href="${pageContext.request.contextPath}/portal/ticket?id=<% out.print(produkt.getId()); %>">
-                    </a>
-                    <% } %>
-                </div>
-            </div>
         </div>
     </div>
 </div>

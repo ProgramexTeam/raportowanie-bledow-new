@@ -253,6 +253,34 @@ public class ProjectDAO {
         }
         return null;
     }
+
+    public static String getSingleProjectName(int projectId) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = DataConnect.getConnection();
+            ps = con.prepareStatement("SELECT * FROM projects WHERE ID = ?");
+            ps.setInt(1, projectId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new String(rs.getString("title"));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error while getting project bane in db; ProjectDAO.getSingleProjectName() -->" + ex.getMessage());
+            return null;
+        } finally {
+            DataConnect.close(con);
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    System.out.println("Error while closing PreparedStatement; ProjectDAO.getSingleProjectName() -->" + ex.getMessage());
+                }
+            }
+        }
+        return null;
+    }
+
     public static boolean editGivenProject(String project_id, String project_title, String project_description) {
         if (project_id != null || project_title != null || project_description != null) {
             PreparedStatement ps = null;

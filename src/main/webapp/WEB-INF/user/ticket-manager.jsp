@@ -5,6 +5,7 @@
 <%@ page import="objects.User" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="dao.ProjectDAO" %>
+<%@ page import="dao.TicketDAO" %>
 <!-- Nagłówek -->
 <jsp:include page="/WEB-INF/user/parts/overall-header.jsp"/>
 <!-- Nawigacja sidebar -->
@@ -56,7 +57,7 @@
                     out.println("<thead>" +
                             "<tr class=\"ticket-list-header\">" +
                             "<td class=\"ticket-list-header-item ticket-edit\">edytuj / usuń</td>" +
-                            "<td class=\"ticket-list-header-item ticket-price\">Autor</td>" +
+                            "<td class=\"ticket-list-header-item ticket-author\">Autor</td>" +
                             "<td class=\"ticket-list-header-item ticket-name\">Tytuł</td>" +
                             "<td class=\"ticket-list-header-item ticket-project\">Projekt</td>" +
                             "<td class=\"ticket-list-header-item ticket-price\">Status</td>" +
@@ -65,16 +66,15 @@
                             "<tbody>");
                     if (!list.isEmpty()) {
                         for (Ticket ticket : list) {
-                            User user = UserDAO.getSingleUserData(ticket.getAuthor_id());
-                            Project project = ProjectDAO.getSingleProjectData(ticket.getProject_id());
                             out.println("<tr class=\"ticket-row ticket-no-" + i + "\">" +
                                     "<td class=\"ticket-row-item ticket-edit\">" +
                                     "<a href=\"" + request.getContextPath() + "/user/ticket-manager/edit-ticket?ticketId=" + ticket.getId() + "\">edytuj</a> / " +
-                                    "<a href=\"" + request.getContextPath() + "/user/ticket-manager?deleteId=" + ticket.getId() + "\">usuń</a>" +
+                                    "<a href=\"" + request.getContextPath() + "/user/ticket-manager?page=" + currentPage + "&amountPerPage=" + amountPerPage + "&searchOption=" + searchOption + "&searchByProductName=" + searchByTicketName + "&deleteId=" + ticket.getId() + "\">usuń</a>" +
+
                                     "</td>" +
-                                    "<td class=\"ticket-row-item ticket-name\">" + user.getUser_login() + "</td>" +
+                                    "<td class=\"ticket-row-item ticket-name\">" + UserDAO.getSingleUserLogin(ticket.getAuthor_id()) + "</td>" +
                                     "<td class=\"ticket-row-item ticket-name\">" + ticket.getTitle() + "</td>" +
-                                    "<td class=\"ticket-row-item ticket-project\">" + project.getTitle() + "</td>" +
+                                    "<td class=\"ticket-row-item ticket-project\">" + ProjectDAO.getSingleProjectName(ticket.getProject_id()) + "</td>" +
                                     "<td class=\"ticket-row-item ticket-name\">" + ticket.getStatus() + "</td>" +
                                     "</tr>");
                             i++;

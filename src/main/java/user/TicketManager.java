@@ -33,8 +33,8 @@ public class TicketManager extends HttpServlet {
         if(request.getParameter("searchByTicketName") != null){
             searchByTicketName = request.getParameter("searchByTicketName");
             ArrayList<Ticket> list = TicketDAO.getTicketsListOfPattern(page*amountPerPage, amountPerPage, searchByTicketName, searchOption);
-
             amountOfProducts = TicketDAO.amountOfTicketsOfPattern(searchByTicketName, searchOption);
+
             request.setAttribute("searchOption", searchOption);
             request.setAttribute("searchByTicketName", searchByTicketName);
             request.setAttribute("list", list);
