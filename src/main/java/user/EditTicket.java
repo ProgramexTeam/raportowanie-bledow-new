@@ -16,7 +16,7 @@ public class EditTicket extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String ticketId;
-        if(request.getParameter("ticketId")!=null) {
+        if(request.getParameter("ticketId") != null) {
             ticketId = request.getParameter("ticketId");
         } else {
             ticketId = (String) request.getAttribute("ticketId");
@@ -33,7 +33,7 @@ public class EditTicket extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         int ticketId = Integer.parseInt(request.getParameter("ticketId"));
         request.setAttribute("ticketId", ticketId);
-        int project_id = Integer.parseInt(request.getParameter("projectId"));
+        int project_id = Integer.parseInt(request.getParameter("project"));
         String status = request.getParameter("status");
         String title = request.getParameter("title");
         String description = request.getParameter("description");
@@ -48,7 +48,7 @@ public class EditTicket extends HttpServlet {
         } else {
             boolean done = TicketDAO.editGivenTicket(ticketId, user_id, project_id, status, title, description);
             if(done){
-                request.setAttribute("msg", "Pomyślnie dodano ticket");
+                request.setAttribute("msg", "Pomyślnie edytowano ticket");
             } else {
                 request.setAttribute("msg", "Wystąpił problem w trakcie dodawania ticketu do bazy, spróbuj ponownie, albo zweryfikuj logi serwera");
             }
