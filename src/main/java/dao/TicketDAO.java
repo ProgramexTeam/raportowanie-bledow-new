@@ -70,7 +70,7 @@ public class TicketDAO {
 
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT COUNT(*) AS `amount` FROM products WHERE product_name LIKE ?");
+            ps = con.prepareStatement("SELECT COUNT(*) AS `amount` FROM tickets WHERE title LIKE ?");
             if(searchOption==1){
                 ps.setString(1, pattern + "%"); //zaczyna się na
             } else if(searchOption==3) {
@@ -84,14 +84,14 @@ public class TicketDAO {
                 amount = rs.getLong("amount");
             }
         } catch (SQLException ex) {
-            System.out.println("Error while getting products data from db; TicketDAO.amountOfProductsOfPattern() -->" + ex.getMessage());
+            System.out.println("Error while getting products data from db; TicketDAO.amountOfTicketsOfPattern() -->" + ex.getMessage());
         } finally {
             DataConnect.close(con);
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException ex) {
-                    System.out.println("Error while closing PreparedStatement; TicketDAO.amountOfProductsOfPattern() -->" + ex.getMessage());
+                    System.out.println("Error while closing PreparedStatement; TicketDAO.amountOfTicketsOfPattern() -->" + ex.getMessage());
                 }
             }
         }
@@ -266,7 +266,7 @@ public class TicketDAO {
         ArrayList<Ticket> ticketList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM tickets LEFT JOIN categories ON products.category_ID = categories.category_ID WHERE products.product_name LIKE ? ORDER BY products.product_ID LIMIT ?, ?");
+            ps = con.prepareStatement("SELECT * FROM tickets LEFT JOIN projects ON tickets.project_ID = projects.ID WHERE tickets.ID = ? ORDER BY tickets.ID LIMIT ?, ?");
             if(searchOption==1){
                 ps.setString(1, searchByProductName + "%");
             } else if(searchOption==3) {
@@ -287,7 +287,7 @@ public class TicketDAO {
                 ticketList.add(temp);
             }
         } catch (SQLException ex) {
-            System.out.println("Error while getting products data from db; TicketDAO.getProductListOfPattern() -->" + ex.getMessage());
+            System.out.println("Error while getting products data from db; TicketDAO.getTicketsListOfPattern() -->" + ex.getMessage());
         } finally {
             DataConnect.close(con);
             if (ps != null) { try { ps.close(); } catch (SQLException ex) { System.out.println("Error while closing PreparedStatement; TicketDAO.getProductListOfPattern() -->" + ex.getMessage()); } }
@@ -354,7 +354,7 @@ public class TicketDAO {
         PreparedStatement ps = null;
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM tickets LEFT JOIN projects ON tickets.ID = projects.ID WHERE tickets.ID = ?");
+            ps = con.prepareStatement("SELECT * FROM tickets LEFT JOIN projects ON tickets.project_ID = projects.ID WHERE tickets.ID = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
