@@ -16,7 +16,7 @@ public class EditTicket extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String ticketId;
-        if(request.getParameter("ticketId")!=null) {
+        if(request.getParameter("ticketId") != null) {
             ticketId = request.getParameter("ticketId");
         } else {
             ticketId = (String) request.getAttribute("ticketId");
@@ -31,9 +31,9 @@ public class EditTicket extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        int ticketId = Integer.parseInt(request.getParameter("ticketId"));
-        request.setAttribute("ticketId", ticketId);
-        int project_id = Integer.parseInt(request.getParameter("projectId"));
+        int ticketId = Integer.parseInt(request.getParameter("ID"));
+        request.setAttribute("ID", ticketId);
+        int project_id = Integer.parseInt(request.getParameter("project_ID"));
         String status = request.getParameter("status");
         String title = request.getParameter("title");
         String description = request.getParameter("description");
