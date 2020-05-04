@@ -22,7 +22,7 @@ public class ProjectManager extends HttpServlet {
         if(request.getParameter("amountPerPage") == null){ amountPerPage = 20; } else { amountPerPage = Long.parseLong(request.getParameter("amountPerPage")); }
         if(request.getParameter("searchOption") != null) { searchOption = Integer.parseInt(request.getParameter("searchOption")); } else { searchOption = 2; }
         if(request.getParameter("deleteId") != null){ deleteId = String.valueOf(request.getParameter("deleteId"));
-            if(ProjectDAO.deleteSingleCategory(deleteId)) {
+            if(ProjectDAO.deleteSingleProject(deleteId)) {
                 request.setAttribute("msg", "Pomyślnie usunięto projekt");
             } else {
                 request.setAttribute("msg", "Wystąpił problem w trakcie usuwania projektu");

@@ -32,19 +32,19 @@ public class EditProject extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String projectId = request.getParameter("projectId");
         request.setAttribute("projectId", projectId);
-        String category_name = request.getParameter("category_name");
-        String category_url = request.getParameter("category_url");
+        String project_title = request.getParameter("project_title");
+        String project_description = request.getParameter("project_description");
 
-        if(projectId == null){ request.setAttribute("msg", "Nie rozpoznano id edytowanej kategorii. Spróbuj ponownie wyszukać kategorię " +
-                "w menadżerze kategorii i zedytuj jej dane jeszcze raz.");
-        } else if(category_name == null){ request.setAttribute("msg", "Nie podano nazwy kategorii");
-        } else if(category_url == null){ request.setAttribute("msg", "Nie podano url kategorii");
+        if(projectId == null){ request.setAttribute("msg", "Nie rozpoznano id edytowanego projektu. Spróbuj ponownie wyszukać projekt " +
+                "w menadżerze projektów i zedytuj jego dane jeszcze raz.");
+        } else if(project_title == null){ request.setAttribute("msg", "Nie podano nazwy projektu");
+        } else if(project_description == null){ request.setAttribute("msg", "Nie podano opisu projektu");
         } else {
-            boolean done = ProjectDAO.editGivenCategory(projectId, category_name, category_url);
+            boolean done = ProjectDAO.editGivenProject(projectId, project_title, project_description);
             if(done){
-                request.setAttribute("msg", "Pomyślnie zedytowano kategorię");
+                request.setAttribute("msg", "Pomyślnie zedytowano projekt");
             } else {
-                request.setAttribute("msg", "Wystąpił problem w trakcie dodawania zedytowanych danych kategorii do bazy. Spróbuj ponownie, albo zweryfikuj logi serwera");
+                request.setAttribute("msg", "Wystąpił problem w trakcie dodawania zedytowanych danych projektów do bazy. Spróbuj ponownie, albo zweryfikuj logi serwera");
             }
         }
 

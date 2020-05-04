@@ -316,7 +316,7 @@ body .data tbody .project-row:nth-child(even) {
 .input-element select {
     width: 200px;
 }
-.input-element input[type=text], .input-element input[type=email], .input-element input[type=date], .input-element input[type=password] {
+.input-element input[type=text], .input-element input[type=email], .input-element input[type=date], .input-element input[type=password], .input-element textarea {
     width: 300px;
 }
 .input-element input[type=text], .input-element input[type=email], .input-element input[type=date], .input-element textarea,
