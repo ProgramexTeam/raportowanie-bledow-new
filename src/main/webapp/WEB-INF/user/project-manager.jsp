@@ -61,7 +61,7 @@
                             out.println("<tr class=\"project-row project-no-" + i + "\">" +
                                     "<td class=\"project-row-item project-edit\">" +
                                     "<a href=\"" + request.getContextPath() + "/user/project-manager/edit-project?projectId=" + project.getId() + "\">edytuj</a> / " +
-                                    "<a href=\"" + request.getContextPath() + "/user/project-manager?page=" + currentPage + "&amountPerPage=" + amountPerPage + "&searchOption=" + searchOption + "&searchByCategoryName=" + searchByProjectName + "&deleteId=" + project.getId() + "\">usuń</a>" +
+                                    "<a href=\"" + request.getContextPath() + "/user/project-manager?page=" + currentPage + "&amountPerPage=" + amountPerPage + "&searchOption=" + searchOption + "&searchByProjectName=" + searchByProjectName + "&deleteId=" + project.getId() + "\">usuń</a>" +
                                     "</td>" +
                                     "<td class=\"project-row-item project-name\">" + project.getTitle() + "</td>" +
                                     "</tr>");
@@ -126,7 +126,7 @@
 
                             for(int j=currentPage-a; j<=currentPage+b; j++) {
                                 if(j==currentPage) {
-                                    out.println("<a href=\"" + request.getContextPath() + "/user/project-manager?page=" + j + "&amountPerPage=" + amountPerPage + "&searchOption=" + searchOption + "&searchByCategoryName=" + searchByProjectName + "\">" +
+                                    out.println("<a href=\"" + request.getContextPath() + "/user/project-manager?page=" + j + "&amountPerPage=" + amountPerPage + "&searchOption=" + searchOption + "&searchByProjectName=" + searchByProjectName + "\">" +
                                             "<div class=\"link-no-" + (j + 1) + " pagination-active\">" + (j + 1) + "</div>" +
                                             "</a>");
                                 } else {

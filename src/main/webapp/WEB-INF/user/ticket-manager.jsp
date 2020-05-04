@@ -70,7 +70,7 @@
                             out.println("<tr class=\"ticket-row ticket-no-" + i + "\">" +
                                     "<td class=\"ticket-row-item ticket-edit\">" +
                                     "<a href=\"" + request.getContextPath() + "/user/ticket-manager/edit-ticket?ticketId=" + ticket.getId() + "\">edytuj</a> / " +
-                                    "<a href=\"" + request.getContextPath() + "/user/ticket-manager?page=" + currentPage + "&amountPerPage=" + amountPerPage + "&searchOption=" + searchOption + "&searchByTicketName=" + searchByTicketName + "&deleteId=" + ticket.getId() + "\">usuń</a>" +
+                                    "<a href=\"" + request.getContextPath() + "/user/ticket-manager?deleteId=" + ticket.getId() + "\">usuń</a>" +
                                     "</td>" +
                                     "<td class=\"ticket-row-item ticket-name\">" + user.getUser_login() + "</td>" +
                                     "<td class=\"ticket-row-item ticket-name\">" + ticket.getTitle() + "</td>" +
