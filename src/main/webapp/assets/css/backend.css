@@ -316,7 +316,10 @@ body .data tbody .project-row:nth-child(even) {
 .input-element select {
     width: 200px;
 }
-.input-element input[type=text], .input-element input[type=email], .input-element input[type=date], .input-element input[type=password], .input-element textarea {
+.input-element select:not(:first-child){
+    display: none;
+}
+.input-element input[type=text], .input-element input[type=email], .input-element input[type=date], .input-element input[type=password] {
     width: 300px;
 }
 .input-element input[type=text], .input-element input[type=email], .input-element input[type=date], .input-element textarea,
@@ -364,4 +367,32 @@ body .data tbody .project-row:nth-child(even) {
 }
 .activate-tab-bar {
     margin-bottom: 20px;
+}
+
+.plus-button {
+    height: 40px;
+    width: 40px;
+    font-size: 20px;
+    align-items: center;
+    display: block;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+.plus-button:hover {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+.minus-button {
+    height: 40px;
+    width: 40px;
+    font-size: 20px;
+    align-items: center;
+    display: block;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+.minus-button:hover {
+    background-color: #F44336; /* Red */
+    color: white;
 }
