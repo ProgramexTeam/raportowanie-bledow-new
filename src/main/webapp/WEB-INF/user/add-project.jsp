@@ -22,25 +22,25 @@
                 </div>
                 <% ArrayList<User> usersList = UserDAO.getUsersList(); %>
                 <p class="input-element"><span>Użytkownik: </span> <br /> <span style="font-size: 8px">Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników.</span> <br />
-                    <select name="user" title="Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników." required>
+                    <select name="user0" title="Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników." required>
                         <option value="-1">---Wybierz użytkownika---</option>
                         <% for (User cat: usersList) { %>
                         <option value="<% out.print(cat.getId()); %>"><% out.print(cat.getUser_login()); %></option>
                         <% } %>
                     </select>
-                    <br /> <select name="user" title="Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników." required>
+                    <br /> <select name="user1" title="Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników." required>
                         <option value="-1">---Wybierz użytkownika---</option>
                         <% for (User cat: usersList) { %>
                         <option value="<% out.print(cat.getId()); %>"><% out.print(cat.getUser_login()); %></option>
                         <% } %>
                     </select>
-                    <br /> <select name="user" title="Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników." required>
+                    <br /> <select name="user2" title="Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników." required>
                         <option value="-1">---Wybierz użytkownika---</option>
                         <% for (User cat: usersList) { %>
                         <option value="<% out.print(cat.getId()); %>"><% out.print(cat.getUser_login()); %></option>
                         <% } %>
                     </select>
-                    <br /><select name="user" title="Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników." required>
+                    <br /><select name="user3" title="Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników." required>
                         <option value="-1">---Wybierz użytkownika---</option>
                         <% for (User cat: usersList) { %>
                         <option value="<% out.print(cat.getId()); %>"><% out.print(cat.getUser_login()); %></option>

@@ -1,5 +1,6 @@
 package user;
 
+import dao.ProjectDAO;
 import dao.RegisterDAO;
 
 import javax.servlet.ServletException;
@@ -20,7 +21,7 @@ public class AddProject extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String title = request.getParameter("title");
         String description = request.getParameter("description");
-        int user_id = Integer.parseInt(request.getParameter("user"));
+        int user_id = Integer.parseInt(request.getParameter("user0"));
 
         if(title == null){ request.setAttribute("msg", "Nie podano tytułu");
         } else if (description == null){ request.setAttribute("msg", "Nie podano opisu");
@@ -31,6 +32,19 @@ public class AddProject extends HttpServlet {
                 request.setAttribute("msg", "Pomyślnie dodano projekt do bazy");
             } else {
                 request.setAttribute("msg", "Wystąpił problem w trakcie dodawania uzytkownika do bazy, spróbuj ponownie, albo zweryfikuj logi serwera");
+            }
+
+            for (int i = 0; i <= 3; i++){
+                user_id = Integer.parseInt(request.getParameter("user" +i));
+
+                if (user_id > 0){
+                    boolean dbUpdated = ProjectDAO.addUsersAndProjects(user_id);
+                    if (dbUpdated){
+                        request.setAttribute("msg", "Pomyślnie zaktualizowano bazę danych");
+                    } else {
+                        request.setAttribute("msg", "Wystąpił problem w trakcie aktualizacji bazy danych");
+                    }
+                }
             }
         }
 

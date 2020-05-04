@@ -3,6 +3,7 @@ package dao;
 import objects.Project;
 import util.DataConnect;
 
+import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -306,5 +307,98 @@ public class ProjectDAO {
             System.out.println("All data must be delivered to this method; ProjectDAO.addCategory() -->");
             return false;
         }
+    }
+
+    public static boolean addUsersAndProjects(int user_ID){
+        if (user_ID >= 0) {
+            Connection con = null;
+            PreparedStatement ps = null;
+            int project_ID = getLastProjectID();
+            try {
+                con = DataConnect.getConnection();
+                if (con != null){
+                    if(checkUsersAndProjects(user_ID, project_ID)){
+                        return true;
+                    }
+                    else {
+                        ps = con.prepareStatement("INSERT INTO users_has_projects (user_ID, project_ID) VALUES (?, ?)");
+                        ps.setInt(1, user_ID);
+                        ps.setInt(2, project_ID);
+                        ps.executeUpdate();
+                    }
+                }
+            } catch (Exception ex){
+                System.out.println("Error when executing query; ProjectDAO.addUsersAndProjects() -->" + ex.getMessage());
+            } finally {
+                try {
+                    if (ps != null) {
+                        ps.close();
+                    }
+                    DataConnect.close(con);
+                } catch (Exception ex) {
+                    System.out.println("Error when closing database connection or prepared statement; ProjectDAO.addUsersAndProjects() -->" + ex.getMessage());
+                }
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public static boolean checkUsersAndProjects(int user_ID, int project_ID){
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = DataConnect.getConnection();
+            ps = con.prepareStatement("SELECT * FROM users_has_projects WHERE user_ID = ? AND project_ID = ?");
+            ps.setInt(1, user_ID);
+            ps.setInt(2, project_ID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error while checking if user and project exist in db; ProjectDAO.checkUsersAndProjects() -->" + ex.getMessage());
+            return false;
+        } finally {
+            DataConnect.close(con);
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    System.out.println("Error while closing PreparedStatement; ProjectDAO.checkUsersAndProjects() -->" + ex.getMessage());
+                }
+            }
+        }
+        return false;
+    }
+
+    public static int getLastProjectID(){
+        Connection con = null;
+        PreparedStatement ps = null;
+        int project_ID;
+        try {
+            con = DataConnect.getConnection();
+            ps = con.prepareStatement("SELECT MAX(ID) AS 'lastID' FROM projects");
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()){
+                project_ID = rs.getInt("lastID");
+                return project_ID;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error while checking if user and project exist in db; ProjectDAO.checkUsersAndProjects() -->" + ex.getMessage());
+        } finally {
+            DataConnect.close(con);
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    System.out.println("Error while closing PreparedStatement; ProjectDAO.checkUsersAndProjects() -->" + ex.getMessage());
+                }
+            }
+        }
+        return -1;
     }
 }
