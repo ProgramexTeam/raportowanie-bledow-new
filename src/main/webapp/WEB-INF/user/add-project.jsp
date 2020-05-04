@@ -2,7 +2,6 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="dao.UserDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<script src="${pageContext.request.contextPath}/assets/js/button.js"></script>
 <!-- Nagłówek -->
 <jsp:include page="/WEB-INF/user/parts/overall-header.jsp"/>
 <!-- Nawigacja sidebar -->
@@ -47,8 +46,8 @@
                         <option value="<% out.print(cat.getId()); %>"><% out.print(cat.getUser_login()); %></option>
                         <% } %>
                     </select>
-                    <button class="plus-button"><i class="fas fa-plus-square"></i></button>
-                    <button class="minus-button"><i class="fas fa-minus-square"></i></button>
+                    <div class="plus-button"><i class="fas fa-plus-square"></i></div>
+                    <div class="minus-button"><i class="fas fa-minus-square"></i></div>
                 </p>
                 <p class="input-element submit-element"><input type="submit" value="Dodaj projekt"></p>
             </form>

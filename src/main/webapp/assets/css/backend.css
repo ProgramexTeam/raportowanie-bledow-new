@@ -316,14 +316,14 @@ body .data tbody .project-row:nth-child(even) {
 .input-element select {
     width: 200px;
 }
-.input-element select:not(:first-child){
+.input-element select:not(:first-of-type) {
     display: none;
 }
 .input-element input[type=text], .input-element input[type=email], .input-element input[type=date], .input-element input[type=password] {
     width: 300px;
 }
 .input-element input[type=text], .input-element input[type=email], .input-element input[type=date], .input-element textarea,
-.input-element input[type=password], .input-element select, .input-element input[type=number] {
+.input-element input[type=password], .input-element select, .input-element input[type=number], .input-element textarea {
     padding: 8px 10px;
     margin: 8px 0;
     display: inline-block;
