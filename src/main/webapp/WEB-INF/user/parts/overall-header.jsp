@@ -7,5 +7,6 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/backend.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/fa/css/all.css">
+    <script src="/vendor/jquery/jquery.js"></script>
 </head>
 <body>

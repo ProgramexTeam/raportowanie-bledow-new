@@ -168,17 +168,17 @@ public class ProjectDAO {
         }
         return projectList;
     }
-    public static boolean deleteSingleCategory(String deleteId) {
+    public static boolean deleteSingleProject(String deleteId) {
         Connection con = null;
         PreparedStatement ps = null;
         if(checkIfProjectExists(deleteId)) {
             try {
                 con = DataConnect.getConnection();
-                ps = con.prepareStatement("DELETE FROM categories WHERE category_id = ?");
+                ps = con.prepareStatement("DELETE FROM projects WHERE ID = ?");
                 ps.setString(1, deleteId);
                 ps.executeUpdate();
             } catch (SQLException ex) {
-                System.out.println("Error while deleting product from db; ProjectDAO.deleteSingleCategory() -->" + ex.getMessage());
+                System.out.println("Error while deleting project from db; ProjectDAO.deleteSingleProject() -->" + ex.getMessage());
                 return false;
             } finally {
                 DataConnect.close(con);
@@ -186,16 +186,17 @@ public class ProjectDAO {
                     try {
                         ps.close();
                     } catch (SQLException ex) {
-                        System.out.println("Error while closing PreparedStatement; ProjectDAO.deleteSingleCategory() -->" + ex.getMessage());
+                        System.out.println("Error while closing PreparedStatement; ProjectDAO.deleteSingleProject() -->" + ex.getMessage());
                     }
                 }
             }
             return true;
         } else {
-            System.out.println("Category with given ID doesn't exist; ProjectDAO.deleteSingleCategory()");
+            System.out.println("Project with given ID doesn't exist; ProjectDAO.deleteSingleProject()");
             return false;
         }
     }
+
     public static boolean checkIfProjectExists(String id) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -251,25 +252,25 @@ public class ProjectDAO {
         }
         return null;
     }
-    public static boolean editGivenCategory(String category_id, String category_name, String category_url) {
-        if (category_id != null || category_name != null || category_url != null) {
+    public static boolean editGivenProject(String project_id, String project_title, String project_description) {
+        if (project_id != null || project_title != null || project_description != null) {
             PreparedStatement ps = null;
             Connection con = null;
 
             try {
                 con = DataConnect.getConnection();
                 if (con != null) {
-                    ps = con.prepareStatement("UPDATE categories SET category_name = ?, category_url = ? WHERE category_id = ? ");
-                    ps.setString(1, category_name);
-                    ps.setString(2, category_url);
-                    ps.setString(3, category_id);
+                    ps = con.prepareStatement("UPDATE projects SET title = ?, description = ? WHERE ID = ? ");
+                    ps.setString(1, project_title);
+                    ps.setString(2, project_description);
+                    ps.setString(3, project_id);
                     ps.executeUpdate();
                 }
             } catch (Exception ex) {
-                System.out.println("Error while updating user data; ProjectDAO.editGivenCategory() -->" + ex.getMessage());
+                System.out.println("Error while updating user data; ProjectDAO.editGivenProject() -->" + ex.getMessage());
             } finally {
                 DataConnect.close(con);
-                if (ps != null) { try { ps.close(); } catch (SQLException ex) { System.out.println("Error while closing PreparedStatement; ProjectDAO.editGivenCategory() -->" + ex.getMessage()); } }
+                if (ps != null) { try { ps.close(); } catch (SQLException ex) { System.out.println("Error while closing PreparedStatement; ProjectDAO.editGivenProject() -->" + ex.getMessage()); } }
             }
             return true;
         } else {

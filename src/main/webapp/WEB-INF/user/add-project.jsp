@@ -23,10 +23,31 @@
                 <% ArrayList<User> usersList = UserDAO.getUsersList(); %>
                 <p class="input-element"><span>Użytkownik: </span> <br /> <span style="font-size: 8px">Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników.</span> <br />
                     <select name="user" title="Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników." required>
+                        <option value="-1">---Wybierz użytkownika---</option>
                         <% for (User cat: usersList) { %>
                         <option value="<% out.print(cat.getId()); %>"><% out.print(cat.getUser_login()); %></option>
                         <% } %>
                     </select>
+                    <br /> <select name="user" title="Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników." required>
+                        <option value="-1">---Wybierz użytkownika---</option>
+                        <% for (User cat: usersList) { %>
+                        <option value="<% out.print(cat.getId()); %>"><% out.print(cat.getUser_login()); %></option>
+                        <% } %>
+                    </select>
+                    <br /> <select name="user" title="Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników." required>
+                        <option value="-1">---Wybierz użytkownika---</option>
+                        <% for (User cat: usersList) { %>
+                        <option value="<% out.print(cat.getId()); %>"><% out.print(cat.getUser_login()); %></option>
+                        <% } %>
+                    </select>
+                    <br /><select name="user" title="Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników." required>
+                        <option value="-1">---Wybierz użytkownika---</option>
+                        <% for (User cat: usersList) { %>
+                        <option value="<% out.print(cat.getId()); %>"><% out.print(cat.getUser_login()); %></option>
+                        <% } %>
+                    </select>
+                    <div class="plus-button"><i class="fas fa-plus-square"></i></div>
+                    <div class="minus-button"><i class="fas fa-minus-square"></i></div>
                 </p>
                 <p class="input-element submit-element"><input type="submit" value="Dodaj projekt"></p>
             </form>
