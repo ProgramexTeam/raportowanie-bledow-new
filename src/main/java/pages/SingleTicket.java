@@ -31,18 +31,15 @@ public class SingleTicket extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        //ShoppingCart shoppingCartBean = (ShoppingCart) session.getAttribute("shoppingCart");
-
         String id = request.getParameter("id");
         String amountString = request.getParameter("amount");
 
         if(amountString != null && amountString.length() > 0) {
             if(id != null && id.length() > 0){
-                //shoppingCartBean.addToCart(id, amountString);
+                //
             }
         }
 
-        //session.setAttribute("shoppingCart", shoppingCartBean);
         doGet(request, response);
     }
 }

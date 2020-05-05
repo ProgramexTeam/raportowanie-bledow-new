@@ -49,25 +49,6 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("user_role", user_role);
 				session.setAttribute("user_email", user_email);
 				session.setAttribute("user_id", user_id);
-				//ShoppingCart shoppingCartBean = (ShoppingCart) session.getAttribute("shoppingCart");
-//				if (shoppingCartBean == null) {
-//					// there is no cart data in current session
-//					try {
-//						InitialContext ic = new InitialContext();
-//						shoppingCartBean = (ShoppingCart) ic.lookup("java:global/ShoppingCartImpl");
-//
-//						// get cart products associated with this user from db
-//						//Map<Long, CartProduct> cartFromDB = CartsDAO.getCartsContent(user_id);
-//						// save those cart products to bean instance
-//						//shoppingCartBean.setContents(cartFromDB);
-//					} catch (NamingException e) {
-//						throw new ServletException(e);
-//					}
-//				} else {
-//					// there is some cart data in current session
-//					//Map<Long, CartProduct> cartFromDB = CartsDAO.getCartsContent(user_id);
-//					//shoppingCartBean.addAnotherCartsContent(cartFromDB);
-//				}
 
 				//expiration after: 30 mins
 				session.setMaxInactiveInterval(30*60);

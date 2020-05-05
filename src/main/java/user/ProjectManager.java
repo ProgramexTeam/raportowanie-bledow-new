@@ -18,11 +18,24 @@ public class ProjectManager extends HttpServlet {
         String deleteId, searchByProjectName;
         int searchOption;
 
-        if(request.getParameter("page") == null){ page = 0; } else { page = Long.parseLong(request.getParameter("page")); }
-        if(request.getParameter("amountPerPage") == null){ amountPerPage = 20; } else { amountPerPage = Long.parseLong(request.getParameter("amountPerPage")); }
-        if(request.getParameter("searchOption") != null) { searchOption = Integer.parseInt(request.getParameter("searchOption")); } else { searchOption = 2; }
-        if(request.getParameter("deleteId") != null){ deleteId = String.valueOf(request.getParameter("deleteId"));
-            if(ProjectDAO.deleteSingleProject(deleteId)) {
+        if (request.getParameter("page") == null) {
+            page = 0;
+        } else {
+            page = Long.parseLong(request.getParameter("page"));
+        }
+        if (request.getParameter("amountPerPage") == null) {
+            amountPerPage = 20;
+        } else {
+            amountPerPage = Long.parseLong(request.getParameter("amountPerPage"));
+        }
+        if (request.getParameter("searchOption") != null) {
+            searchOption = Integer.parseInt(request.getParameter("searchOption"));
+        } else {
+            searchOption = 2;
+        }
+        if (request.getParameter("deleteId") != null) {
+            deleteId = String.valueOf(request.getParameter("deleteId"));
+            if (ProjectDAO.deleteSingleProject(deleteId)) {
                 request.setAttribute("msg", "Pomyślnie usunięto projekt");
             } else {
                 request.setAttribute("msg", "Wystąpił problem w trakcie usuwania projektu");
@@ -30,22 +43,22 @@ public class ProjectManager extends HttpServlet {
         }
 
         // Zwraca inną listę użytkowników w zależności od tego czy zostało coś wpisane w szukajkę
-        if(request.getParameter("searchByProjectName") != null){
+        if (request.getParameter("searchByProjectName") != null) {
             searchByProjectName = request.getParameter("searchByProjectName");
-            ArrayList<Project> list = ProjectDAO.getProjectsListOfPattern(page*amountPerPage, amountPerPage, searchByProjectName, searchOption);
+            ArrayList<Project> list = ProjectDAO.getProjectsListOfPattern(page * amountPerPage, amountPerPage, searchByProjectName, searchOption);
 
             amountOfProjects = ProjectDAO.amountOfProjectsOfPattern(searchByProjectName, searchOption);
             request.setAttribute("searchOption", searchOption);
             request.setAttribute("searchByProjectName", searchByProjectName);
             request.setAttribute("list", list);
         } else {
-            ArrayList<Project> list = ProjectDAO.getProjectsList(page*amountPerPage, amountPerPage);
+            ArrayList<Project> list = ProjectDAO.getProjectsList(page * amountPerPage, amountPerPage);
             amountOfProjects = ProjectDAO.amountOfProjects();
             request.setAttribute("list", list);
         }
 
         // Ile stron wydrukować
-        int pagesToPrint = (int)Math.ceil((double)amountOfProjects / (double)amountPerPage);
+        int pagesToPrint = (int) Math.ceil((double) amountOfProjects / (double) amountPerPage);
 
         request.setAttribute("pagesToPrint", pagesToPrint);
         request.setAttribute("currentPage", page);

@@ -18,11 +18,24 @@ public class TicketManager extends HttpServlet {
         String deleteId, searchByTicketName;
         int searchOption;
 
-        if(request.getParameter("page") == null){ page = 0; } else { page = Long.parseLong(request.getParameter("page")); }
-        if(request.getParameter("amountPerPage") == null){ amountPerPage = 20; } else { amountPerPage = Long.parseLong(request.getParameter("amountPerPage")); }
-        if(request.getParameter("searchOption") != null) { searchOption = Integer.parseInt(request.getParameter("searchOption")); } else { searchOption = 2; }
-        if(request.getParameter("deleteId") != null){ deleteId = String.valueOf(request.getParameter("deleteId"));
-            if(TicketDAO.deleteSingleProduct(deleteId)){
+        if (request.getParameter("page") == null) {
+            page = 0;
+        } else {
+            page = Long.parseLong(request.getParameter("page"));
+        }
+        if (request.getParameter("amountPerPage") == null) {
+            amountPerPage = 20;
+        } else {
+            amountPerPage = Long.parseLong(request.getParameter("amountPerPage"));
+        }
+        if (request.getParameter("searchOption") != null) {
+            searchOption = Integer.parseInt(request.getParameter("searchOption"));
+        } else {
+            searchOption = 2;
+        }
+        if (request.getParameter("deleteId") != null) {
+            deleteId = String.valueOf(request.getParameter("deleteId"));
+            if (TicketDAO.deleteSingleProduct(deleteId)) {
                 request.setAttribute("msg", "Pomyślnie usunięto ticket");
             } else {
                 request.setAttribute("msg", "Wystąpił problem w trakcie usuwania ticketu");
@@ -30,22 +43,22 @@ public class TicketManager extends HttpServlet {
         }
 
         // Zwraca inną listę użytkowników w zależności od tego czy zostało coś wpisane w szukajkę
-        if(request.getParameter("searchByTicketName") != null){
+        if (request.getParameter("searchByTicketName") != null) {
             searchByTicketName = request.getParameter("searchByTicketName");
-            ArrayList<Ticket> list = TicketDAO.getTicketsListOfPattern(page*amountPerPage, amountPerPage, searchByTicketName, searchOption);
+            ArrayList<Ticket> list = TicketDAO.getTicketsListOfPattern(page * amountPerPage, amountPerPage, searchByTicketName, searchOption);
             amountOfProducts = TicketDAO.amountOfTicketsOfPattern(searchByTicketName, searchOption);
 
             request.setAttribute("searchOption", searchOption);
             request.setAttribute("searchByTicketName", searchByTicketName);
             request.setAttribute("list", list);
         } else {
-            ArrayList<Ticket> list = TicketDAO.getTicketList(page*amountPerPage, amountPerPage);
+            ArrayList<Ticket> list = TicketDAO.getTicketList(page * amountPerPage, amountPerPage);
             amountOfProducts = TicketDAO.amountOfTickets();
             request.setAttribute("list", list);
         }
 
         // Ile stron wydrukować
-        int pagesToPrint = (int)Math.ceil((double)amountOfProducts / (double)amountPerPage);
+        int pagesToPrint = (int) Math.ceil((double) amountOfProducts / (double) amountPerPage);
 
         request.setAttribute("pagesToPrint", pagesToPrint);
         request.setAttribute("currentPage", page);

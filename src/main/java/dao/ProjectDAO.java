@@ -131,10 +131,10 @@ public class ProjectDAO {
                 categoriesList.add(temp);
             }
         } catch (SQLException ex) {
-            System.out.println("Error while getting products data from db; ProjectDAO.getCategoriesList() -->" + ex.getMessage());
+            System.out.println("Error while getting projects data from db; ProjectDAO.getProjectsList() -->" + ex.getMessage());
         } finally {
             DataConnect.close(con);
-            try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; ProjectDAO.getCategoriesList() -->" + ex.getMessage()); }
+            try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; ProjectDAO.getProjectsList() -->" + ex.getMessage()); }
         }
         return categoriesList;
     }
@@ -211,7 +211,7 @@ public class ProjectDAO {
                 return true;
             }
         } catch (SQLException ex) {
-            System.out.println("Error while checking if category exists in db; ProjectDAO.checkIfCategoryExists() -->" + ex.getMessage());
+            System.out.println("Error while checking if project exists in db; ProjectDAO.checkIfProjectExists() -->" + ex.getMessage());
             return false;
         } finally {
             DataConnect.close(con);
@@ -219,7 +219,7 @@ public class ProjectDAO {
                 try {
                     ps.close();
                 } catch (SQLException ex) {
-                    System.out.println("Error while closing PreparedStatement; ProjectDAO.checkIfCategoryExists() -->" + ex.getMessage());
+                    System.out.println("Error while closing PreparedStatement; ProjectDAO.checkIfProjectExists() -->" + ex.getMessage());
                 }
             }
         }
@@ -306,20 +306,22 @@ public class ProjectDAO {
             return false;
         }
     }
-    public static boolean addCategory(String category_name, String category_url) {
-        if (category_name != null || category_url != null) {
+
+    public static boolean addProject(String title, String description, int user_id) {
+        if (title != null || description != null || user_id < 0 ) {
             PreparedStatement ps = null;
             Connection con = null;
             try {
                 con = DataConnect.getConnection();
                 if (con != null) {
-                    ps = con.prepareStatement("INSERT INTO categories (category_name, category_url) VALUES(?,?)");
-                    ps.setString(1, category_name);
-                    ps.setString(2, category_url);
+                    String sql = "INSERT INTO projects(title, description) VALUES(?,?)";
+                    ps = con.prepareStatement(sql);
+                    ps.setString(1, title);
+                    ps.setString(2, description);
                     ps.executeUpdate();
                 }
             } catch (Exception ex) {
-                System.out.println("Registration error when executing query; ProjectDAO.addCategory() -->" + ex.getMessage());
+                System.out.println("Add project error when executing query; ProjectDAO.addProject() -->" + ex.getMessage());
             } finally {
                 try {
                     if (ps != null) {
@@ -327,12 +329,12 @@ public class ProjectDAO {
                     }
                     DataConnect.close(con);
                 } catch (Exception ex) {
-                    System.out.println("Adding product error when closing database connection or prepared statement; ProjectDAO.addCategory() -->" + ex.getMessage());
+                    System.out.println("Add project error when closing database connection or prepared statement; ProjectDAO.addProject() -->" + ex.getMessage());
                 }
             }
             return true;
         } else {
-            System.out.println("All data must be delivered to this method; ProjectDAO.addCategory() -->");
+            System.out.println("All data must be delivered to this method; ProjectDAO.addProject() -->");
             return false;
         }
     }

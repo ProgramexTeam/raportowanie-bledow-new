@@ -27,7 +27,7 @@ public class AddProject extends HttpServlet {
         } else if (description == null){ request.setAttribute("msg", "Nie podano opisu");
         } else if (user_id < 0){ request.setAttribute("msg", "Nie podano użytkownika");
         } else {
-            boolean done = RegisterDAO.addProject(title, description, user_id);
+            boolean done = ProjectDAO.addProject(title, description, user_id);
             if(done) {
                 request.setAttribute("msg", "Pomyślnie dodano projekt do bazy");
             } else {
