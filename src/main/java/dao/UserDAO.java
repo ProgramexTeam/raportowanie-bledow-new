@@ -3,10 +3,7 @@ package dao;
 import objects.User;
 import util.DataConnect;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 @SuppressWarnings({"SqlResolve", "SqlNoDataSourceInspection", "ConstantConditions"})
@@ -246,6 +243,35 @@ public class UserDAO {
             }
         }
         return null;
+    }
+
+    public static ArrayList<User> getUsersInProject(long project_ID) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ArrayList<User> usersInProject = new ArrayList<>();
+        try {
+            con = DataConnect.getConnection();
+            ps = con.prepareStatement("SELECT * FROM users LEFT JOIN users_has_projects ON users.ID = users_has_projects.user_ID WHERE users_has_projects.project_ID = ? ORDER BY users.ID ");
+            ps.setLong(1, project_ID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                User temp = new User(rs.getLong("ID"),
+                        rs.getString("user_login"),
+                        rs.getString("user_pass"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getString("user_email"),
+                        rs.getString("user_activation_key"),
+                        rs.getString("user_role"));
+                usersInProject.add(temp);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error while getting users data from db; UserDAO.getUsersInProject() -->" + ex.getMessage());
+        } finally {
+            DataConnect.close(con);
+            if (ps != null) { try { ps.close(); } catch (SQLException ex) { System.out.println("Error while closing PreparedStatement; UserDAO.getUsersInProject() -->" + ex.getMessage()); } }
+        }
+        return usersInProject;
     }
 
     public static String getSingleUserLogin(int userId) {

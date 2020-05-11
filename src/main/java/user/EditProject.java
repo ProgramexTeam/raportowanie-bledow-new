@@ -34,6 +34,7 @@ public class EditProject extends HttpServlet {
         request.setAttribute("projectId", projectId);
         String project_title = request.getParameter("project_title");
         String project_description = request.getParameter("project_description");
+        int user_id = Integer.parseInt(request.getParameter("user0"));
 
         if(projectId == null){ request.setAttribute("msg", "Nie rozpoznano id edytowanego projektu. Spróbuj ponownie wyszukać projekt " +
                 "w menadżerze projektów i zedytuj jego dane jeszcze raz.");
@@ -45,6 +46,20 @@ public class EditProject extends HttpServlet {
                 request.setAttribute("msg", "Pomyślnie zedytowano projekt");
             } else {
                 request.setAttribute("msg", "Wystąpił problem w trakcie dodawania zedytowanych danych projektów do bazy. Spróbuj ponownie, albo zweryfikuj logi serwera");
+            }
+
+            ProjectDAO.removeUsersAndProjects(projectId);
+            for (int i = 0; i <= 3; i++){
+                user_id = Integer.parseInt(request.getParameter("user" +i));
+
+                if (user_id > 0){
+                    boolean dbUpdated = ProjectDAO.addUsersAndProjects(user_id);
+                    if (dbUpdated){
+                        request.setAttribute("msg", "Pomyślnie zaktualizowano bazę danych");
+                    } else {
+                        request.setAttribute("msg", "Wystąpił problem w trakcie aktualizacji bazy danych");
+                    }
+                }
             }
         }
 
