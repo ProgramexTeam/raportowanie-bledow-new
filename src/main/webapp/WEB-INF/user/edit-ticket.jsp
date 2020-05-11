@@ -36,7 +36,15 @@
                         <textarea name="description" style="width:100%"><% if(singleTicket.getDescription()!=null) singleTicket.getDescription(); %></textarea>
                 </div>
                 <div class="input-row">
-                    <p class="input-element" style="width:100%"><span>Status:</span> <br /><textarea name="status"></textarea></p>
+                    <p><span>Rola:</span><br />
+                        <select name="status">
+                            <option value="Otwarty">Otwarty</option>
+                            <option value="W trakcie naprawy">W trakcie naprawy</option>
+                            <option value="Naprawiony">Naprawiony</option>
+                            <option value="Odrzucony">Odrzucony</option>
+                            <option value="Oczekujący na retestowanie">Oczekujący na retestowanie</option>
+                        </select>
+                    </p>
                 </div>
                 <p class="input-element submit-element"><input type="submit" value="Zapisz zmiany"></p>
             </form>
