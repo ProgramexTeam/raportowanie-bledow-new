@@ -385,7 +385,7 @@ public class TicketDAO {
             return false;
         }
     }
-    public static boolean addProduct(int author_ID, int project_ID, String status, String title, String description) {
+    public static boolean addTicket(int author_ID, int project_ID, String status, String title, String description) {
         if (author_ID != -1 || project_ID != -1) {
             PreparedStatement ps = null;
             Connection con = null;
@@ -402,7 +402,7 @@ public class TicketDAO {
                     ps.executeUpdate();
                 }
             } catch (Exception ex) {
-                System.out.println("Registration error when executing query; TicketDAO.addProduct() -->" + ex.getMessage());
+                System.out.println("Registration error when executing query; TicketDAO.addTicket() -->" + ex.getMessage());
             } finally {
                 try {
                     if (ps != null) {
@@ -410,12 +410,12 @@ public class TicketDAO {
                     }
                     DataConnect.close(con);
                 } catch (Exception ex) {
-                    System.out.println("Adding product error when closing database connection or prepared statement; TicketDAO.addProduct() -->" + ex.getMessage());
+                    System.out.println("Adding product error when closing database connection or prepared statement; TicketDAO.addTicket() -->" + ex.getMessage());
                 }
             }
             return true;
         } else {
-            System.out.println("All data must be delivered to this method; TicketDAO.addProduct() -->");
+            System.out.println("All data must be delivered to this method; TicketDAO.addTicket() -->");
             return false;
         }
     }

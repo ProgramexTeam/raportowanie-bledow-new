@@ -38,7 +38,7 @@ public class AddTicket extends HttpServlet {
         } else if(title == null){ request.setAttribute("msg", "Nie podano tytułu ticketu");
         } else if(description == null){ request.setAttribute("msg", "Nie podano opisu ticketu");
         } else {
-            boolean done = TicketDAO.addProduct(author_id, project_id, status, title, description);
+            boolean done = TicketDAO.addTicket(author_id, project_id, status, title, description);
             if(done) {
                 request.setAttribute("msg", "Pomyślnie dodano ticket do bazy");
             } else {
