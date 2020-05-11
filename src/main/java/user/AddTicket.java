@@ -3,18 +3,26 @@ package user;
 import dao.TicketDAO;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@MultipartConfig(fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 1024 * 1024 * 5,
+        maxRequestSize = 1024 * 1024 * 5 * 5)
 @WebServlet("/user/ticket-manager/add-ticket")
 public class AddTicket extends HttpServlet {
+    private static final String UPLOAD_DIRECTORY = "src\\main\\webapp\\assets\\files\\tickets\\";
+    String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY;
+    File uploadDir = new File(uploadPath);
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");

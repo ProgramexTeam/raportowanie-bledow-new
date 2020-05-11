@@ -26,10 +26,10 @@
                     </p>
                 </div>
                 <p class="input-element"><span>Pliki: </span> <br /> <span style="font-size: 10px">Tutaj możesz załączyć pliki (maksymalnie 4) do ticketu:</span> <br />
-                    <input type="file" name="file0" class="element" title="Kliknij tutaj by wybrać plik." required><br />
-                    <input type="file" name="file1" class="element" title="Kliknij tutaj by wybrać plik." required><br />
-                    <input type="file" name="file2" class="element" title="Kliknij tutaj by wybrać plik." required><br />
-                    <input type="file" name="file3" class="element" title="Kliknij tutaj by wybrać plik." required>
+                    <input type="file" name="file0" class="element" title="Kliknij tutaj by wybrać plik."><br />
+                    <input type="file" name="file1" class="element" title="Kliknij tutaj by wybrać plik."><br />
+                    <input type="file" name="file2" class="element" title="Kliknij tutaj by wybrać plik."><br />
+                    <input type="file" name="file3" class="element" title="Kliknij tutaj by wybrać plik.">
                 <div class="plus-button"><i class="fas fa-plus-square"></i></div>
                 <div class="minus-button"><i class="fas fa-minus-square"></i></div>
                 </p>
