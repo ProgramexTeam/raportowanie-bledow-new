@@ -316,7 +316,7 @@ body .data tbody .project-row:nth-child(even) {
 .input-element select {
     width: 200px;
 }
-.input-element select:not(:first-of-type) {
+.input-element .element:not(:first-of-type) {
     display: none;
 }
 .input-element input[type=text], .input-element input[type=email], .input-element input[type=date], .input-element input[type=password] {

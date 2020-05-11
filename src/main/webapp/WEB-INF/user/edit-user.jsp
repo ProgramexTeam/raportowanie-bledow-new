@@ -13,10 +13,10 @@
             <form method="post" action="${pageContext.request.contextPath}/user/user-manager/edit-user">
                 <div class="input-row">
                     <p class="input-element"><span>ID:</span> <br /> <input type="text" name="userId" value="<% out.println(singleUser.getId()); %>" title="Id nie może zostać zmienione" readonly></p>
-                    <p class="input-element"><span>Login:</span> <br /> <span style="font-size: 8px">Login musi zawierać minimum 6 znaków.</span> <br />
+                    <p class="input-element"><span>Login:</span> <br /> <span style="font-size: 10px">Login musi zawierać minimum 6 znaków.</span> <br />
                         <input type="text" name="userlogin" pattern=".{6,}" value="<% out.println(singleUser.getUser_login()); %>" title="Login musi zawierać minimum 6 znaków" required></p></div>
                 <div class="input-row">
-                    <p class="input-element"><span>Hasło: </span> <br /> <span style="font-size: 8px">Hasło musi zawierać przynajmniej jedną cyfrę jedną wielką i jedną małą literę.<br>Dodatkowo hasło
+                    <p class="input-element"><span>Hasło: </span> <br /> <span style="font-size: 10px">Hasło musi zawierać przynajmniej jedną cyfrę jedną wielką i jedną małą literę.<br>Dodatkowo hasło
                         musi składać się z minimum 8 znaków.</span> <br /> <input type="text" name="pwd" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="
                         Hasło musi zawierać przynajmniej jedną cyfrę jedną wielką i jedną małą literę. Dodatkowo hasło musi składać się z minimum 8 znaków."
                         value="<% out.println(singleUser.getUser_pass()); %>" required></p>

@@ -14,7 +14,7 @@
             <form method="post" action="${pageContext.request.contextPath}/user/project-manager/edit-project">
                 <div class="input-row">
                     <p class="input-element"><span>ID:</span> <br /> <input style="max-width: 70px" type="text" name="projectId" value="<% out.print(singleProject.getId()); %>" title="Id nie może zostać zmienione" readonly></p><br />
-                    <p class="input-element"><span>Tytuł projektu:</span> <br /> <span style="font-size: 8px">Nazwa projektu musi zawierać minimum 3 znaki.</span> <br />
+                    <p class="input-element"><span>Tytuł projektu:</span> <br /> <span style="font-size: 10px">Nazwa projektu musi zawierać minimum 3 znaki.</span> <br />
                         <input type="text" name="project_title" pattern=".{3,}" value="<% out.print(singleProject.getTitle()); %>" title="Nazwa kategorii musi zawierać minimum 3 znaki" required>
                     </p><br />
                     <p class="input-element"><span>Opis projektu: </span> <br />

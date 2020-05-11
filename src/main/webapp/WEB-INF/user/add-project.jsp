@@ -14,33 +14,33 @@
         <div class="form-container">
             <form method="post" action="${pageContext.request.contextPath}/user/project-manager/add-project">
                 <div class="input-row">
-                    <p class="input-element"><span>Tytuł projektu:</span> <br /> <span style="font-size: 8px">Nazwa projektu musi zawierać minimum 3 znaki.</span> <br />
+                    <p class="input-element"><span>Tytuł projektu:</span> <br /> <span style="font-size: 10px">Nazwa projektu musi zawierać minimum 3 znaki.</span> <br />
                         <input type="text" name="title" pattern=".{3,}" title="Tytuł musi zawierać minimum 3 znaki" required></p>
                 </div>
                 <div class="input-row">
                     <p class="input-element" style="width:100%"><span>Opis:</span> <br /><textarea name="description"></textarea></p>
                 </div>
                 <% ArrayList<User> usersList = UserDAO.getUsersList(); %>
-                <p class="input-element"><span>Użytkownik: </span> <br /> <span style="font-size: 8px">Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników.</span> <br />
-                    <select name="user0" title="Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników." required>
+                <p class="input-element"><span>Użytkownik: </span> <br /> <span style="font-size: 10px">Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników.</span> <br />
+                    <select name="user0" class="element"  title="Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników." required>
                         <option value="-1">---Wybierz użytkownika---</option>
                         <% for (User cat: usersList) { %>
                         <option value="<% out.print(cat.getId()); %>"><% out.print(cat.getUser_login()); %></option>
                         <% } %>
                     </select>
-                    <br /> <select name="user1" title="Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników." required>
+                    <br /> <select name="user1" class="element" title="Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników." required>
                         <option value="-1">---Wybierz użytkownika---</option>
                         <% for (User cat: usersList) { %>
                         <option value="<% out.print(cat.getId()); %>"><% out.print(cat.getUser_login()); %></option>
                         <% } %>
                     </select>
-                    <br /> <select name="user2" title="Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników." required>
+                    <br /> <select name="user2" class="element" title="Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników." required>
                         <option value="-1">---Wybierz użytkownika---</option>
                         <% for (User cat: usersList) { %>
                         <option value="<% out.print(cat.getId()); %>"><% out.print(cat.getUser_login()); %></option>
                         <% } %>
                     </select>
-                    <br /><select name="user3" title="Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników." required>
+                    <br /><select name="user3" class="element" title="Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników." required>
                         <option value="-1">---Wybierz użytkownika---</option>
                         <% for (User cat: usersList) { %>
                         <option value="<% out.print(cat.getId()); %>"><% out.print(cat.getUser_login()); %></option>

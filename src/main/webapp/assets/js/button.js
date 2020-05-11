@@ -1,5 +1,5 @@
 $(".plus-button").click(function () {
-    var selects = $(".input-element select:not(:first-of-type)");
+    var selects = $(".input-element .element:not(:first-of-type)");
     $(selects).each(function (index) {
         if($(this).css("display") == "none") {
             $(this).css("display", "inline-block");
@@ -8,7 +8,7 @@ $(".plus-button").click(function () {
     });
 });
 $(".minus-button").click(function () {
-    var selects = $(".input-element select:not(:first-of-type)").toArray().reverse();
+    var selects = $(".input-element .element:not(:first-of-type)").toArray().reverse();
     $(selects).each(function () {
         if($(this).css("display") == "inline-block") {
             $(this).css("display", "none");

@@ -14,10 +14,10 @@
         <div class="form-container">
             <form method="post" action="${pageContext.request.contextPath}/user/ticket-manager/add-ticket">
                 <div class="input-row" style="width: 100%">
-                    <p class="input-element"><span>Tytuł ticketu:</span> <br /> <span style="font-size: 8px">Nazwa ticketu musi zawierać minimum 3 znaki.</span> <br />
+                    <p class="input-element"><span>Tytuł ticketu:</span> <br /> <span style="font-size: 10px">Nazwa ticketu musi zawierać minimum 3 znaki.</span> <br />
                         <input type="text" name="title" pattern=".{3,}" title="Nazwa ticketu musi zawierać minimum 3 znaki" required></p>
                     <% ArrayList<Project> projectList = ProjectDAO.getProjectsList(); %>
-                    <p class="input-element"><span>Projekt: </span> <br /> <span style="font-size: 8px">Projekt można wybrać wyłącznie z listy utworzonych projektów. Jeśli chcesz użyć projektu, który nie znajduje się na liście przejdź do menadżera projektów.</span> <br />
+                    <p class="input-element"><span>Projekt: </span> <br /> <span style="font-size: 10px">Projekt można wybrać wyłącznie z listy utworzonych projektów. Jeśli chcesz użyć projektu, który nie znajduje się na liście przejdź do menadżera projektów.</span> <br />
                         <select name="project_id" title="Projekt można wybrać wyłącznie z listy utworzonych projektów. Jeśli chcesz użyć projektu, który nie znajduje się na liście przejdź do menadżera projektów." required>
                             <% for (Project cat: projectList) { %>
                                 <option value="<% out.print(cat.getId()); %>"><% out.print(cat.getTitle()); %></option>
@@ -25,6 +25,14 @@
                         </select>
                     </p>
                 </div>
+                <p class="input-element"><span>Pliki: </span> <br /> <span style="font-size: 10px">Tutaj możesz załączyć pliki (maksymalnie 4) do ticketu:</span> <br />
+                    <input type="file" name="file0" class="element" title="Kliknij tutaj by wybrać plik." required><br />
+                    <input type="file" name="file1" class="element" title="Kliknij tutaj by wybrać plik." required><br />
+                    <input type="file" name="file2" class="element" title="Kliknij tutaj by wybrać plik." required><br />
+                    <input type="file" name="file3" class="element" title="Kliknij tutaj by wybrać plik." required>
+                <div class="plus-button"><i class="fas fa-plus-square"></i></div>
+                <div class="minus-button"><i class="fas fa-minus-square"></i></div>
+                </p>
                 <div class="input-row">
                     <p class="input-element" style="width:100%"><span>Opis:</span> <br /><textarea name="description"></textarea></p>
                 </div>
