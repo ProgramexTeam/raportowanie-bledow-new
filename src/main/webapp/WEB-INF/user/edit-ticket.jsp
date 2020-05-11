@@ -36,7 +36,7 @@
                         <textarea name="description" style="width:100%"><% if(singleTicket.getDescription()!=null) singleTicket.getDescription(); %></textarea>
                 </div>
                 <div class="input-row">
-                    <p><span>Rola:</span><br />
+                    <p><span>Status:</span><br />
                         <select name="status">
                             <option value="Otwarty">Otwarty</option>
                             <option value="W trakcie naprawy">W trakcie naprawy</option>

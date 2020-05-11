@@ -37,7 +37,7 @@
                     <p class="input-element" style="width:100%"><span>Opis:</span> <br /><textarea name="description"></textarea></p>
                 </div>
                 <div class="input-row">
-                    <p><span>Rola:</span><br />
+                    <p><span>Status:</span><br />
                         <select name="status">
                             <option value="Otwarty">Otwarty</option>
                             <option value="W trakcie naprawy">W trakcie naprawy</option>
