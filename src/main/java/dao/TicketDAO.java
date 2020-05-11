@@ -97,15 +97,17 @@ public class TicketDAO {
         }
         return amount;
     }
-    public static ArrayList<Ticket> getTicketList(long startPosition, long amount) {
+    public static ArrayList<Ticket> getTicketList(long startPosition, long amount, int author_id) {
         Connection con = null;
         PreparedStatement ps = null;
         ArrayList<Ticket> tickets = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM tickets LEFT JOIN projects ON tickets.project_ID = projects.ID ORDER BY tickets.ID DESC LIMIT ?, ?");
-            ps.setLong(1, startPosition);
-            ps.setLong(2, amount);
+            ps = con.prepareStatement("SELECT * FROM tickets LEFT JOIN projects ON tickets.project_ID = projects.ID LEFT JOIN users_has_projects ON projects.ID = users_has_projects.project_ID WHERE tickets.author_ID = ? OR users_has_projects.user_ID = ? ORDER BY tickets.ID DESC LIMIT ?, ?");
+            ps.setLong(1, author_id);
+            ps.setLong(2, author_id);
+            ps.setLong(3, startPosition);
+            ps.setLong(4, amount);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Ticket temp = new Ticket(rs.getInt("ID"),

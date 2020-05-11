@@ -5,6 +5,7 @@ import objects.Ticket;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +18,15 @@ public class TicketManager extends HttpServlet {
         long page, amountPerPage, amountOfProducts;
         String deleteId, searchByTicketName;
         int searchOption;
+        Cookie cookies[] = request.getCookies();
+        int author_ID = -1;
+
+        if(cookies != null) {
+            for(Cookie cookie : cookies) {
+                if(cookie.getName().equals("user_id"))
+                    author_ID = Integer.parseInt(cookie.getValue());
+            }
+        }
 
         if (request.getParameter("page") == null) {
             page = 0;
@@ -52,7 +62,7 @@ public class TicketManager extends HttpServlet {
             request.setAttribute("searchByTicketName", searchByTicketName);
             request.setAttribute("list", list);
         } else {
-            ArrayList<Ticket> list = TicketDAO.getTicketList(page * amountPerPage, amountPerPage);
+            ArrayList<Ticket> list = TicketDAO.getTicketList(page * amountPerPage, amountPerPage, author_ID);
             amountOfProducts = TicketDAO.amountOfTickets();
             request.setAttribute("list", list);
         }
