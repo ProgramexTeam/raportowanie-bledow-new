@@ -46,8 +46,8 @@
                         <option value="<% out.print(cat.getId()); %>"><% out.print(cat.getUser_login()); %></option>
                         <% } %>
                     </select>
-                    <div class="plus-button"><i class="fas fa-plus-square"></i></div>
-                    <div class="minus-button"><i class="fas fa-minus-square"></i></div>
+                    <div class="plus-button"><i class="fas fa-plus-circle"></i></div>
+                    <div class="minus-button"><i class="fas fa-minus-circle"></i></div>
                 </p>
                 <p class="input-element submit-element"><input type="submit" value="Dodaj projekt"></p>
             </form>

@@ -345,7 +345,8 @@ public class ProjectDAO {
         try {
             con = DataConnect.getConnection();
             ps = con.prepareStatement("DELETE FROM users_has_projects WHERE project_ID = ?");
-            ps.setString(1, projectID);
+            ps.setInt(1, Integer.parseInt(projectID));
+            ps.executeUpdate();
         }  catch (SQLException ex) {
             System.out.println("Error when executing query; ProjectDAO.removeUsersAndProjects() -->" + ex.getMessage());
         } finally {

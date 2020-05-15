@@ -366,33 +366,29 @@ body .data tbody .project-row:nth-child(even) {
     border: none;
 }
 .activate-tab-bar {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .plus-button {
-    height: 40px;
-    width: 40px;
-    font-size: 20px;
-    align-items: center;
-    display: block;
+    font-size: 25px;
+    /*align-items: center;*/
+    color: #6c7ae0;
+    display: inline-block;
     transition-duration: 0.4s;
     cursor: pointer;
 }
 .plus-button:hover {
-    background-color: #4CAF50; /* Green */
-    color: white;
+    color: #4CAF50;
 }
 
 .minus-button {
-    height: 40px;
-    width: 40px;
-    font-size: 20px;
-    align-items: center;
-    display: block;
+    font-size: 25px;
+    /*align-items: center;*/
+    color: #6c7ae0;
+    display: inline-block;
     transition-duration: 0.4s;
     cursor: pointer;
 }
 .minus-button:hover {
-    background-color: #F44336; /* Red */
-    color: white;
+    color: #F44336;
 }

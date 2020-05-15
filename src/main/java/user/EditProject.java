@@ -34,7 +34,7 @@ public class EditProject extends HttpServlet {
         request.setAttribute("projectId", projectId);
         String project_title = request.getParameter("project_title");
         String project_description = request.getParameter("project_description");
-        int user_id = Integer.parseInt(request.getParameter("user0"));
+        int user_id;
 
         if(projectId == null){ request.setAttribute("msg", "Nie rozpoznano id edytowanego projektu. Spróbuj ponownie wyszukać projekt " +
                 "w menadżerze projektów i zedytuj jego dane jeszcze raz.");
@@ -51,7 +51,6 @@ public class EditProject extends HttpServlet {
             ProjectDAO.removeUsersAndProjects(projectId);
             for (int i = 0; i <= 3; i++){
                 user_id = Integer.parseInt(request.getParameter("user" +i));
-
                 if (user_id > 0){
                     boolean dbUpdated = ProjectDAO.addUsersAndProjects(user_id);
                     if (dbUpdated){

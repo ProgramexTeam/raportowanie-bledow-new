@@ -25,11 +25,12 @@
                         <textarea name="project_description" required><% out.print(singleProject.getDescription()); %></textarea>
                     </p>
                 </div>
+                <div>Użytkownicy przypisani do projektu: </div><br />
                 <% ArrayList<User> usersInProject = UserDAO.getUsersInProject(singleProject.getId());
                 for(User u: usersInProject) {
                     out.print("<div>" +u.getUser_login()+"</div><br>");
                 } %>
-                <p class="input-element"><span>Użytkownik: </span> <br /> <span style="font-size: 8px">Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników.</span> <br />
+                <p class="input-element"><span>Zmień użytkowników przypisanych do projektu: </span> <br /> <span style="font-size: 8px">Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników.</span> <br />
                     <select name="user0" title="Użytkownika można wybrać wyłącznie z listy zarejestrowanych użytkowników." required>
                         <option value="-1">---Wybierz użytkownika---</option>
                         <% for (User cat: usersList) { %>
@@ -54,8 +55,8 @@
                         <option value="<% out.print(cat.getId()); %>"><% out.print(cat.getUser_login()); %></option>
                         <% } %>
                     </select>
-                <div class="plus-button"><i class="fas fa-plus-square"></i></div>
-                <div class="minus-button"><i class="fas fa-minus-square"></i></div>
+                <div class="plus-button"><i class="fas fa-plus-circle"></i></div>
+                <div class="minus-button"><i class="fas fa-minus-circle"></i></div>
                 </p>
                 <p class="input-element submit-element"><input type="submit" value="Zapisz zmiany"></p>
             </form>
