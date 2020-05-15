@@ -30,12 +30,12 @@ public class ActivationEmail {
                     InternetAddress.parse(user_email)
             );
             //TODO: zastąpić sztywny link aktywacyjny takim co nie jest sztywny xd
-            message.setSubject("Rejestracja w Monopolowy24h - Aktywacja konta");
+            message.setSubject("Rejestracja w Dżira - System Raportowania Błędów - Aktywacja konta");
             message.setText("Witaj! " +
                     "Jeśli otrzymałeś ten email, to znaczy że proces rejestracji przebiegł pomyślnie. " +
                     "Aby korzystać z utworzonego konta należy je aktywować, klikając w poniższy link." +
                     "\nhttp://localhost:8080/user-activation?key=" + activation_key +
-                    "\nJeśli nie rejestrowałeś się w sklepie Monopolowy24h, to zignoruj tę wiadomość." +
+                    "\nJeśli nie rejestrowałeś się w portalu Dżira - System Raportowania Błędów, to zignoruj tę wiadomość." +
                     "\n\n---------------------------------------" +
                     "\nWiadomość wygenerowana automatycznie. Prosimy nie odpowiadać na tę wiadomość.");
 
