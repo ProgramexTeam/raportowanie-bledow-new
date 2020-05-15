@@ -1,4 +1,4 @@
-package pages;
+package user;
 
 
 import dao.TicketDAO;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/portal/ticket")
+@WebServlet("/user/ticket-manager/single-ticket")
 public class SingleTicket extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {

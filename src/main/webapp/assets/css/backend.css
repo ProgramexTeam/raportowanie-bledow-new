@@ -310,6 +310,13 @@ body .data tbody .project-row:nth-child(even) {
 }
 
 /* Wygląd formularzy */
+.form-container {
+    display: flex;
+}
+.form-container > form, .form-container > div {
+    flex-basis: 50%;
+    width: 50%;
+}
 .input-element input[type=number] {
     width: 75px;
 }
@@ -323,13 +330,17 @@ body .data tbody .project-row:nth-child(even) {
     width: 300px;
 }
 .input-element input[type=text], .input-element input[type=email], .input-element input[type=date], .input-element textarea,
-.input-element input[type=password], .input-element select, .input-element input[type=number], .input-element textarea {
+.input-element input[type=password], .input-element select, .input-element input[type=number] {
     padding: 8px 10px;
     margin: 8px 0;
     display: inline-block;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    width: 500px;
+}
+textarea {
+    height: 250px;
 }
 .user-manager .input-element, .ticket-manager .input-element,
 .media-manager .input-element, .ticket-manager .input-element {

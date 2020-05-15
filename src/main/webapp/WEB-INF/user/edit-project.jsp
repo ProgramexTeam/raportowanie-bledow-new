@@ -1,4 +1,8 @@
+<%@ page import="dao.CommentDAO" %>
+<%@ page import="objects.Comment" %>
 <%@ page import="objects.Project" %>
+<%@ page import="java.util.List" %>
+<%@ page import="dao.UserDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <!-- Nagłówek -->
 <jsp:include page="/WEB-INF/user/parts/overall-header.jsp"/>
