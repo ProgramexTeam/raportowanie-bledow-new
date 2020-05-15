@@ -339,6 +339,30 @@ public class ProjectDAO {
         }
     }
 
+    public static boolean removeUsersAndProjects(String projectID){
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = DataConnect.getConnection();
+            ps = con.prepareStatement("DELETE FROM users_has_projects WHERE project_ID = ?");
+            ps.setInt(1, Integer.parseInt(projectID));
+            ps.executeUpdate();
+        }  catch (SQLException ex) {
+            System.out.println("Error when executing query; ProjectDAO.removeUsersAndProjects() -->" + ex.getMessage());
+        } finally {
+            try {
+                if (ps != null){
+                    ps.close();
+                }
+                DataConnect.close(con);
+            } catch (Exception ex){
+                System.out.println("Error when closing database connection or prepared statement; ProjectDAO.removeUsersAndProjects() -->" + ex.getMessage());
+            }
+        }
+        return true;
+    }
+
+
     public static boolean addUsersAndProjects(int user_ID){
         if (user_ID >= 0) {
             Connection con = null;
