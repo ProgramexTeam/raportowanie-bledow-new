@@ -12,7 +12,7 @@
         <h1 class="backend-page-title"> Dodawanie ticketów</h1>
         <p class="info-msg"><% if(request.getAttribute("msg") != null){ out.println(request.getAttribute("msg")); request.setAttribute("msg", null); } %></p>
         <div class="form-container">
-            <form method="post" action="${pageContext.request.contextPath}/user/ticket-manager/add-ticket">
+            <form method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/user/ticket-manager/add-ticket">
                 <div class="input-row" style="width: 100%">
                     <p class="input-element"><span>Tytuł ticketu:</span> <br /> <span style="font-size: 10px">Nazwa ticketu musi zawierać minimum 3 znaki.</span> <br />
                         <input type="text" name="title" pattern=".{3,}" title="Nazwa ticketu musi zawierać minimum 3 znaki" required></p>
