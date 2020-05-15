@@ -75,10 +75,10 @@
 
                 <%
                     if (request.getAttribute("fileLinksList") != null) {
-                        out.println("<table class=\"data\">");
-                        out.println("<span>Lista plików aktualnie przypisana do ticketu:</span> <br/>");
                         List list = (List) request.getAttribute("fileLinksList");
                         if (!list.isEmpty()) {
+                            out.println("<table class=\"data\">");
+                            out.println("<span>Lista plików aktualnie przypisana do ticketu:</span> <br/>");
                             long i = 0;
                             out.println("<thead>" +
                                     "<tr class=\"ticket-list-header\">" +

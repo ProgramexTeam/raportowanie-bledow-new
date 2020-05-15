@@ -46,25 +46,24 @@ public class AddTicket extends HttpServlet {
         } else if (description == null) {
             request.setAttribute("msg", "Nie podano opisu ticketu");
         } else {
-            boolean done = TicketDAO.addTicket(author_id, project_id, status, title, description);
-            if (done) {
-                request.setAttribute("msg", "Pomyślnie dodano ticket do bazy");
-            } else {
+            int id = TicketDAO.addTicket(author_id, project_id, status, title, description);
+            if (id == -1) {
                 request.setAttribute("msg", "Wystąpił problem w trakcie dodawania ticketu do bazy, spróbuj ponownie, albo zweryfikuj logi serwera");
-            }
-        }
-
-        if (request.getContentType() != null && request.getContentType().toLowerCase().contains("multipart/form-data")) {
-            if (!request.getParts().isEmpty()) {
-                String uploadPathTarget = ContextOperations.getPathToRoot(getServletContext().getRealPath("")) + UPLOAD_DIRECTORY;
-                File uploadDirTarget = new File(uploadPathTarget);
-                String fileName;
-                if (!uploadDirTarget.exists()) uploadDirTarget.mkdirs();
-                for (Part part : request.getParts()) {
-                    fileName = getFileName(part);
-                    if (fileName != null && (fileName.endsWith(".zip") || fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png"))) {
-                        String outputFilePathTarget = uploadPathTarget + fileName;
-                        part.write(outputFilePathTarget);
+            } else {
+                request.setAttribute("msg", "Pomyślnie dodano ticket do bazy");
+                if (request.getContentType() != null && request.getContentType().toLowerCase().contains("multipart/form-data")) {
+                    if (!request.getParts().isEmpty()) {
+                        String uploadPathTarget = ContextOperations.getPathToRoot(getServletContext().getRealPath("")) + UPLOAD_DIRECTORY + "\\" + id + "\\";
+                        File uploadDirTarget = new File(uploadPathTarget);
+                        String fileName;
+                        if (!uploadDirTarget.exists()) uploadDirTarget.mkdirs();
+                        for (Part part : request.getParts()) {
+                            fileName = getFileName(part);
+                            if (fileName != null && (fileName.endsWith(".zip") || fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png"))) {
+                                String outputFilePathTarget = uploadPathTarget + fileName;
+                                part.write(outputFilePathTarget);
+                            }
+                        }
                     }
                 }
             }

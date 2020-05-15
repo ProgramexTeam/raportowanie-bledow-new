@@ -24,7 +24,7 @@ public class EditTicket extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String ticketId, deleteId;
-        String uploadPathTarget = ContextOperations.getPathToRoot(getServletContext().getRealPath("")) + UPLOAD_DIRECTORY;
+        String uploadPathTarget;
 
         if (request.getParameter("ticketId") != null) {
             ticketId = request.getParameter("ticketId");
@@ -32,53 +32,50 @@ public class EditTicket extends HttpServlet {
             ticketId = (String) request.getAttribute("ticketId");
         }
         if (TicketDAO.checkIfTicketExists(ticketId)) {
+            uploadPathTarget = ContextOperations.getPathToRoot(getServletContext().getRealPath("")) + UPLOAD_DIRECTORY + "\\" + ticketId + "\\";
             Ticket singleTicket = TicketDAO.getSingleTicketData(ticketId);
             request.setAttribute("singleTicket", singleTicket);
-        }
-
-        if (request.getParameter("deleteId") != null) {
-            deleteId = request.getParameter("deleteId");
-            File fileToDelete = new File(uploadPathTarget + deleteId);
-            if (fileToDelete.delete()) {
-                request.setAttribute("msg", "Pomyślnie usunięto plik");
-            } else {
-                request.setAttribute("msg", "Wystąpił błąd podczas usuwania pliku!");
+            if (request.getParameter("deleteId") != null) {
+                deleteId = request.getParameter("deleteId");
+                File fileToDelete = new File(uploadPathTarget + deleteId);
+                if (fileToDelete.delete()) {
+                    request.setAttribute("msg", "Pomyślnie usunięto plik");
+                } else {
+                    request.setAttribute("msg", "Wystąpił błąd podczas usuwania pliku!");
+                }
             }
-        }
-
-        if (request.getContentType() != null && request.getContentType().toLowerCase().contains("multipart/form-data")) {
-            if (!request.getParts().isEmpty()) {
-                String fileName;
-                for (Part part : request.getParts()) {
-                    fileName = getFileName(part);
-                    if (fileName != null && (fileName.endsWith(".zip") || fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png"))) {
-                        String outputFilePathTarget = uploadPathTarget + fileName;
-                        part.write(outputFilePathTarget);
+            if (request.getContentType() != null && request.getContentType().toLowerCase().contains("multipart/form-data")) {
+                if (!request.getParts().isEmpty()) {
+                    String fileName;
+                    for (Part part : request.getParts()) {
+                        fileName = getFileName(part);
+                        if (fileName != null && (fileName.endsWith(".zip") || fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png"))) {
+                            String outputFilePathTarget = uploadPathTarget + fileName;
+                            part.write(outputFilePathTarget);
+                        }
                     }
                 }
             }
-        }
-
-        File dir = new File(uploadPathTarget);
-        if (!dir.exists()) dir.mkdirs();
-        if (dir.listFiles() != null) {
-            long counter = 0;
-            File[] files = dir.listFiles();
-            Arrays.sort(files, Comparator.comparingLong(File::lastModified));
-            String[] linksTab = new String[files.length];
-            int i = 0;
-            for (File file : files) {
-                linksTab[i] = file.getName();
-                i++;
-                counter++;
+            File dir = new File(uploadPathTarget);
+            if (!dir.exists()) dir.mkdirs();
+            if (dir.listFiles() != null) {
+                long counter = 0;
+                File[] files = dir.listFiles();
+                Arrays.sort(files, Comparator.comparingLong(File::lastModified));
+                String[] linksTab = new String[files.length];
+                int i = 0;
+                for (File file : files) {
+                    linksTab[i] = file.getName();
+                    i++;
+                    counter++;
+                }
+                List<String> fileLinksList = Arrays.asList(linksTab);
+                Collections.reverse(fileLinksList);
+                request.setAttribute("fileLinksList", fileLinksList);
+            } else {
+                request.setAttribute("fileLinksList", null);
             }
-            List<String> fileLinksList = Arrays.asList(linksTab);
-            Collections.reverse(fileLinksList);
-            request.setAttribute("fileLinksList", fileLinksList);
-        } else {
-            request.setAttribute("fileLinksList", null);
         }
-
         request.getRequestDispatcher("/WEB-INF/user/edit-ticket.jsp").forward(request, response);
     }
 
