@@ -385,10 +385,11 @@ public class TicketDAO {
             return false;
         }
     }
-    public static boolean addTicket(int author_ID, int project_ID, String status, String title, String description) {
+    public static int addTicket(int author_ID, int project_ID, String status, String title, String description) {
         if (author_ID != -1 || project_ID != -1) {
             PreparedStatement ps = null;
             Connection con = null;
+            int id = -1;
             try {
                 con = DataConnect.getConnection();
                 if (con != null) {
@@ -400,9 +401,14 @@ public class TicketDAO {
                     ps.setString(4, title);
                     ps.setString(5, description);
                     ps.executeUpdate();
+                    ps = con.prepareStatement("SELECT MAX(ID) AS 'lastID' FROM tickets");
+                    ResultSet rs = ps.executeQuery();
+                    if (rs.next()) {
+                        id = rs.getInt("lastID");
+                    }
                 }
             } catch (Exception ex) {
-                System.out.println("Registration error when executing query; TicketDAO.addTicket() -->" + ex.getMessage());
+                System.out.println("Adding ticket error when executing query; TicketDAO.addTicket() -->" + ex.getMessage());
             } finally {
                 try {
                     if (ps != null) {
@@ -410,13 +416,13 @@ public class TicketDAO {
                     }
                     DataConnect.close(con);
                 } catch (Exception ex) {
-                    System.out.println("Adding product error when closing database connection or prepared statement; TicketDAO.addTicket() -->" + ex.getMessage());
+                    System.out.println("Adding ticket error when closing database connection or prepared statement; TicketDAO.addTicket() -->" + ex.getMessage());
                 }
             }
-            return true;
+            return id;
         } else {
             System.out.println("All data must be delivered to this method; TicketDAO.addTicket() -->");
-            return false;
+            return -1;
         }
     }
 }
