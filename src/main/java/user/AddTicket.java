@@ -5,27 +5,20 @@ import dao.TicketDAO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import util.ContextOperations;
 
-@MultipartConfig(fileSizeThreshold = 1024 * 1024,
-        maxFileSize = 1024 * 1024 * 5,
-        maxRequestSize = 1024 * 1024 * 5 * 5)
+@MultipartConfig(maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 3)
 @WebServlet("/user/ticket-manager/add-ticket")
 public class AddTicket extends HttpServlet {
-    private static final String UPLOAD_DIRECTORY = "src\\main\\webapp\\assets\\files\\tickets\\";
+    private static final String UPLOAD_DIRECTORY = "target\\error-reporting-portal\\assets\\files\\tickets\\";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -38,55 +31,57 @@ public class AddTicket extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession(false);
-        int author_id =  Integer.parseInt(session.getAttribute("user_id").toString());
+        int author_id = Integer.parseInt(session.getAttribute("user_id").toString());
         int project_id = Integer.parseInt(request.getParameter("project_id"));
         String status = request.getParameter("status");
         String title = request.getParameter("title");
         String description = request.getParameter("description");
 
-        if(project_id == -1){ request.setAttribute("msg", "Nie przypisano ticketu do projektu");
-        } else if(status == null){ request.setAttribute("msg", "Nie podano statusu ticketu");
-        } else if(title == null){ request.setAttribute("msg", "Nie podano tytułu ticketu");
-        } else if(description == null){ request.setAttribute("msg", "Nie podano opisu ticketu");
+        if (project_id == -1) {
+            request.setAttribute("msg", "Nie przypisano ticketu do projektu");
+        } else if (status == null) {
+            request.setAttribute("msg", "Nie podano statusu ticketu");
+        } else if (title == null) {
+            request.setAttribute("msg", "Nie podano tytułu ticketu");
+        } else if (description == null) {
+            request.setAttribute("msg", "Nie podano opisu ticketu");
         } else {
             boolean done = TicketDAO.addTicket(author_id, project_id, status, title, description);
-            if(done) {
+            if (done) {
                 request.setAttribute("msg", "Pomyślnie dodano ticket do bazy");
             } else {
                 request.setAttribute("msg", "Wystąpił problem w trakcie dodawania ticketu do bazy, spróbuj ponownie, albo zweryfikuj logi serwera");
             }
         }
-        DiskFileItemFactory factory = new DiskFileItemFactory();
-        factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
-        ServletFileUpload upload = new ServletFileUpload(factory);
-        String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY;
 
-        File uploadDir = new File(uploadPath);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdir();
-        }
-
-        if (ServletFileUpload.isMultipartContent(request)) {
-            try {
-                List<FileItem> formItems = upload.parseRequest(request);
-                if (formItems != null && formItems.size() > 0) {
-                    for (FileItem item : formItems) {
-                        if (!item.isFormField()) {
-                            String fileName = new File(item.getName()).getName();
-                            String filePath = uploadPath + File.separator + fileName;
-                            File storeFile = new File(filePath);
-                            item.write(storeFile);
-                            request.setAttribute("message", "File "
-                                    + fileName + " has uploaded successfully!");
-                        }
+        if (request.getContentType() != null && request.getContentType().toLowerCase().contains("multipart/form-data")) {
+            if (!request.getParts().isEmpty()) {
+                String uploadPathTarget = ContextOperations.getPathToRoot(getServletContext().getRealPath("")) + UPLOAD_DIRECTORY;
+                File uploadDirTarget = new File(uploadPathTarget);
+                String fileName;
+                if (!uploadDirTarget.exists()) uploadDirTarget.mkdirs();
+                for (Part part : request.getParts()) {
+                    fileName = getFileName(part);
+                    if (fileName != null && (fileName.endsWith(".zip") || fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png"))) {
+                        String outputFilePathTarget = uploadPathTarget + fileName;
+                        part.write(outputFilePathTarget);
                     }
                 }
-            } catch (Exception e) {
-                //upload failed
-                e.printStackTrace();
             }
         }
-
         doGet(request, response);
+    }
+
+    private String getFileName(Part part) {
+        for (String content : part.getHeader("content-disposition").split(";")) {
+            if (content.trim().startsWith("filename")) {
+                try {
+                    return new String(content.substring(content.indexOf("=") + 2, content.length() - 1).getBytes(), "utf8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
     }
 }
