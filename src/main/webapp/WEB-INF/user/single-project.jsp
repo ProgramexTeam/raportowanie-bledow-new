@@ -20,11 +20,11 @@
 
 <div class="content user-manager">
     <div class="content-inside">
-        <h1 class="backend-page-title">Projekt</h1>
         <p class="info-msg"><% if(request.getAttribute("msg") != null){ out.println(request.getAttribute("msg")); request.setAttribute("msg", null); } %></p>
         <%
             if(request.getAttribute("singleProject") != null) { Project singleProject = (Project) request.getAttribute("singleProject");
         %>
+        <h1 class="backend-page-title">Projekt o nr <%= singleProject.getId() %></h1>
         <p>ID: <%= singleProject.getId() %></p>
         <p>Tytuł projektu: <%= singleProject.getTitle() %></p>
         <p>Opis projektu: <%= singleProject.getDescription() %></p>
