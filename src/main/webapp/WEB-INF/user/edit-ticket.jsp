@@ -49,7 +49,7 @@
                 <div class="input-row">
                     <p class="input-element" style="min-width: 50%"><span>Opis:</span> <br/>
                         <textarea name="description" style="width:100%"><%
-                            if (singleTicket.getDescription() != null) singleTicket.getDescription(); %></textarea>
+                            if (singleTicket.getDescription() != null) out.print(singleTicket.getDescription()); %></textarea>
                 </div>
                 <div class="input-row">
                     <p><span>Status:</span><br/>
