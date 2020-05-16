@@ -37,12 +37,12 @@ public class LoginDAO {
         }
         return false;
     }
-    public static String checkRole(String user, String password) throws SQLException {
+    public static String checkRole(String user) throws SQLException {
         Connection con = null;
         PreparedStatement ps = null;
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT user_role FROM users WHERE user_login = '" + user + "' and user_pass = '" + password + "'");
+            ps = con.prepareStatement("SELECT user_role FROM users WHERE user_login = '" + user + "' ");
 
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
