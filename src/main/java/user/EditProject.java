@@ -42,23 +42,24 @@ public class EditProject extends HttpServlet {
         } else if(project_description == null){ request.setAttribute("msg", "Nie podano opisu projektu");
         } else {
             boolean done = ProjectDAO.editGivenProject(projectId, project_title, project_description);
-            if(done){
-                request.setAttribute("msg", "Pomyślnie zedytowano projekt");
-            } else {
-                request.setAttribute("msg", "Wystąpił problem w trakcie dodawania zedytowanych danych projektów do bazy. Spróbuj ponownie, albo zweryfikuj logi serwera");
-            }
+            boolean usersRemoved = false;
+            boolean dbUpdated = false;
 
-            ProjectDAO.removeUsersAndProjects(projectId);
             for (int i = 0; i <= 3; i++){
                 user_id = Integer.parseInt(request.getParameter("user" +i));
-                if (user_id > 0){
-                    boolean dbUpdated = ProjectDAO.addUsersAndProjects(user_id);
-                    if (dbUpdated){
-                        request.setAttribute("msg", "Pomyślnie zaktualizowano bazę danych");
-                    } else {
-                        request.setAttribute("msg", "Wystąpił problem w trakcie aktualizacji bazy danych");
-                    }
+                if (user_id > 0 && !usersRemoved){
+                    ProjectDAO.removeUsersAndProjects(projectId);
+                    usersRemoved = true;
+                    dbUpdated = ProjectDAO.addUsersAndProjects(user_id);
                 }
+                else if (user_id > 0){
+                    dbUpdated = ProjectDAO.addUsersAndProjects(user_id);
+                }
+            }
+            if (dbUpdated || done){
+                request.setAttribute("msg", "Pomyślnie zedytowano projekt");
+            } else {
+                request.setAttribute("msg", "Wystąpił problem w trakcie edycji projektu");
             }
         }
 
