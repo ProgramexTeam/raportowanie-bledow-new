@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 @WebServlet("/user-activation")
 public class UserActivation  extends HttpServlet {
@@ -18,7 +17,7 @@ public class UserActivation  extends HttpServlet {
             boolean valid = false;
             try {
                 valid = RegisterDAO.checkActivationKeyAndDelete(user_activation_key);
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             if(valid){

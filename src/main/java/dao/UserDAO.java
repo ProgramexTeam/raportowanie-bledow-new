@@ -6,7 +6,6 @@ import util.DataConnect;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 @SuppressWarnings({"SqlResolve", "SqlNoDataSourceInspection", "ConstantConditions"})
@@ -24,14 +23,16 @@ public class UserDAO {
             if (rs.next()) {
                 amount = rs.getLong("amount");
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println("Error while getting users data from db; UserDAO.amountOfUsers() -->" + ex.getMessage());
         } finally {
-            DataConnect.close(con);
+            if (con != null) {
+                DataConnect.close(con);
+            }
             if (ps != null) {
                 try {
                     ps.close();
-                } catch (SQLException ex) {
+                } catch (Exception ex) {
                     System.out.println("Error while closing PreparedStatement; UserDAO.amountOfUsers() -->" + ex.getMessage());
                 }
             }
@@ -58,14 +59,16 @@ public class UserDAO {
             if (rs.next()) {
                 amount = rs.getLong("amount");
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println("Error while getting users data from db; UserDAO.amountOfUsersOfPattern() -->" + ex.getMessage());
         } finally {
-            DataConnect.close(con);
+            if (con != null) {
+                DataConnect.close(con);
+            }
             if (ps != null) {
                 try {
                     ps.close();
-                } catch (SQLException ex) {
+                } catch (Exception ex) {
                     System.out.println("Error while closing PreparedStatement; UserDAO.amountOfUsersOfPattern() -->" + ex.getMessage());
                 }
             }
@@ -91,11 +94,13 @@ public class UserDAO {
                         rs.getString("user_role"));
                 usersList.add(temp);
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println("Error while getting users data from db; UserDAO.getUsersList() -->" + ex.getMessage());
         } finally {
-            DataConnect.close(con);
-            if (ps != null) { try { ps.close(); } catch (SQLException ex) { System.out.println("Error while closing PreparedStatement; UserDAO.getUsersList() -->" + ex.getMessage()); } }
+            if (con != null) {
+                DataConnect.close(con);
+            }
+            if (ps != null) { try { ps.close(); } catch (Exception ex) { System.out.println("Error while closing PreparedStatement; UserDAO.getUsersList() -->" + ex.getMessage()); } }
         }
         return usersList;
     }
@@ -111,15 +116,17 @@ public class UserDAO {
             if (rs.next()) {
                 return true;
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println("Error while checking if user exists in db; UserDAO.checkIfUserExists() -->" + ex.getMessage());
             return false;
         } finally {
-            DataConnect.close(con);
+            if (con != null) {
+                DataConnect.close(con);
+            }
             if (ps != null) {
                 try {
                     ps.close();
-                } catch (SQLException ex) {
+                } catch (Exception ex) {
                     System.out.println("Error while closing PreparedStatement; UserDAO.checkIfUserExists() -->" + ex.getMessage());
                 }
             }
@@ -135,15 +142,17 @@ public class UserDAO {
                 ps = con.prepareStatement("DELETE FROM users WHERE ID = ?");
                 ps.setString(1, deleteId);
                 ps.executeUpdate();
-            } catch (SQLException ex) {
+            } catch (Exception ex) {
                 System.out.println("Error while deleting user from db; UserDAO.deleteSingleUser() -->" + ex.getMessage());
                 return false;
             } finally {
-                DataConnect.close(con);
+                if (con != null) {
+                    DataConnect.close(con);
+                }
                 if (ps != null) {
                     try {
                         ps.close();
-                    } catch (SQLException ex) {
+                    } catch (Exception ex) {
                         System.out.println("Error while closing PreparedStatement; UserDAO.deleteSingleUser() -->" + ex.getMessage());
                     }
                 }
@@ -168,18 +177,20 @@ public class UserDAO {
                 if (rs.next()) {
                     return false;
                 }
-            } catch (SQLException ex) {
+            } catch (Exception ex) {
                 System.out.println("Error while trying to check in database if given email is valid; RegisterDAO.validateUserLogin() -->" + ex.getMessage());
                 return false;
             } finally {
                 if (ps != null) {
                     try {
                         ps.close();
-                    } catch (SQLException ex) {
+                    } catch (Exception ex) {
                         System.out.println("Error while trying to close PreparedStatement; RegisterDAO.validateUserLogin() -->" + ex.getMessage());
                     }
                 }
-                DataConnect.close(con);
+                if (con != null) {
+                    DataConnect.close(con);
+                }
             }
         }
         return true;
@@ -198,18 +209,20 @@ public class UserDAO {
                 if (rs.next()) {
                     return false;
                 }
-            } catch (SQLException ex) {
+            } catch (Exception ex) {
                 System.out.println("Error while checking in db if email is valid; RegisterDAO.validateUserEmail() -->" + ex.getMessage());
                 return false;
             } finally {
                 if (ps != null) {
                     try {
                         ps.close();
-                    } catch (SQLException ex) {
+                    } catch (Exception ex) {
                         System.out.println("Error while closing PreparedStatement; RegisterDAO.validateUserEmail() -->" + ex.getMessage());
                     }
                 }
-                DataConnect.close(con);
+                if (con != null) {
+                    DataConnect.close(con);
+                }
             }
         }
         return true;
@@ -232,15 +245,17 @@ public class UserDAO {
                         rs.getString("user_activation_key"),
                         rs.getString("user_role"));
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println("Error while checking if user exists in db; UserDAO.checkIfUserExists() -->" + ex.getMessage());
             return null;
         } finally {
-            DataConnect.close(con);
+            if (con != null) {
+                DataConnect.close(con);
+            }
             if (ps != null) {
                 try {
                     ps.close();
-                } catch (SQLException ex) {
+                } catch (Exception ex) {
                     System.out.println("Error while closing PreparedStatement; UserDAO.checkIfUserExists() -->" + ex.getMessage());
                 }
             }
@@ -259,15 +274,17 @@ public class UserDAO {
             if (rs.next()) {
                 return new String(rs.getString("user_login"));
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println("Error while checking user login in db; UserDAO.getSingleUserLogin() -->" + ex.getMessage());
             return null;
         } finally {
-            DataConnect.close(con);
+            if (con != null) {
+                DataConnect.close(con);
+            }
             if (ps != null) {
                 try {
                     ps.close();
-                } catch (SQLException ex) {
+                } catch (Exception ex) {
                     System.out.println("Error while closing PreparedStatement; UserDAO.getSingleUserLogin() -->" + ex.getMessage());
                 }
             }
@@ -297,8 +314,10 @@ public class UserDAO {
             } catch (Exception ex) {
                 System.out.println("Error while updating user data; UserDAO.editGivenUser() -->" + ex.getMessage());
             } finally {
-                DataConnect.close(con);
-                if (ps != null) { try { ps.close(); } catch (SQLException ex) { System.out.println("Error while closing PreparedStatement; UserDAO.editGivenUser() -->" + ex.getMessage()); } }
+                if (con != null) {
+                    DataConnect.close(con);
+                }
+                if (ps != null) { try { ps.close(); } catch (Exception ex) { System.out.println("Error while closing PreparedStatement; UserDAO.editGivenUser() -->" + ex.getMessage()); } }
             }
             return true;
         } else {
@@ -333,11 +352,13 @@ public class UserDAO {
                         rs.getString("user_role"));
                 usersList.add(temp);
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println("Error while getting users data from db; UserDAO.getUsersListOfPattern() -->" + ex.getMessage());
         } finally {
-            DataConnect.close(con);
-            if (ps != null) { try { ps.close(); } catch (SQLException ex) { System.out.println("Error while closing PreparedStatement; UserDAO.getUsersListOfPattern() -->" + ex.getMessage()); } }
+            if (con != null) {
+                DataConnect.close(con);
+            }
+            if (ps != null) { try { ps.close(); } catch (Exception ex) { System.out.println("Error while closing PreparedStatement; UserDAO.getUsersListOfPattern() -->" + ex.getMessage()); } }
         }
         return usersList;
     }
@@ -362,11 +383,13 @@ public class UserDAO {
                         rs.getString("user_role"));
                 usersInProject.add(temp);
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println("Error while getting users data from db; UserDAO.getUsersInProject() -->" + ex.getMessage());
         } finally {
-            DataConnect.close(con);
-            if (ps != null) { try { ps.close(); } catch (SQLException ex) { System.out.println("Error while closing PreparedStatement; UserDAO.getUsersInProject() -->" + ex.getMessage()); } }
+            if (con != null) {
+                DataConnect.close(con);
+            }
+            if (ps != null) { try { ps.close(); } catch (Exception ex) { System.out.println("Error while closing PreparedStatement; UserDAO.getUsersInProject() -->" + ex.getMessage()); } }
         }
         return usersInProject;
     }
