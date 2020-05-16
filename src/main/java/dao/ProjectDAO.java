@@ -3,11 +3,9 @@ package dao;
 import objects.Project;
 import util.DataConnect;
 
-import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 @SuppressWarnings({"SqlResolve", "SqlNoDataSourceInspection", "ConstantConditions"})
@@ -33,7 +31,9 @@ public class ProjectDAO {
         } catch (Exception ex) {
             System.out.println("Category request error when executing query; CategoryDAO.getCategory() -->" + ex.getMessage());
         } finally {
-            DataConnect.close(con);
+            if (con != null) {
+                DataConnect.close(con);
+            }
             try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; ProjectDAO.getCategory() -->" + ex.getMessage()); }
         }
         return project;
@@ -50,10 +50,12 @@ public class ProjectDAO {
             if (rs.next()) {
                 amount = rs.getLong("amount");
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println("Error while getting project data from db; ProjectDAO.amountOfProjects() -->" + ex.getMessage());
         } finally {
-            DataConnect.close(con);
+            if (con != null) {
+                DataConnect.close(con);
+            }
             try { ps.close(); } catch (Exception ex) { System.out.println("Project delete error when closing database connection or prepared statement; ProjectDAO.amountOfProjects() -->" + ex.getMessage()); }
         }
         return amount;
@@ -78,14 +80,16 @@ public class ProjectDAO {
             if (rs.next()) {
                 amount = rs.getLong("amount");
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println("Error while getting projects data from db; ProjectDAO.amountOfProjectsOfPattern() -->" + ex.getMessage());
         } finally {
-            DataConnect.close(con);
+            if (con != null) {
+                DataConnect.close(con);
+            }
             if (ps != null) {
                 try {
                     ps.close();
-                } catch (SQLException ex) {
+                } catch (Exception ex) {
                     System.out.println("Error while closing PreparedStatement; ProjectDAO.amountOfProjectsOfPattern() -->" + ex.getMessage());
                 }
             }
@@ -108,10 +112,12 @@ public class ProjectDAO {
                         rs.getString("description"));
                 projects.add(temp);
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println("Error while getting products data from db; ProjectDAO.getProjectsList() -->" + ex.getMessage());
         } finally {
-            DataConnect.close(con);
+            if (con != null) {
+                DataConnect.close(con);
+            }
             try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; ProjectDAO.getProjectsList() -->" + ex.getMessage()); }
         }
         return projects;
@@ -130,10 +136,12 @@ public class ProjectDAO {
                         rs.getString("description"));
                 categoriesList.add(temp);
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println("Error while getting projects data from db; ProjectDAO.getProjectsList() -->" + ex.getMessage());
         } finally {
-            DataConnect.close(con);
+            if (con != null) {
+                DataConnect.close(con);
+            }
             try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; ProjectDAO.getProjectsList() -->" + ex.getMessage()); }
         }
         return categoriesList;
@@ -161,11 +169,13 @@ public class ProjectDAO {
                         rs.getString("description"));
                 projectList.add(temp);
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println("Error while getting projects data from db; ProjectDAO.getProjectsListOfPattern() -->" + ex.getMessage());
         } finally {
-            DataConnect.close(con);
-            if (ps != null) { try { ps.close(); } catch (SQLException ex) { System.out.println("Error while closing PreparedStatement; ProjectDAO.getProjectsListOfPattern() -->" + ex.getMessage()); } }
+            if (con != null) {
+                DataConnect.close(con);
+            }
+            if (ps != null) { try { ps.close(); } catch (Exception ex) { System.out.println("Error while closing PreparedStatement; ProjectDAO.getProjectsListOfPattern() -->" + ex.getMessage()); } }
         }
         return projectList;
     }
@@ -178,15 +188,17 @@ public class ProjectDAO {
                 ps = con.prepareStatement("DELETE FROM projects WHERE ID = ?");
                 ps.setString(1, deleteId);
                 ps.executeUpdate();
-            } catch (SQLException ex) {
+            } catch (Exception ex) {
                 System.out.println("Error while deleting project from db; ProjectDAO.deleteSingleProject() -->" + ex.getMessage());
                 return false;
             } finally {
-                DataConnect.close(con);
+                if (con != null) {
+                    DataConnect.close(con);
+                }
                 if (ps != null) {
                     try {
                         ps.close();
-                    } catch (SQLException ex) {
+                    } catch (Exception ex) {
                         System.out.println("Error while closing PreparedStatement; ProjectDAO.deleteSingleProject() -->" + ex.getMessage());
                     }
                 }
@@ -210,15 +222,17 @@ public class ProjectDAO {
             if (rs.next()) {
                 return true;
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println("Error while checking if project exists in db; ProjectDAO.checkIfProjectExists() -->" + ex.getMessage());
             return false;
         } finally {
-            DataConnect.close(con);
+            if (con != null) {
+                DataConnect.close(con);
+            }
             if (ps != null) {
                 try {
                     ps.close();
-                } catch (SQLException ex) {
+                } catch (Exception ex) {
                     System.out.println("Error while closing PreparedStatement; ProjectDAO.checkIfProjectExists() -->" + ex.getMessage());
                 }
             }
@@ -238,15 +252,17 @@ public class ProjectDAO {
                         rs.getString("title"),
                         rs.getString("description"));
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println("Error while checking if product exists in db; ProjectDAO.getSingleProjectData() -->" + ex.getMessage());
             return null;
         } finally {
-            DataConnect.close(con);
+            if (con != null) {
+                DataConnect.close(con);
+            }
             if (ps != null) {
                 try {
                     ps.close();
-                } catch (SQLException ex) {
+                } catch (Exception ex) {
                     System.out.println("Error while closing PreparedStatement; ProjectDAO.getSingleProjectData() -->" + ex.getMessage());
                 }
             }
@@ -265,15 +281,17 @@ public class ProjectDAO {
             if (rs.next()) {
                 return new String(rs.getString("title"));
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println("Error while getting project bane in db; ProjectDAO.getSingleProjectName() -->" + ex.getMessage());
             return null;
         } finally {
-            DataConnect.close(con);
+            if (con != null) {
+                DataConnect.close(con);
+            }
             if (ps != null) {
                 try {
                     ps.close();
-                } catch (SQLException ex) {
+                } catch (Exception ex) {
                     System.out.println("Error while closing PreparedStatement; ProjectDAO.getSingleProjectName() -->" + ex.getMessage());
                 }
             }
@@ -298,8 +316,10 @@ public class ProjectDAO {
             } catch (Exception ex) {
                 System.out.println("Error while updating user data; ProjectDAO.editGivenProject() -->" + ex.getMessage());
             } finally {
-                DataConnect.close(con);
-                if (ps != null) { try { ps.close(); } catch (SQLException ex) { System.out.println("Error while closing PreparedStatement; ProjectDAO.editGivenProject() -->" + ex.getMessage()); } }
+                if (con != null) {
+                    DataConnect.close(con);
+                }
+                if (ps != null) { try { ps.close(); } catch (Exception ex) { System.out.println("Error while closing PreparedStatement; ProjectDAO.editGivenProject() -->" + ex.getMessage()); } }
             }
             return true;
         } else {
@@ -327,7 +347,9 @@ public class ProjectDAO {
                     if (ps != null) {
                         ps.close();
                     }
-                    DataConnect.close(con);
+                    if (con != null) {
+                        DataConnect.close(con);
+                    }
                 } catch (Exception ex) {
                     System.out.println("Add project error when closing database connection or prepared statement; ProjectDAO.addProject() -->" + ex.getMessage());
                 }
@@ -347,14 +369,16 @@ public class ProjectDAO {
             ps = con.prepareStatement("DELETE FROM users_has_projects WHERE project_ID = ?");
             ps.setInt(1, Integer.parseInt(projectID));
             ps.executeUpdate();
-        }  catch (SQLException ex) {
+        }  catch (Exception ex) {
             System.out.println("Error when executing query; ProjectDAO.removeUsersAndProjects() -->" + ex.getMessage());
         } finally {
             try {
                 if (ps != null){
                     ps.close();
                 }
-                DataConnect.close(con);
+                if (con != null) {
+                    DataConnect.close(con);
+                }
             } catch (Exception ex){
                 System.out.println("Error when closing database connection or prepared statement; ProjectDAO.removeUsersAndProjects() -->" + ex.getMessage());
             }
@@ -388,7 +412,9 @@ public class ProjectDAO {
                     if (ps != null) {
                         ps.close();
                     }
-                    DataConnect.close(con);
+                    if (con != null) {
+                        DataConnect.close(con);
+                    }
                 } catch (Exception ex) {
                     System.out.println("Error when closing database connection or prepared statement; ProjectDAO.addUsersAndProjects() -->" + ex.getMessage());
                 }
@@ -412,15 +438,17 @@ public class ProjectDAO {
             if (rs.next()) {
                 return true;
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println("Error while checking if user and project exist in db; ProjectDAO.checkUsersAndProjects() -->" + ex.getMessage());
             return false;
         } finally {
-            DataConnect.close(con);
+            if (con != null) {
+                DataConnect.close(con);
+            }
             if (ps != null) {
                 try {
                     ps.close();
-                } catch (SQLException ex) {
+                } catch (Exception ex) {
                     System.out.println("Error while closing PreparedStatement; ProjectDAO.checkUsersAndProjects() -->" + ex.getMessage());
                 }
             }
@@ -441,14 +469,16 @@ public class ProjectDAO {
                 project_ID = rs.getInt("lastID");
                 return project_ID;
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println("Error while checking if user and project exist in db; ProjectDAO.checkUsersAndProjects() -->" + ex.getMessage());
         } finally {
-            DataConnect.close(con);
+            if (con != null) {
+                DataConnect.close(con);
+            }
             if (ps != null) {
                 try {
                     ps.close();
-                } catch (SQLException ex) {
+                } catch (Exception ex) {
                     System.out.println("Error while closing PreparedStatement; ProjectDAO.checkUsersAndProjects() -->" + ex.getMessage());
                 }
             }
