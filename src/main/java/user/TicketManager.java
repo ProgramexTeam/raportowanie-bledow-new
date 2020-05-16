@@ -2,6 +2,8 @@ package user;
 
 import dao.TicketDAO;
 import objects.Ticket;
+import org.apache.commons.io.FileUtils;
+import util.ContextOperations;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,11 +11,14 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
 @WebServlet("/user/ticket-manager")
 public class TicketManager extends HttpServlet {
+    private static final String UPLOAD_DIRECTORY = "target\\error-reporting-portal\\assets\\files\\tickets\\";
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long page, amountPerPage, amountOfProducts;
         String deleteId, searchByTicketName;
@@ -21,9 +26,9 @@ public class TicketManager extends HttpServlet {
         Cookie cookies[] = request.getCookies();
         int author_ID = -1;
 
-        if(cookies != null) {
-            for(Cookie cookie : cookies) {
-                if(cookie.getName().equals("user_id"))
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("user_id"))
                     author_ID = Integer.parseInt(cookie.getValue());
             }
         }
@@ -46,7 +51,10 @@ public class TicketManager extends HttpServlet {
         if (request.getParameter("deleteId") != null) {
             deleteId = String.valueOf(request.getParameter("deleteId"));
             if (TicketDAO.deleteSingleProduct(deleteId)) {
-                request.setAttribute("msg", "Pomyślnie usunięto ticket");
+                String uploadPathTarget = ContextOperations.getPathToRoot(getServletContext().getRealPath("")) + UPLOAD_DIRECTORY + "\\" + deleteId + "\\";
+                File fileToDelete = new File(uploadPathTarget);
+                FileUtils.deleteDirectory(fileToDelete);
+                request.setAttribute("msg", "Pomyślnie usunięto ticket.");
             } else {
                 request.setAttribute("msg", "Wystąpił problem w trakcie usuwania ticketu");
             }
@@ -57,7 +65,6 @@ public class TicketManager extends HttpServlet {
             searchByTicketName = request.getParameter("searchByTicketName");
             ArrayList<Ticket> list = TicketDAO.getTicketsListOfPattern(page * amountPerPage, amountPerPage, searchByTicketName, searchOption);
             amountOfProducts = TicketDAO.amountOfTicketsOfPattern(searchByTicketName, searchOption);
-
             request.setAttribute("searchOption", searchOption);
             request.setAttribute("searchByTicketName", searchByTicketName);
             request.setAttribute("list", list);
