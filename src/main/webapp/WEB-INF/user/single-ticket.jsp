@@ -32,7 +32,7 @@
         <p>Tytuł ticketu: <%= singleTicket.getTitle() %></p>
         <p>Opis ticketu: <%= singleTicket.getDescription() %></p>
         <p>Projekt: <%= ProjectDAO.getSingleProjectName(singleTicket.getProject_id()) %></p>
-        <p>Status: <%= singleTicket.getStatus() %></p>
+        <p>Status: Otwarty</p>
         <hr>
         <div id="comments">
             <h3>Komentarze:</h3>
