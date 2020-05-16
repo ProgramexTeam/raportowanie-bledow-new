@@ -19,13 +19,14 @@
                     <h2><% out.print(configuration.get("sliderHeader")); %></h2>
                     <div class="line-dec"></div>
                     <p><% out.print(configuration.get("sliderText")); %></p>
-                    <% if(configuration.get("sliderButton").equals("on")) { %>
+                    <% if(session.getAttribute("user_id") == null) {
+                     if(configuration.get("sliderButton").equals("on")) { %>
                         <div class="main-button">
                             <a href="<% out.print(configuration.get("sliderButtonLink"));%>"
                                ref="<% out.print(configuration.get("sliderButtonLinkFollow"));%>"
                                target="<% out.print(configuration.get("sliderButtonLinkTarget"));%>"><% out.print(configuration.get("sliderButtonText"));%></a>
                         </div>
-                    <% } %>
+                    <% } }%>
                 </div>
             </div>
         </div>
