@@ -2,6 +2,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="objects.Project" %>
 <%@ page import="dao.UserDAO" %>
+<%@ page import="objects.User" %>
 <!-- Nagłówek -->
 <jsp:include page="/WEB-INF/user/parts/overall-header.jsp"/>
 <!-- Nawigacja sidebar -->
@@ -60,16 +61,32 @@
                             "<tbody>");
                     if (!list.isEmpty()) {
                         for (Project project : list) {
-                            out.println("<tr class=\"project-row project-no-" + i + "\">" +
-                                    "<td class=\"project-row-item project-edit\">" +
-                                    "<a href=\"" + request.getContextPath() + "/user/project-manager/single-project?projectId=" + project.getId() + "\">szczegóły</a> / " +
-                                    "<a href=\"" + request.getContextPath() + "/user/project-manager/edit-project?projectId=" + project.getId() + "\">edytuj</a> / " +
-                                    "<a href=\"" + request.getContextPath() + "/user/project-manager?page=" + currentPage + "&amountPerPage=" + amountPerPage + "&searchOption=" + searchOption + "&searchByProjectName=" + searchByProjectName + "&deleteId=" + project.getId() + "\">usuń</a>" +
-                                    "</td>" +
-                                    "<td class=\"project-row-item project-name\">" + UserDAO.getSingleUserLogin(project.getAuthor_id()) + "</td>" +
-                                    "<td class=\"project-row-item project-name\">" + project.getTitle() + "</td>" +
-                                    "</tr>");
-                            i++;
+                            ArrayList<User> users =  UserDAO.getUsersInProject(project.getId());
+                            Cookie cookies[] = request.getCookies();
+                            int userID = -1;
+
+                            if (cookies != null) {
+                                for (Cookie cookie : cookies) {
+                                    if (cookie.getName().equals("user_id"))
+                                        userID = Integer.parseInt(cookie.getValue());
+                                    }
+                            }
+
+                            for (User u: users) {
+                                if (u.getId() == userID || project.getAuthor_id() == userID){
+                                    out.println("<tr class=\"project-row project-no-" + i + "\">" +
+                                            "<td class=\"project-row-item project-edit\">" +
+                                            "<a href=\"" + request.getContextPath() + "/user/project-manager/single-project?projectId=" + project.getId() + "\">szczegóły</a> / " +
+                                            "<a href=\"" + request.getContextPath() + "/user/project-manager/edit-project?projectId=" + project.getId() + "\">edytuj</a> / " +
+                                            "<a href=\"" + request.getContextPath() + "/user/project-manager?page=" + currentPage + "&amountPerPage=" + amountPerPage + "&searchOption=" + searchOption + "&searchByProjectName=" + searchByProjectName + "&deleteId=" + project.getId() + "\">usuń</a>" +
+                                            "</td>" +
+                                            "<td class=\"project-row-item project-name\">" + UserDAO.getSingleUserLogin(project.getAuthor_id()) + "</td>" +
+                                            "<td class=\"project-row-item project-name\">" + project.getTitle() + "</td>" +
+                                            "</tr>");
+                                    i++;
+                                }
+                                break;
+                            }
                         }
                     }
                     out.println("</tbody>");
