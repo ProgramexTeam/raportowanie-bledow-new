@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="objects.Project" %>
+<%@ page import="dao.UserDAO" %>
 <!-- Nagłówek -->
 <jsp:include page="/WEB-INF/user/parts/overall-header.jsp"/>
 <!-- Nawigacja sidebar -->
@@ -52,6 +53,7 @@
                     out.println("<thead>" +
                             "<tr class=\"project-list-header\">" +
                             "<td class=\"project-list-header-item project-edit\">edytuj / usuń</td>" +
+                            "<td class=\"project-list-header-item project-author\">Autor</td>" +
                             "<td class=\"project-list-header-item project-name\">Tytuł</td>" +
                             "</tr>" +
                             "</thead>" +
@@ -64,6 +66,7 @@
                                     "<a href=\"" + request.getContextPath() + "/user/project-manager/edit-project?projectId=" + project.getId() + "\">edytuj</a> / " +
                                     "<a href=\"" + request.getContextPath() + "/user/project-manager?page=" + currentPage + "&amountPerPage=" + amountPerPage + "&searchOption=" + searchOption + "&searchByProjectName=" + searchByProjectName + "&deleteId=" + project.getId() + "\">usuń</a>" +
                                     "</td>" +
+                                    "<td class=\"project-row-item project-name\">" + UserDAO.getSingleUserLogin(project.getAuthor_id()) + "</td>" +
                                     "<td class=\"project-row-item project-name\">" + project.getTitle() + "</td>" +
                                     "</tr>");
                             i++;

@@ -26,6 +26,7 @@
         %>
         <h1 class="backend-page-title">Projekt o nr <%= singleProject.getId() %></h1>
         <p>ID: <%= singleProject.getId() %></p>
+        <p>Autor projektu: <%= UserDAO.getSingleUserLogin(singleProject.getAuthor_id()) %></p>
         <p>Tytuł projektu: <%= singleProject.getTitle() %></p>
         <p>Opis projektu: <%= singleProject.getDescription() %></p>
         <hr>
