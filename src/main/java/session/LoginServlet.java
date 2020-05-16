@@ -24,14 +24,10 @@ public class LoginServlet extends HttpServlet {
 		this.pwd = request.getParameter("pwd");
 		int valid = -1;
 		try {
-			System.out.println("1");
 			valid = LoginDAO.validate(user, pwd);
-			System.out.println("2");
 		} catch (Exception e) {
-			System.out.println("3");
 			e.printStackTrace();
 		}
-		System.out.println("4");
 
 		if(valid == 1){
 			ArrayList<String> userData = null;
