@@ -6,7 +6,6 @@ import util.DataConnect;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 @SuppressWarnings({"SqlResolve", "SqlNoDataSourceInspection", "ConstantConditions"})
 public class RegisterDAO {
@@ -36,18 +35,20 @@ public class RegisterDAO {
                 if (rs.next()) {
                     return false;
                 }
-            } catch (SQLException ex) {
+            } catch (Exception ex) {
                 System.out.println("Error while trying to check in database if given email is valid; RegisterDAO.validateUserLogin() -->" + ex.getMessage());
                 return false;
             } finally {
                 if (ps != null) {
                     try {
                         ps.close();
-                    } catch (SQLException ex) {
+                    } catch (Exception ex) {
                         System.out.println("Error while trying to close PreparedStatement; RegisterDAO.validateUserLogin() -->" + ex.getMessage());
                     }
                 }
-                DataConnect.close(con);
+                if (con != null) {
+                    DataConnect.close(con);
+                }
             }
         }
         return true;
@@ -65,18 +66,20 @@ public class RegisterDAO {
                 if (rs.next()) {
                     return false;
                 }
-            } catch (SQLException ex) {
+            } catch (Exception ex) {
                 System.out.println("Error while checking in db if email is valid; RegisterDAO.validateUserEmail() -->" + ex.getMessage());
                 return false;
             } finally {
                 if (ps != null) {
                     try {
                         ps.close();
-                    } catch (SQLException ex) {
+                    } catch (Exception ex) {
                         System.out.println("Error while closing PreparedStatement; RegisterDAO.validateUserEmail() -->" + ex.getMessage());
                     }
                 }
-                DataConnect.close(con);
+                if (con != null) {
+                    DataConnect.close(con);
+                }
             }
         }
         return true;
@@ -107,7 +110,9 @@ public class RegisterDAO {
                     if (ps != null) {
                         ps.close();
                     }
-                    DataConnect.close(con);
+                    if (con != null) {
+                        DataConnect.close(con);
+                    }
                 } catch (Exception ex) {
                     System.out.println("Registration error when closing database connection or prepared statement; RegisterDAO.addUser() -->" + ex.getMessage());
                 }
@@ -119,7 +124,7 @@ public class RegisterDAO {
         }
     }
 
-    public static boolean checkActivationKeyAndDelete(String user_activation_key) throws SQLException {
+    public static boolean checkActivationKeyAndDelete(String user_activation_key) throws Exception {
         if (user_activation_key != null) {
             PreparedStatement ps = null;
             Connection con = null;
@@ -142,14 +147,16 @@ public class RegisterDAO {
                         return false;
                     }
                 }
-            } catch (SQLException ex) {
+            } catch (Exception ex) {
                 System.out.println("User activation error; RegisterDAO.checkActivationKeyAndDelete() -->" + ex.getMessage());
                 return false;
             } finally {
                 if (ps != null) {
                     ps.close();
                 }
-                DataConnect.close(con);
+                if (con != null) {
+                    DataConnect.close(con);
+                }
             }
         }
         return false;

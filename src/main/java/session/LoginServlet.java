@@ -6,7 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 @WebServlet("/login")
@@ -23,18 +22,18 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.user = request.getParameter("user");
 		this.pwd = request.getParameter("pwd");
-		boolean valid = false;
+		int valid = -1;
 		try {
 			valid = LoginDAO.validate(user, pwd);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		if(valid){
+		if(valid == 1){
 			ArrayList<String> userData = null;
 			try {
 				userData = LoginDAO.checkUserData(user, pwd);
-			} catch (SQLException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			String user_login = userData.get(0);
@@ -85,8 +84,12 @@ public class LoginServlet extends HttpServlet {
 
 				response.sendRedirect("/account-not-verified");
 			}
-		} else {
+		} else if (valid == 0) {
 			request.setAttribute("msg", "Logowanie nie powiodło się. Podałeś złe dane.");
+			doGet(request, response);
+		}
+		else {
+			request.setAttribute("msg", "Połączenie z bazą danych nie powiodło się.");
 			doGet(request, response);
 		}
 	}

@@ -6,15 +6,13 @@ import util.DataConnect;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 @SuppressWarnings({"SqlResolve", "SqlNoDataSourceInspection", "ConstantConditions"})
 public class LoginDAO {
-    public static boolean validate(String user, String password) throws SQLException {
+    public static int validate(String user, String password) throws Exception {
         Connection con = null;
         PreparedStatement ps = null;
-
         try {
             con = DataConnect.getConnection();
             ps = con.prepareStatement("Select user_login, user_pass from users where user_login = ?");
@@ -23,21 +21,26 @@ public class LoginDAO {
 
             if (rs.next()) {
                 if(BCrypt.checkpw(password, rs.getString("user_pass"))) {
-                    return true;
+                    return 1;
+                }
+                else {
+                    return 0;
                 }
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println("Login error; LoginDAO.validate() -->" + ex.getMessage());
-            return false;
+            return -1;
         } finally {
             if (ps != null) {
                 ps.close();
             }
-            DataConnect.close(con);
+            if (con != null) {
+                DataConnect.close(con);
+            }
         }
-        return false;
+        return 0;
     }
-    public static String checkRole(String user) throws SQLException {
+    public static String checkRole(String user) throws Exception {
         Connection con = null;
         PreparedStatement ps = null;
         try {
@@ -48,18 +51,20 @@ public class LoginDAO {
             if (rs.next()) {
                 return rs.getString("user_role");
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println("Login error while checking role; LoginDAO.checkRole() -->" + ex.getMessage());
             return "UNDEFINED";
         } finally {
-            DataConnect.close(con);
             if (ps != null) {
                 ps.close();
+            }
+            if (con != null) {
+                DataConnect.close(con);
             }
         }
         return "UNDEFINED";
     }
-    public static String checkAuth(String user, String password) throws SQLException {
+    public static String checkAuth(String user, String password) throws Exception {
         Connection con = null;
         PreparedStatement ps = null;
         try {
@@ -70,18 +75,20 @@ public class LoginDAO {
             if (rs.next()) {
                 return rs.getString("user_activation_key");
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println("Login error while checking auth key; LoginDAO.checkAuth() -->" + ex.getMessage());
             return "exception";
         } finally {
-            DataConnect.close(con);
             if (ps != null) {
                 ps.close();
+            }
+            if (con != null) {
+                DataConnect.close(con);
             }
         }
         return "exception";
     }
-    public static ArrayList<String> checkUserData(String user, String password) throws SQLException {
+    public static ArrayList<String> checkUserData(String user, String password) throws Exception {
         Connection con = null;
         PreparedStatement ps = null;
         ArrayList<String> userData = new ArrayList<>();
@@ -100,12 +107,14 @@ public class LoginDAO {
                     return userData;
                 }
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println("Login error while checking auth key; LoginDAO.checkAuth() -->" + ex.getMessage());
         } finally {
-            DataConnect.close(con);
             if (ps != null) {
                 ps.close();
+            }
+            if (con != null) {
+                DataConnect.close(con);
             }
         }
         return null;
