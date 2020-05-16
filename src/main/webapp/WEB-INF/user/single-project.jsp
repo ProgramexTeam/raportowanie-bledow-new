@@ -26,6 +26,7 @@
             if(request.getAttribute("singleProject") != null) { Project singleProject = (Project) request.getAttribute("singleProject");
         %>
         <p>ID: <%= singleProject.getId() %></p>
+        <p>Autor projektu: <%= UserDAO.getSingleUserLogin(singleProject.getAuthor_id()) %></p>
         <p>Tytuł projektu: <%= singleProject.getTitle() %></p>
         <p>Opis projektu: <%= singleProject.getDescription() %></p>
         <hr>

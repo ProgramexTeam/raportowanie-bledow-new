@@ -307,17 +307,18 @@ public class ProjectDAO {
         }
     }
 
-    public static boolean addProject(String title, String description, int user_id) {
+    public static boolean addProject(String title, String description, int user_id, int author_ID) {
         if (title != null || description != null || user_id < 0 ) {
             PreparedStatement ps = null;
             Connection con = null;
             try {
                 con = DataConnect.getConnection();
                 if (con != null) {
-                    String sql = "INSERT INTO projects(title, description) VALUES(?,?)";
+                    String sql = "INSERT INTO projects(title, description, author_ID) VALUES(?,?,?)";
                     ps = con.prepareStatement(sql);
                     ps.setString(1, title);
                     ps.setString(2, description);
+                    ps.setInt(3, author_ID);
                     ps.executeUpdate();
                 }
             } catch (Exception ex) {

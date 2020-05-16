@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/user/project-manager/add-project")
@@ -19,15 +20,17 @@ public class AddProject extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession(false);
         String title = request.getParameter("title");
         String description = request.getParameter("description");
+        int author_id = Integer.parseInt(session.getAttribute("user_id").toString());
         int user_id = Integer.parseInt(request.getParameter("user0"));
 
         if(title == null){ request.setAttribute("msg", "Nie podano tytułu");
         } else if (description == null){ request.setAttribute("msg", "Nie podano opisu");
         } else if (user_id < 0){ request.setAttribute("msg", "Nie podano użytkownika");
         } else {
-            boolean done = ProjectDAO.addProject(title, description, user_id);
+            boolean done = ProjectDAO.addProject(title, description, user_id, author_id);
             if(done) {
                 request.setAttribute("msg", "Pomyślnie dodano projekt do bazy");
             } else {
