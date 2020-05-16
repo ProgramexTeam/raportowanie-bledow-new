@@ -44,7 +44,7 @@ public class AddTicket extends HttpServlet {
         } else if (description == null) {
             request.setAttribute("msg", "Nie podano opisu ticketu");
         } else {
-            int id = TicketDAO.addTicket(author_id, project_id, status, title, description);
+            int id = TicketDAO.addTicket(author_id, project_id, title, description);
             if (id == -1) {
                 request.setAttribute("msg", "Wystąpił problem w trakcie dodawania ticketu do bazy, spróbuj ponownie, albo zweryfikuj logi serwera");
             } else {
