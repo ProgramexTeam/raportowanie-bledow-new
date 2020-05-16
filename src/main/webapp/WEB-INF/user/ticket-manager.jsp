@@ -68,6 +68,7 @@
                         for (Ticket ticket : list) {
                             out.println("<tr class=\"ticket-row ticket-no-" + i + "\">" +
                                     "<td class=\"ticket-row-item ticket-edit\">" +
+                                    "<a href=\"" + request.getContextPath() + "/user/ticket-manager/single-ticket?ticketId=" + ticket.getId() + "\">szczegóły</a> / " +
                                     "<a href=\"" + request.getContextPath() + "/user/ticket-manager/edit-ticket?ticketId=" + ticket.getId() + "\">edytuj</a> / " +
                                     "<a href=\"" + request.getContextPath() + "/user/ticket-manager?page=" + currentPage + "&amountPerPage=" + amountPerPage + "&searchOption=" + searchOption + "&searchByProductName=" + searchByTicketName + "&deleteId=" + ticket.getId() + "\">usuń</a>" +
 

@@ -325,13 +325,13 @@ public class TicketDAO {
         }
         return false;
     }
-    public static Ticket getSingleTicketData(String id) {
+    public static Ticket getSingleTicketData(int id) {
         Connection con = null;
         PreparedStatement ps = null;
         try {
             con = DataConnect.getConnection();
             ps = con.prepareStatement("SELECT * FROM tickets LEFT JOIN projects ON tickets.project_ID = projects.ID WHERE tickets.ID = ?");
-            ps.setString(1, id);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return new Ticket(rs.getInt("ID"),

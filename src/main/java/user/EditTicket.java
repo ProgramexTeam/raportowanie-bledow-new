@@ -33,7 +33,7 @@ public class EditTicket extends HttpServlet {
         }
         if (TicketDAO.checkIfTicketExists(ticketId)) {
             uploadPathTarget = ContextOperations.getPathToRoot(getServletContext().getRealPath("")) + UPLOAD_DIRECTORY + "\\" + ticketId + "\\";
-            Ticket singleTicket = TicketDAO.getSingleTicketData(ticketId);
+            Ticket singleTicket = TicketDAO.getSingleTicketData(Integer.parseInt(ticketId));
             request.setAttribute("singleTicket", singleTicket);
             if (request.getParameter("deleteId") != null) {
                 deleteId = request.getParameter("deleteId");

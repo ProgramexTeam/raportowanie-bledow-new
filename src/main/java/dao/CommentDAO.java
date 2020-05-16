@@ -13,7 +13,7 @@ import java.util.List;
 public class CommentDAO {
     public static List<Comment> getComments(String stuff, int ID) throws SQLException {
         List<Comment> temp = new ArrayList<>();
-        String comment = "SELECT * FROM comments_"+stuff+" WHERE project_ID = ? ORDER BY ID DESC";
+        String comment = "SELECT * FROM comments_"+stuff+" WHERE "+stuff+"_ID = ? ORDER BY ID DESC";
         Connection conn = DataConnect.getConnection();
         PreparedStatement ps = conn.prepareStatement(comment);
         ps.setInt(1, ID);
@@ -21,7 +21,7 @@ public class CommentDAO {
         while(rs.next()) {
             Comment c = new Comment(rs.getInt("ID"),
                                     rs.getInt("user_ID"),
-                                    rs.getInt("project_ID"),
+                                    rs.getInt(stuff+"_ID"),
                                     rs.getString("text"),
                                     rs.getString("date"));
             temp.add(c);
@@ -29,16 +29,16 @@ public class CommentDAO {
         return temp;
     }
 
-    public static boolean addComment(int projectID, int userID, String text, String stuff) {
+    public static boolean addComment(int ID, int userID, String text, String stuff) {
         if (text != null) {
             PreparedStatement ps = null;
             Connection con = null;
             try {
                 con = DataConnect.getConnection();
                 if (con != null) {
-                    String sql = "INSERT INTO comments_"+stuff+"(projectID, userID, text) VALUES(?,?,?)";
+                    String sql = "INSERT INTO comments_"+stuff+"("+stuff+"_ID, user_ID, text) VALUES(?,?,?)";
                     ps = con.prepareStatement(sql);
-                    ps.setInt(1, projectID);
+                    ps.setInt(1, ID);
                     ps.setInt(2, userID);
                     ps.setString(3, text);
                     ps.executeUpdate();

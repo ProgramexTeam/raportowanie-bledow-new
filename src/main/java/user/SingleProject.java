@@ -1,6 +1,5 @@
 package user;
 
-
 import dao.CommentDAO;
 import dao.ProjectDAO;
 import objects.Project;
@@ -17,41 +16,44 @@ import java.io.IOException;
 public class SingleProject extends HttpServlet {
     Project project;
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = -1;
         try {
-            int id = Integer.parseInt(request.getParameter("projectId"));
+            if(request.getParameter("projectId")!=null) {
+                id = Integer.parseInt(request.getParameter("projectId"));
+            } else {
+                id = Integer.parseInt(request.getAttribute("projectId").toString());
+            }
             project = ProjectDAO.getSingleProjectData(id);
             if (project != null) {
                 request.setAttribute("singleProject", project);
-                request.getRequestDispatcher("/WEB-INF/user/single-project.jsp").forward(request, response);
             } else {
                 //response.sendRedirect("/portal");
             }
         } catch (NumberFormatException e) {
             //response.sendRedirect("/portal");
         }
+        request.getRequestDispatcher("/WEB-INF/user/single-project.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        String projectID = project.getId()+"";
+        int projectID = project.getId();
+        request.setAttribute("projectId", projectID);
         Cookie[] cookies = request.getCookies();
         String userID = null;
         for (Cookie cookie : cookies) {
             if(cookie.getName().equals("user_id"))
                 userID = cookie.getValue();
         }
-        System.out.println(userID);
-        //String userID = request.getAttribute("user_id").toString();
         String text = request.getParameter("comment");
 
-        if(projectID == null){ request.setAttribute("msg", "Nie rozpoznano id edytowanego projektu. Spróbuj ponownie wyszukać projekt " +
-                "w menadżerze projektów i zedytuj jego dane jeszcze raz.");
+        if(projectID < 0){ request.setAttribute("msg", "Nie rozpoznano ID projektu.");
         } else {
-            boolean done = CommentDAO.addComment(Integer.parseInt(projectID), Integer.parseInt(userID), text, "project");
+            boolean done = CommentDAO.addComment(projectID, Integer.parseInt(userID), text, "project");
             if(done){
-                request.setAttribute("msg", "Pomyślnie zedytowano projekt");
+                request.setAttribute("msg", "Pomyślnie dodano komentarz.");
             } else {
-                request.setAttribute("msg", "Wystąpił problem w trakcie dodawania zedytowanych danych projektów do bazy. Spróbuj ponownie, albo zweryfikuj logi serwera");
+                request.setAttribute("msg", "Wystąpił problem w trakcie dodawania komentarza. Spróbuj ponownie albo zweryfikuj logi serwera");
             }
         }
 
