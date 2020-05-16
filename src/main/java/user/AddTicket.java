@@ -39,8 +39,6 @@ public class AddTicket extends HttpServlet {
 
         if (project_id == -1) {
             request.setAttribute("msg", "Nie przypisano ticketu do projektu");
-        } else if (status == null) {
-            request.setAttribute("msg", "Nie podano statusu ticketu");
         } else if (title == null) {
             request.setAttribute("msg", "Nie podano tytułu ticketu");
         } else if (description == null) {
