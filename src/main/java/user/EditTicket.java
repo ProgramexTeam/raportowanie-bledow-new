@@ -44,23 +44,25 @@ public class EditTicket extends HttpServlet {
                     request.setAttribute("msg", "Wystąpił błąd podczas usuwania pliku!");
                 }
             }
+            File uploadDirTarget = new File(uploadPathTarget);
+            if (!uploadDirTarget.exists()) {
+                uploadDirTarget.mkdirs();
+            }
             if (request.getContentType() != null && request.getContentType().toLowerCase().contains("multipart/form-data")) {
                 if (!request.getParts().isEmpty()) {
                     String fileName;
                     for (Part part : request.getParts()) {
                         fileName = getFileName(part);
-                        if (fileName != null && (fileName.endsWith(".zip") || fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png"))) {
+                        if (fileName != null && (fileName.endsWith(".zip") || fileName.endsWith(".7z") || fileName.endsWith(".tar") || fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png"))) {
                             String outputFilePathTarget = uploadPathTarget + fileName;
                             part.write(outputFilePathTarget);
                         }
                     }
                 }
             }
-            File dir = new File(uploadPathTarget);
-            if (!dir.exists()) dir.mkdirs();
-            if (dir.listFiles() != null) {
+            if (uploadDirTarget.listFiles() != null) {
                 long counter = 0;
-                File[] files = dir.listFiles();
+                File[] files = uploadDirTarget.listFiles();
                 Arrays.sort(files, Comparator.comparingLong(File::lastModified));
                 String[] linksTab = new String[files.length];
                 int i = 0;
