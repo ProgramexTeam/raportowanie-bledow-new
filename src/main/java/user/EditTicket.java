@@ -3,6 +3,7 @@ package user;
 import dao.TicketDAO;
 import objects.Ticket;
 import util.ContextOperations;
+import util.CookiesController;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -31,54 +32,62 @@ public class EditTicket extends HttpServlet {
         } else {
             ticketId = (String) request.getAttribute("ticketId");
         }
+        Ticket singleTicket;
+        CookiesController c = new CookiesController();
         if (TicketDAO.checkIfTicketExists(ticketId)) {
             uploadPathTarget = ContextOperations.getPathToRoot(getServletContext().getRealPath("")) + UPLOAD_DIRECTORY + "\\" + ticketId + "\\";
-            Ticket singleTicket = TicketDAO.getSingleTicketData(Integer.parseInt(ticketId));
+            singleTicket = TicketDAO.getSingleTicketData(Integer.parseInt(ticketId));
             request.setAttribute("singleTicket", singleTicket);
-            if (request.getParameter("deleteId") != null) {
-                deleteId = request.getParameter("deleteId");
-                File fileToDelete = new File(uploadPathTarget + deleteId);
-                if (fileToDelete.delete()) {
-                    request.setAttribute("msg", "Pomyślnie usunięto plik");
-                } else {
-                    request.setAttribute("msg", "Wystąpił błąd podczas usuwania pliku!");
+            String user_id = c.getCookie(request, "user_id").getValue();
+            if(singleTicket.getAuthor_id() != Integer.parseInt(user_id)) {
+                response.sendRedirect("/no-access");
+            }
+            else {
+                if (request.getParameter("deleteId") != null) {
+                    deleteId = request.getParameter("deleteId");
+                    File fileToDelete = new File(uploadPathTarget + deleteId);
+                    if (fileToDelete.delete()) {
+                        request.setAttribute("msg", "Pomyślnie usunięto plik");
+                    } else {
+                        request.setAttribute("msg", "Wystąpił błąd podczas usuwania pliku!");
+                    }
                 }
-            }
-            File uploadDirTarget = new File(uploadPathTarget);
-            if (!uploadDirTarget.exists()) {
-                uploadDirTarget.mkdirs();
-            }
-            if (request.getContentType() != null && request.getContentType().toLowerCase().contains("multipart/form-data")) {
-                if (!request.getParts().isEmpty()) {
-                    String fileName;
-                    for (Part part : request.getParts()) {
-                        fileName = getFileName(part);
-                        if (fileName != null && (fileName.endsWith(".zip") || fileName.endsWith(".7z") || fileName.endsWith(".tar") || fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png"))) {
-                            String outputFilePathTarget = uploadPathTarget + fileName;
-                            part.write(outputFilePathTarget);
+                File uploadDirTarget = new File(uploadPathTarget);
+                if (!uploadDirTarget.exists()) {
+                    uploadDirTarget.mkdirs();
+                }
+                if (request.getContentType() != null && request.getContentType().toLowerCase().contains("multipart/form-data")) {
+                    if (!request.getParts().isEmpty()) {
+                        String fileName;
+                        for (Part part : request.getParts()) {
+                            fileName = getFileName(part);
+                            if (fileName != null && (fileName.endsWith(".zip") || fileName.endsWith(".7z") || fileName.endsWith(".tar") || fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png"))) {
+                                String outputFilePathTarget = uploadPathTarget + fileName;
+                                part.write(outputFilePathTarget);
+                            }
                         }
                     }
                 }
-            }
-            if (uploadDirTarget.listFiles() != null) {
-                long counter = 0;
-                File[] files = uploadDirTarget.listFiles();
-                Arrays.sort(files, Comparator.comparingLong(File::lastModified));
-                String[] linksTab = new String[files.length];
-                int i = 0;
-                for (File file : files) {
-                    linksTab[i] = file.getName();
-                    i++;
-                    counter++;
+                if (uploadDirTarget.listFiles() != null) {
+                    long counter = 0;
+                    File[] files = uploadDirTarget.listFiles();
+                    Arrays.sort(files, Comparator.comparingLong(File::lastModified));
+                    String[] linksTab = new String[files.length];
+                    int i = 0;
+                    for (File file : files) {
+                        linksTab[i] = file.getName();
+                        i++;
+                        counter++;
+                    }
+                    List<String> fileLinksList = Arrays.asList(linksTab);
+                    Collections.reverse(fileLinksList);
+                    request.setAttribute("fileLinksList", fileLinksList);
+                } else {
+                    request.setAttribute("fileLinksList", null);
                 }
-                List<String> fileLinksList = Arrays.asList(linksTab);
-                Collections.reverse(fileLinksList);
-                request.setAttribute("fileLinksList", fileLinksList);
-            } else {
-                request.setAttribute("fileLinksList", null);
+                request.getRequestDispatcher("/WEB-INF/user/edit-ticket.jsp").forward(request, response);
             }
         }
-        request.getRequestDispatcher("/WEB-INF/user/edit-ticket.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

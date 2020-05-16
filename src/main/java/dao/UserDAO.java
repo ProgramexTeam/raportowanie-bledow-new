@@ -363,7 +363,7 @@ public class UserDAO {
         return usersList;
     }
 
-    public static ArrayList<User> getUsersInProject(long project_ID) {
+    public static ArrayList<User> getUsersInProject(int project_ID) {
         Connection con = null;
         PreparedStatement ps = null;
         ArrayList<User> usersInProject = new ArrayList<>();
