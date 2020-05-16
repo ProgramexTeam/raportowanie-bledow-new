@@ -37,17 +37,6 @@
                     <p class="input-element" style="width:100%"><span>Opis:</span> <br /><textarea name="description"></textarea></p>
                 </div>
                 <div class="input-row">
-                    <p><span>Status:</span><br />
-                        <select name="status">
-                            <option value="Otwarty">Otwarty</option>
-                            <option value="W trakcie naprawy">W trakcie naprawy</option>
-                            <option value="Naprawiony">Naprawiony</option>
-                            <option value="Odrzucony">Odrzucony</option>
-                            <option value="Oczekujący na retestowanie">Oczekujący na retestowanie</option>
-                        </select>
-                    </p>
-                </div>
-                <div class="input-row">
                     <p class="input-element submit-element"><input type="submit" value="Dodaj ticket"></p>
                 </div>
             </form>

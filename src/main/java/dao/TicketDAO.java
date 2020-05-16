@@ -402,7 +402,7 @@ public class TicketDAO {
             return false;
         }
     }
-    public static int addTicket(int author_ID, int project_ID, String status, String title, String description) {
+    public static int addTicket(int author_ID, int project_ID, String title, String description) {
         if (author_ID != -1 || project_ID != -1) {
             PreparedStatement ps = null;
             Connection con = null;
@@ -414,7 +414,7 @@ public class TicketDAO {
                             "description) VALUES(?,?,?,?,?)");
                     ps.setInt(1, author_ID);
                     ps.setInt(2, project_ID);
-                    ps.setString(3, status);
+                    ps.setString(3,"Otwarty");
                     ps.setString(4, title);
                     ps.setString(5, description);
                     ps.executeUpdate();
