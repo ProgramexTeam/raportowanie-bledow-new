@@ -22,12 +22,15 @@
 			<li class="nav-item">
 				<a class="nav-link" href="${pageContext.request.contextPath}/kontakt">Kontakt</a>
 			</li>
+			<% if (session.getAttribute("user_id") == null) { %>
 			<li class="nav-item">
 				<a class="nav-link" href="${pageContext.request.contextPath}/login">Logowanie</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="${pageContext.request.contextPath}/register">Rejestracja</a>
 			</li>
+			<% } %>
+
 		</ul>
 	</div>
 </nav>
