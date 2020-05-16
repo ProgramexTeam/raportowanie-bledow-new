@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><configuration>
     <singleConf id="1">
         <name>logo</name>
-        <value>assets/images/dzira-logo.png</value>
+        <value>assets/images/new-logo.png</value>
     </singleConf>
     <singleConf id="2">
         <name>logoAlt</name>
