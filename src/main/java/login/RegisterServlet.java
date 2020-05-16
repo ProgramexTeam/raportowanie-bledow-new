@@ -1,7 +1,7 @@
 package login;
 
 import dao.RegisterDAO;
-import util.ActivationEmail;
+import util.EmailSend;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,7 +38,7 @@ public class RegisterServlet extends HttpServlet {
             String activation_key = RegisterDAO.getAlphaNumericString(20);
             boolean done = RegisterDAO.addUser(user_login, user_pass, first_name, last_name, user_email, activation_key, role);
             if(done) {
-                ActivationEmail.sendActivationEmail(activation_key, user_email);
+                EmailSend.sendActivationEmail(activation_key, user_email);
                 response.sendRedirect("/register-success");
             } else {
                 request.setAttribute("message", "Coś poszło nie tak w trakcie dodawania użytkownika do bazy. Spróbuj ponownie lub skontaktuj się z administratoracją sklepu.");
