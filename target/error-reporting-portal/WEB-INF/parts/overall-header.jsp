@@ -23,21 +23,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/owl.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/additional.jsp">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/flex-slider.css">
-    <% String rola = null;
-        if (session.getAttribute("user_role") != null) {
-            rola = session.getAttribute("user_role").toString();
-            if (rola.equals("ADMIN")) {
-                %> <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bar-admin.css"> <%
-            }
-            if (rola.equals("tester")) {
-                %> <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bar-tester.css"> <%
-            }
-            if (rola.equals("developer")) {
-                %> <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bar-developer.css"> <%
-            }
-            if (rola.equals("analyst")) {
-                %> <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bar-analyst.css"> <%
-            }
+
+    <%if (session.getAttribute("user_id") != null) {
+                %> <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bar-user.css"> <%
         }
     %>
     <% if (request.getAttribute("isHomepage") == "is") { %>
@@ -51,17 +39,6 @@
 <!-- Hook after <body> -->
     <% out.print(configuration.get("hookAfterBody")); %>
 
-    <%  if (session.getAttribute("user_role")!=null){
-            if (rola.equals("ADMIN")) {
-                %> <jsp:include page="/WEB-INF/parts/bar-analyst.jsp"/> <%
-            }
-            if (rola.equals("tester")) {
-                %> <jsp:include page="/WEB-INF/parts/bar-analyst.jsp"/> <%
-            }
-            if (rola.equals("developer")) {
-                %> <jsp:include page="/WEB-INF/parts/bar-analyst.jsp"/> <%
-            }
-            if (rola.equals("analyst")) {
-                %> <jsp:include page="/WEB-INF/parts/bar-analyst.jsp"/> <%
-            }
-	    }%>
+    <%  if (session.getAttribute("user_id") != null){ %>
+    <jsp:include page="/WEB-INF/parts/bar-user.jsp"/>
+    <% } %>
