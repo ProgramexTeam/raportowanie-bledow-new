@@ -20,13 +20,13 @@ public class LogoutServlet extends HttpServlet {
 		if(cookies != null){
 			for(Cookie cookie : cookies){
 				if(cookie.getName().equals("JSESSIONID")){
-					System.out.println("JSESSIONID="+cookie.getValue());
+					//System.out.println("JSESSIONID="+cookie.getValue());
 					break;
 				}
 			}
 		}
 		HttpSession session = request.getSession(false);
-		System.out.println("User="+session.getAttribute("user"));
+		//System.out.println("User="+session.getAttribute("user"));
 		session.invalidate();
 		response.sendRedirect("/");
 	}
