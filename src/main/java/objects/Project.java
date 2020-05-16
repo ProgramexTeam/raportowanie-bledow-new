@@ -12,7 +12,7 @@ public class Project {
         this.title = title;
         this.description = description;
     }
-    public Project(int id, String title, String description) {
+    public Project(int category_id, String category_name, String category_url) {
         this.id = 0;
         this.title = "";
         this.description = "";

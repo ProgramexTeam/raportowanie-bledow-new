@@ -108,6 +108,7 @@ public class ProjectDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Project temp = new Project(rs.getInt("ID"),
+                        rs.getInt("author_ID"),
                         rs.getString("title"),
                         rs.getString("description"));
                 projects.add(temp);
@@ -132,6 +133,7 @@ public class ProjectDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Project temp = new Project(rs.getInt("ID"),
+                        rs.getInt("author_ID"),
                         rs.getString("title"),
                         rs.getString("description"));
                 categoriesList.add(temp);
@@ -165,6 +167,7 @@ public class ProjectDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Project temp = new Project(rs.getInt("ID"),
+                        rs.getInt("author_ID"),
                         rs.getString("title"),
                         rs.getString("description"));
                 projectList.add(temp);
@@ -249,6 +252,7 @@ public class ProjectDAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return new Project(rs.getInt("ID"),
+                        rs.getInt("author_ID"),
                         rs.getString("title"),
                         rs.getString("description"));
             }
