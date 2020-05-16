@@ -60,10 +60,10 @@ a {
 	text-align: center;
 	width: 100%;
 	position: relative;
-	padding: 18px 0px;
+	padding: 10px 0px;
 }
 .navbar-brand img {
-	max-height: 40px
+	max-height: 85px
 }
 .footer .logo img {
 	max-height: 40px
