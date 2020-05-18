@@ -49,10 +49,15 @@
         </div>
         <table class="data">
             <%
-                if(request.getAttribute("list") != null){
+                if(request.getAttribute("list") != null) {
                     ArrayList<Ticket> list = (ArrayList<Ticket>) request.getAttribute("list");
 
                     long i = 0;
+
+                    String user_role = null;
+                    if (session.getAttribute("user_role") != null) {
+                        user_role = session.getAttribute("user_role").toString();
+                    }
 
                     out.println("<thead>" +
                             "<tr class=\"ticket-list-header\">" +
@@ -66,23 +71,38 @@
                             "<tbody>");
                     if (!list.isEmpty()) {
                         for (Ticket ticket : list) {
-                            out.println("<tr class=\"ticket-row ticket-no-" + i + "\">" +
-                                    "<td class=\"ticket-row-item ticket-edit\">" +
-                                    "<a href=\"" + request.getContextPath() + "/user/ticket-manager/single-ticket?ticketId=" + ticket.getId() + "\">szczegóły</a> / " +
-                                    "<a href=\"" + request.getContextPath() + "/user/ticket-manager/edit-ticket?ticketId=" + ticket.getId() + "\">edytuj</a> / " +
-                                    "<a href=\"" + request.getContextPath() + "/user/ticket-manager?page=" + currentPage + "&amountPerPage=" + amountPerPage + "&searchOption=" + searchOption + "&searchByProductName=" + searchByTicketName + "&deleteId=" + ticket.getId() + "\">usuń</a>" +
+                            if (!user_role.equals("analyst")) {
+                                out.println("<tr class=\"ticket-row ticket-no-" + i + "\">" +
+                                        "<td class=\"ticket-row-item ticket-edit\">" +
+                                        "<a href=\"" + request.getContextPath() + "/user/ticket-manager/single-ticket?ticketId=" + ticket.getId() + "\">szczegóły</a> / " +
+                                        "<a href=\"" + request.getContextPath() + "/user/ticket-manager/edit-ticket?ticketId=" + ticket.getId() + "\">edytuj</a> / " +
+                                        "<a href=\"" + request.getContextPath() + "/user/ticket-manager?page=" + currentPage + "&amountPerPage=" + amountPerPage + "&searchOption=" + searchOption + "&searchByProductName=" + searchByTicketName + "&deleteId=" + ticket.getId() + "\">usuń</a>" +
 
-                                    "</td>" +
-                                    "<td class=\"ticket-row-item ticket-name\">" + UserDAO.getSingleUserLogin(ticket.getAuthor_id()) + "</td>" +
-                                    "<td class=\"ticket-row-item ticket-name\">" + ticket.getTitle() + "</td>" +
-                                    "<td class=\"ticket-row-item ticket-project\">" + ProjectDAO.getSingleProjectName(ticket.getProject_id()) + "</td>" +
-                                    "<td class=\"ticket-row-item ticket-name\">" + ticket.getStatus() + "</td>" +
-                                    "</tr>");
-                            i++;
+                                        "</td>" +
+                                        "<td class=\"ticket-row-item ticket-name\">" + UserDAO.getSingleUserLogin(ticket.getAuthor_id()) + "</td>" +
+                                        "<td class=\"ticket-row-item ticket-name\">" + ticket.getTitle() + "</td>" +
+                                        "<td class=\"ticket-row-item ticket-project\">" + ProjectDAO.getSingleProjectName(ticket.getProject_id()) + "</td>" +
+                                        "<td class=\"ticket-row-item ticket-name\">" + ticket.getStatus() + "</td>" +
+                                        "</tr>");
+                                i++;
+                            }
+                            else{
+                                out.println("<tr class=\"ticket-row ticket-no-" + i + "\">" +
+                                        "<td class=\"ticket-row-item ticket-edit\">" +
+                                        "<a href=\"" + request.getContextPath() + "/user/ticket-manager/single-ticket?ticketId=" + ticket.getId() + "\">szczegóły</a> " +
+
+                                        "</td>" +
+                                        "<td class=\"ticket-row-item ticket-name\">" + UserDAO.getSingleUserLogin(ticket.getAuthor_id()) + "</td>" +
+                                        "<td class=\"ticket-row-item ticket-name\">" + ticket.getTitle() + "</td>" +
+                                        "<td class=\"ticket-row-item ticket-project\">" + ProjectDAO.getSingleProjectName(ticket.getProject_id()) + "</td>" +
+                                        "<td class=\"ticket-row-item ticket-name\">" + ticket.getStatus() + "</td>" +
+                                        "</tr>");
+                                i++;
+                            }
                         }
+                        out.println("</tbody>");
                     }
-                    out.println("</tbody>");
-                } else {
+                }else {
                     out.println("Coś poszło nie tak przy odbieraniu danych z bazy...");
                 }
 

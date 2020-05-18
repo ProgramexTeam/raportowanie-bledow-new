@@ -51,6 +51,11 @@
 
                     long i = 0;
 
+                    String user_role = null;
+                    if(session.getAttribute("user_role") != null){
+                        user_role = session.getAttribute("user_role").toString();
+                    }
+
                     out.println("<thead>" +
                             "<tr class=\"project-list-header\">" +
                             "<td class=\"project-list-header-item project-edit\">edytuj / usuń</td>" +
@@ -73,17 +78,29 @@
                             }
 
                             for (User u: users) {
-                                if (u.getId() == userID || project.getAuthor_id() == userID){
-                                    out.println("<tr class=\"project-row project-no-" + i + "\">" +
-                                            "<td class=\"project-row-item project-edit\">" +
-                                            "<a href=\"" + request.getContextPath() + "/user/project-manager/single-project?projectId=" + project.getId() + "\">szczegóły</a> / " +
-                                            "<a href=\"" + request.getContextPath() + "/user/project-manager/edit-project?projectId=" + project.getId() + "\">edytuj</a> / " +
-                                            "<a href=\"" + request.getContextPath() + "/user/project-manager?page=" + currentPage + "&amountPerPage=" + amountPerPage + "&searchOption=" + searchOption + "&searchByProjectName=" + searchByProjectName + "&deleteId=" + project.getId() + "\">usuń</a>" +
-                                            "</td>" +
-                                            "<td class=\"project-row-item project-name\">" + UserDAO.getSingleUserLogin(project.getAuthor_id()) + "</td>" +
-                                            "<td class=\"project-row-item project-name\">" + project.getTitle() + "</td>" +
-                                            "</tr>");
-                                    i++;
+                                if (u.getId() == userID || project.getAuthor_id() == userID) {
+                                    if (!user_role.equals("analyst")) {
+                                        out.println("<tr class=\"project-row project-no-" + i + "\">" +
+                                                "<td class=\"project-row-item project-edit\">" +
+                                                "<a href=\"" + request.getContextPath() + "/user/project-manager/single-project?projectId=" + project.getId() + "\">szczegóły</a> / " +
+                                                "<a href=\"" + request.getContextPath() + "/user/project-manager/edit-project?projectId=" + project.getId() + "\">edytuj</a> / " +
+                                                "<a href=\"" + request.getContextPath() + "/user/project-manager?page=" + currentPage + "&amountPerPage=" + amountPerPage + "&searchOption=" + searchOption + "&searchByProjectName=" + searchByProjectName + "&deleteId=" + project.getId() + "\">usuń</a>" +
+                                                "</td>" +
+                                                "<td class=\"project-row-item project-name\">" + UserDAO.getSingleUserLogin(project.getAuthor_id()) + "</td>" +
+                                                "<td class=\"project-row-item project-name\">" + project.getTitle() + "</td>" +
+                                                "</tr>");
+                                        i++;
+                                    }
+                                    else {
+                                        out.println("<tr class=\"project-row project-no-" + i + "\">" +
+                                                "<td class=\"project-row-item project-edit\">" +
+                                                "<a href=\"" + request.getContextPath() + "/user/project-manager/single-project?projectId=" + project.getId() + "\">szczegóły</a> " +
+                                                "</td>" +
+                                                "<td class=\"project-row-item project-name\">" + UserDAO.getSingleUserLogin(project.getAuthor_id()) + "</td>" +
+                                                "<td class=\"project-row-item project-name\">" + project.getTitle() + "</td>" +
+                                                "</tr>");
+                                        i++;
+                                    }
                                 }
                                 break;
                             }
