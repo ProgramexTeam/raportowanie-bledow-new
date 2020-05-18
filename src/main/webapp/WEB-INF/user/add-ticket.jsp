@@ -25,7 +25,7 @@
                         </select>
                     </p>
                 </div>
-                <p class="input-element"><span>Pliki: </span> <br /> <span style="font-size: 10px">Tutaj możesz załączyć pliki (maksymalnie 4) do ticketu:</span> <br />
+                <p class="input-element"><span>Pliki: </span> <br /> <span style="font-size: 10px">Tutaj możesz załączyć pliki (maksymalnie 4) do ticketu(max 5MB):</span> <br />
                     <input type="file" name="file0" class="element" title="Kliknij tutaj by wybrać plik."><br />
                     <input type="file" name="file1" class="element" title="Kliknij tutaj by wybrać plik."><br />
                     <input type="file" name="file2" class="element" title="Kliknij tutaj by wybrać plik."><br />
