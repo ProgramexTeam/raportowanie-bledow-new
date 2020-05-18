@@ -1,10 +1,14 @@
 package util;
 
 import dao.ProjectDAO;
+import dao.UserDAO;
+import objects.Ticket;
+import objects.User;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class EmailSend {
@@ -46,7 +50,7 @@ public class EmailSend {
             System.out.println("Sending activation email error; ActivationEmail.sendActivationEmail() -->" + ex.getMessage());
         }
     }
-    public static void sendNotificationEmail(String author, String title, int projectId, String description, String user_email) {
+    public static void sendNotificationEmail(Ticket ticket) {
         final String username = "error.reporting.portal@gmail.com";
         final String password = "DziraXpWe9RkW@?zz!";
 
@@ -57,31 +61,36 @@ public class EmailSend {
         prop.put("mail.smtp.socketFactory.port", "465");
         prop.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 
+        ArrayList<User> userlist = UserDAO.getUsersInProject(ticket.getProject_id());
+
         Session session = Session.getInstance(prop, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(username, password);
             }
         });
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(username));
-            message.setRecipients(
-                    Message.RecipientType.TO,
-                    InternetAddress.parse(user_email)
-            );
-            message.setSubject("Nowy ticket pojawił się w twoim projekcie!");
-            message.setText("Witaj! " +
-                    "Właśnie pojawił się nowy ticket w projekcie: " + ProjectDAO.getSingleProjectName(projectId) + " do którego zostałeś przypisany: " +
-                    "Autor ticketu: " + author +
-                    "Tytuł: " + title +
-                    "Opis: " + description +
-                    "\nJeśli nie rejestrowałeś się w portalu Dżira - System Raportowania Błędów, to zignoruj tę wiadomość." +
-                    "\n\n---------------------------------------" +
-                    "\nWiadomość wygenerowana automatycznie. Prosimy nie odpowiadać na tę wiadomość.");
 
-            Transport.send(message);
-        } catch (MessagingException ex) {
-            System.out.println("Sending activation email error; ActivationEmail.sendActivationEmail() -->" + ex.getMessage());
+        for(User u: userlist){
+            try {
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(username));
+                message.setRecipients(
+                        Message.RecipientType.TO,
+                        InternetAddress.parse(u.getUser_email())
+                );
+                message.setSubject("Nowy ticket pojawił się w twoim projekcie!");
+                message.setText("Witaj! " +
+                        "Właśnie pojawił się nowy ticket w projekcie: " + ProjectDAO.getSingleProjectName(ticket.getProject_id()) + " do którego zostałeś przypisany: " +
+                        "\nAutor ticketu: " + UserDAO.getSingleUserLogin(ticket.getAuthor_id()) +
+                        "\nTytuł: " + ticket.getTitle() +
+                        "\nOpis: " + ticket.getDescription() +
+                        "\nJeśli nie rejestrowałeś się w portalu Dżira - System Raportowania Błędów, to zignoruj tę wiadomość." +
+                        "\n\n---------------------------------------" +
+                        "\nWiadomość wygenerowana automatycznie. Prosimy nie odpowiadać na tę wiadomość.");
+
+                Transport.send(message);
+            } catch (MessagingException ex) {
+                System.out.println("Sending activation email error; ActivationEmail.sendActivationEmail() -->" + ex.getMessage());
+            }
         }
     }
 }

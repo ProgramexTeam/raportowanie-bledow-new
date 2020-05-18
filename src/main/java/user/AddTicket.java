@@ -13,7 +13,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import dao.UserDAO;
+import objects.Ticket;
 import util.ContextOperations;
+import util.EmailSend;
 
 @MultipartConfig(maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 3)
 @WebServlet("/user/ticket-manager/add-ticket")
@@ -33,7 +36,6 @@ public class AddTicket extends HttpServlet {
         HttpSession session = request.getSession(false);
         int author_id = Integer.parseInt(session.getAttribute("user_id").toString());
         int project_id = Integer.parseInt(request.getParameter("project_id"));
-        String status = request.getParameter("status");
         String title = request.getParameter("title");
         String description = request.getParameter("description");
 
@@ -49,6 +51,7 @@ public class AddTicket extends HttpServlet {
                 request.setAttribute("msg", "Wystąpił problem w trakcie dodawania ticketu do bazy, spróbuj ponownie, albo zweryfikuj logi serwera");
             } else {
                 request.setAttribute("msg", "Pomyślnie dodano ticket do bazy");
+                EmailSend.sendNotificationEmail(TicketDAO.getSingleTicketData(id));
                 if (request.getContentType() != null && request.getContentType().toLowerCase().contains("multipart/form-data")) {
                     if (!request.getParts().isEmpty()) {
                         String uploadPathTarget = ContextOperations.getPathToRoot(getServletContext().getRealPath("")) + UPLOAD_DIRECTORY + "\\" + id + "\\";
