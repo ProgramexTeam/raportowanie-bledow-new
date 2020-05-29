@@ -17,11 +17,11 @@
     </singleConf>
     <singleConf id="5">
         <name>seoDesc</name>
-        <value>System raportowania błędów dla deweloperów.</value>
+        <value>System raportowania błędów</value>
     </singleConf>
     <singleConf id="6">
         <name>sloganText</name>
-        <value>System raportowania błędów dla deweloperów.</value>
+        <value>System raportowania błędów</value>
     </singleConf>
     <singleConf id="7">
         <name>sidebarAlignment</name>
