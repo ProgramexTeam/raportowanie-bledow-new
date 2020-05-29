@@ -48,7 +48,12 @@
                 <a href="${pageContext.request.contextPath}/user/user-manager" class="backend-navigation-link" title="Menadżer kategorii">
                     <li class="backend-navigation-element"><i class="fa fa-tag" aria-hidden="true"></i> Menadżer użytkowników</li>
                 </a>
-                <% }%>
+            </div>
+            <% } %>
+            <div class="project-link">
+                <a href="${pageContext.request.contextPath}/logout" class="backend-navigation-link" title="Wyloguj się z konta">
+                    <li class="backend-navigation-element"><i class="fas fa-sign-out-alt"></i> Wyloguj</li>
+                </a>
             </div>
         </ul>
     </div>
