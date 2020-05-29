@@ -14,6 +14,7 @@ public class LoginServlet extends HttpServlet {
 	private String pwd;
 	private String user;
 	private String id;
+	private boolean isRememberMeChecked;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
@@ -22,6 +23,15 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.user = request.getParameter("user");
 		this.pwd = request.getParameter("pwd");
+		if(request.getParameter("remember_me") != null) {
+			if(request.getParameter("remember_me").equals("on")) {
+				isRememberMeChecked = true;
+			}
+			else {
+				isRememberMeChecked = false;
+			}
+		}
+
 		int valid = -1;
 		try {
 			valid = LoginDAO.validate(user, pwd);
@@ -56,10 +66,21 @@ public class LoginServlet extends HttpServlet {
 				Cookie userEmail = new Cookie("user_email", user_email);
 				Cookie userId = new Cookie("user_id", user_id);
 
-				userName.setMaxAge(30*60);
-				userRole.setMaxAge(30*60);
-				userEmail.setMaxAge(30*60);
-				userId.setMaxAge(30*60);
+				if(isRememberMeChecked) {
+					userName.setMaxAge(365*24*60*60);
+					userRole.setMaxAge(365*24*60*60);
+					userEmail.setMaxAge(365*24*60*60);
+					userId.setMaxAge(365*24*60*60);
+//					Cookie rememberUser = new Cookie("remember_role", user_role);
+//					rememberUser.setMaxAge(365*24*60*60);
+//					response.addCookie(rememberUser);
+				}
+				else {
+					userName.setMaxAge(30*60);
+					userRole.setMaxAge(30*60);
+					userEmail.setMaxAge(30*60);
+					userId.setMaxAge(30*60);
+				}
 
 				response.addCookie(userName);
 				response.addCookie(userRole);
