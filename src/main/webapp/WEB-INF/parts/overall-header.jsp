@@ -14,6 +14,22 @@
     <title><% out.print(configuration.get("seoTitle")); %></title>
     <meta name="description" content="<% out.print(configuration.get("seoDesc")); %>">
 
+    <%
+        Cookie[] cookies = request.getCookies();
+        if(cookies != null) {
+            for (Cookie cookie : cookies) {
+                if(cookie.getName().equals("user_login"))
+                    session.setAttribute("user_login", cookie.getValue());
+                else if(cookie.getName().equals("user_role"))
+                    session.setAttribute("user_role", cookie.getValue());
+                else if(cookie.getName().equals("user_email"))
+                    session.setAttribute("user_email", cookie.getValue());
+                else if(cookie.getName().equals("user_id"))
+                    session.setAttribute("user_id", cookie.getValue());
+            }
+        }
+    %>
+
     <!-- Bootstrap core CSS -->
     <link href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 

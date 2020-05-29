@@ -14,6 +14,7 @@
         <form action="login" method="post">
             <p><span>Login:</span> <br /> <input type="text" name="user"></p>
             <p><span>Hasło:</span> <br /> <input type="password" name="pwd"></p>
+            <p><span><input type="checkbox" name="remember_me" id="remember_me" /><label for="remember_me">Zapamiętaj mnie</label></span></p>
             <p><input type="submit" value="Zaloguj"></p>
         </form>
         <% if(request.getAttribute("msg")!=null) {

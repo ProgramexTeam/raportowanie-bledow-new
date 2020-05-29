@@ -1,6 +1,8 @@
 package user;
 
 import dao.TicketDAO;
+import util.ContextOperations;
+import util.EmailSend;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -11,14 +13,9 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
 
-import dao.UserDAO;
-import objects.Ticket;
-import util.ContextOperations;
-import util.EmailSend;
-
-@MultipartConfig(maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 3)
+@MultipartConfig(maxFileSize = 1024 * 1024 * 50, maxRequestSize = 1024 * 1024 * 50 * 3)
 @WebServlet("/user/ticket-manager/add-ticket")
 public class AddTicket extends HttpServlet {
     private static final String UPLOAD_DIRECTORY = "target\\error-reporting-portal\\assets\\files\\tickets\\";
@@ -54,13 +51,15 @@ public class AddTicket extends HttpServlet {
                 EmailSend.sendNotificationEmail(TicketDAO.getSingleTicketData(id));
                 if (request.getContentType() != null && request.getContentType().toLowerCase().contains("multipart/form-data")) {
                     if (!request.getParts().isEmpty()) {
+                        //if (request.getContentLength() > 1) request.setAttribute("msg", request.getContentLength());
+
                         String uploadPathTarget = ContextOperations.getPathToRoot(getServletContext().getRealPath("")) + UPLOAD_DIRECTORY + "\\" + id + "\\";
                         File uploadDirTarget = new File(uploadPathTarget);
                         String fileName;
                         if (!uploadDirTarget.exists()) uploadDirTarget.mkdirs();
                         for (Part part : request.getParts()) {
                             fileName = getFileName(part);
-                            if (fileName != null && (fileName.endsWith(".zip") || fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png"))) {
+                            if (fileName != null && !fileName.isEmpty()) {
                                 String outputFilePathTarget = uploadPathTarget + fileName;
                                 part.write(outputFilePathTarget);
                             }
