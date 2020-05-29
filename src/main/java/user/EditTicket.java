@@ -60,9 +60,12 @@ public class EditTicket extends HttpServlet {
                     //if (request.getContentLength() > 1) request.setAttribute("msg", request.getContentLength());
 
                     if (!request.getParts().isEmpty()) {
+                        String fileName;
                         for (Part part : request.getParts()) {
-                            if (uploadPathTarget != null) {
-                                part.write(uploadPathTarget);
+                            fileName = getFileName(part);
+                            if (fileName != null && !fileName.isEmpty()) {
+                                String outputFilePathTarget = uploadPathTarget + fileName;
+                                part.write(outputFilePathTarget);
                             }
                         }
                     }
