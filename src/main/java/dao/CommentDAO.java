@@ -12,19 +12,37 @@ import java.util.List;
 @SuppressWarnings({"SqlResolve", "SqlNoDataSourceInspection", "ConstantConditions"})
 public class CommentDAO {
     public static List<Comment> getComments(String stuff, int ID) throws Exception {
+        Connection conn = null;
+        PreparedStatement ps = null;
         List<Comment> temp = new ArrayList<>();
-        String comment = "SELECT * FROM comments_"+stuff+" WHERE "+stuff+"_ID = ? ORDER BY ID DESC";
-        Connection conn = DataConnect.getConnection();
-        PreparedStatement ps = conn.prepareStatement(comment);
-        ps.setInt(1, ID);
-        ResultSet rs = ps.executeQuery();
-        while(rs.next()) {
-            Comment c = new Comment(rs.getInt("ID"),
-                                    rs.getInt("user_ID"),
-                                    rs.getInt(stuff+"_ID"),
-                                    rs.getString("text"),
-                                    rs.getString("date"));
-            temp.add(c);
+
+        try {
+            String comment = "SELECT * FROM comments_"+stuff+" WHERE "+stuff+"_ID = ? ORDER BY ID DESC";
+            conn = DataConnect.getConnection();
+            ps = conn.prepareStatement(comment);
+            ps.setInt(1, ID);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                Comment c = new Comment(rs.getInt("ID"),
+                        rs.getInt("user_ID"),
+                        rs.getInt(stuff + "_ID"),
+                        rs.getString("text"),
+                        rs.getString("date"));
+                temp.add(c);
+            }
+        } catch (Exception ex){
+            System.out.println("Error while getting comments from db; CommentDAO.getComments() --> " +ex.getMessage());
+        } finally {
+            if (conn != null){
+                DataConnect.close(conn);
+            }
+            if (ps != null){
+                try {
+                    ps.close();
+                } catch (Exception ex){
+                    System.out.println("Error while closing PreparedStatement; CommentDAO.getComments() --> " +ex.getMessage());
+                }
+            }
         }
         return temp;
     }
