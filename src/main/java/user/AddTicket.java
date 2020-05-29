@@ -15,7 +15,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@MultipartConfig(maxFileSize = 1024 * 1024 * 50, maxRequestSize = 1024 * 1024 * 50 * 3)
+@MultipartConfig(maxFileSize = 1024 * 1024 * 50, maxRequestSize = 1024 * 1024 * 50 * 5)
 @WebServlet("/user/ticket-manager/add-ticket")
 public class AddTicket extends HttpServlet {
     private static final String UPLOAD_DIRECTORY = "target\\error-reporting-portal\\assets\\files\\tickets\\";
@@ -51,7 +51,6 @@ public class AddTicket extends HttpServlet {
                 EmailSend.sendNotificationEmail(TicketDAO.getSingleTicketData(id));
                 if (request.getContentType() != null && request.getContentType().toLowerCase().contains("multipart/form-data")) {
                     if (!request.getParts().isEmpty()) {
-
                         String uploadPathTarget = ContextOperations.getPathToRoot(getServletContext().getRealPath("")) + UPLOAD_DIRECTORY + "\\" + id + "\\";
                         File uploadDirTarget = new File(uploadPathTarget);
                         String fileName;

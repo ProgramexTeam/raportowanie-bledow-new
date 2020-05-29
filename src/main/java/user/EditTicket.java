@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-@MultipartConfig(maxFileSize = 1024 * 1024 * 50, maxRequestSize = 1024 * 1024 * 50 * 3)
+@MultipartConfig(maxFileSize = 1024 * 1024 * 50, maxRequestSize = 1024 * 1024 * 50 * 5)
 @WebServlet("/user/ticket-manager/edit-ticket")
 public class EditTicket extends HttpServlet {
     private static final String UPLOAD_DIRECTORY = "target\\error-reporting-portal\\assets\\files\\tickets\\";
@@ -57,8 +57,6 @@ public class EditTicket extends HttpServlet {
                     uploadDirTarget.mkdirs();
                 }
                 if (request.getContentType() != null && request.getContentType().toLowerCase().contains("multipart/form-data")) {
-                    //if (request.getContentLength() > 1) request.setAttribute("msg", request.getContentLength());
-
                     if (!request.getParts().isEmpty()) {
                         String fileName;
                         for (Part part : request.getParts()) {
