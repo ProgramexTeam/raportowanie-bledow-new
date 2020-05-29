@@ -5,6 +5,8 @@
 <%@ page import="objects.Project" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.List" %>
+<%@ page import="objects.User" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- Nagłówek -->
 <jsp:include page="/WEB-INF/user/parts/overall-header.jsp"/>
@@ -24,11 +26,15 @@
         <%
             if(request.getAttribute("singleProject") != null) { Project singleProject = (Project) request.getAttribute("singleProject");
         %>
-        <h1 class="backend-page-title">Projekt o nr <%= singleProject.getId() %></h1>
-        <p>ID: <%= singleProject.getId() %></p>
-        <p>Autor projektu: <%= UserDAO.getSingleUserLogin(singleProject.getAuthor_id()) %></p>
-        <p>Tytuł projektu: <%= singleProject.getTitle() %></p>
-        <p>Opis projektu: <%= singleProject.getDescription() %></p>
+        <h1 class="backend-page-title"><i class="fas fa-users"></i></i> Projekt o nr <%= singleProject.getId() %></h1>
+        <p><b>ID:</b> <%= singleProject.getId() %></p>
+        <p><b>Autor projektu:</b> <%= UserDAO.getSingleUserLogin(singleProject.getAuthor_id()) %></p>
+        <p><b>Tytuł projektu:</b> <%= singleProject.getTitle() %></p>
+        <p><b>Opis projektu:</b> <%= singleProject.getDescription() %></p>
+        <p><b>Przypisani użytkownicy:</b> <% ArrayList<User> usersInProject = UserDAO.getUsersInProject(singleProject.getId());
+                for(User u: usersInProject) {
+                out.print("<div>" +u.getUser_login()+"</div><br>");
+                } %></p>
         <hr>
         <div id="comments">
             <h3>Komentarze:</h3>
