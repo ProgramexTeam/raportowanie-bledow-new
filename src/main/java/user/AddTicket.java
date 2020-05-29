@@ -51,7 +51,6 @@ public class AddTicket extends HttpServlet {
                 EmailSend.sendNotificationEmail(TicketDAO.getSingleTicketData(id));
                 if (request.getContentType() != null && request.getContentType().toLowerCase().contains("multipart/form-data")) {
                     if (!request.getParts().isEmpty()) {
-                        //if (request.getContentLength() > 1) request.setAttribute("msg", request.getContentLength());
 
                         String uploadPathTarget = ContextOperations.getPathToRoot(getServletContext().getRealPath("")) + UPLOAD_DIRECTORY + "\\" + id + "\\";
                         File uploadDirTarget = new File(uploadPathTarget);

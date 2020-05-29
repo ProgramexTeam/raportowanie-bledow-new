@@ -60,7 +60,7 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("user_id", user_id);
 
 				//expiration after: 30 mins
-				session.setMaxInactiveInterval(30*60);
+				session.setMaxInactiveInterval(60*60);
 				Cookie userName = new Cookie("user_login", user_login);
 				Cookie userRole = new Cookie("user_role", user_role);
 				Cookie userEmail = new Cookie("user_email", user_email);
@@ -76,10 +76,10 @@ public class LoginServlet extends HttpServlet {
 //					response.addCookie(rememberUser);
 				}
 				else {
-					userName.setMaxAge(30*60);
-					userRole.setMaxAge(30*60);
-					userEmail.setMaxAge(30*60);
-					userId.setMaxAge(30*60);
+					userName.setMaxAge(60*60);
+					userRole.setMaxAge(60*60);
+					userEmail.setMaxAge(60*60);
+					userId.setMaxAge(60*60);
 				}
 
 				response.addCookie(userName);
