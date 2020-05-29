@@ -66,10 +66,10 @@ public class EditProject extends HttpServlet {
                 if (user_id > 0 && !usersRemoved){
                     ProjectDAO.removeUsersAndProjects(projectId);
                     usersRemoved = true;
-                    dbUpdated = ProjectDAO.addUsersAndProjects(user_id);
+                    dbUpdated = ProjectDAO.editUsersAndProjects(user_id, Integer.parseInt(projectId));
                 }
                 else if (user_id > 0){
-                    dbUpdated = ProjectDAO.addUsersAndProjects(user_id);
+                    dbUpdated = ProjectDAO.editUsersAndProjects(user_id, Integer.parseInt(projectId));
                 }
             }
             if (dbUpdated || done){
