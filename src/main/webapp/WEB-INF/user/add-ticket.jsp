@@ -9,7 +9,7 @@
 <!-- Kontent -->
 <div class="content ticket-manager">
     <div class="content-inside">
-        <h1 class="backend-page-title"> Dodawanie ticketów</h1>
+        <h1 class="backend-page-title"><i class="fas fa-tag"></i> Dodawanie ticketów</h1>
         <p class="info-msg"><% if(request.getAttribute("msg") != null){ out.println(request.getAttribute("msg")); request.setAttribute("msg", null); } %></p>
         <div class="form-container">
             <form method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/user/ticket-manager/add-ticket">

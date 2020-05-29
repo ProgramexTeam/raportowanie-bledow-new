@@ -26,13 +26,13 @@
         <%
             if(request.getAttribute("singleTicket") != null) { Ticket singleTicket = (Ticket) request.getAttribute("singleTicket");
         %>
-        <h1 class="backend-page-title">Ticket o nr <%= singleTicket.getId() %></h1>
-        <p>ID: <%= singleTicket.getId() %></p>
-        <p>Autor ticketu: <%= UserDAO.getSingleUserLogin(singleTicket.getAuthor_id()) %></p>
-        <p>Tytuł ticketu: <%= singleTicket.getTitle() %></p>
-        <p>Opis ticketu: <%= singleTicket.getDescription() %></p>
-        <p>Projekt: <%= ProjectDAO.getSingleProjectName(singleTicket.getProject_id()) %></p>
-        <p>Status: Otwarty</p>
+        <h1 class="backend-page-title"><i class="fas fa-tag"></i> Ticket o nr <%= singleTicket.getId() %></h1>
+        <p><b>ID:</b> <%= singleTicket.getId() %></p>
+        <p><b>Autor ticketu:</b> <%= UserDAO.getSingleUserLogin(singleTicket.getAuthor_id()) %></p>
+        <p><b>Tytuł ticketu:</b> <%= singleTicket.getTitle() %></p>
+        <p><b>Opis ticketu:</b> <%= singleTicket.getDescription() %></p>
+        <p><b>Projekt:</b> <%= ProjectDAO.getSingleProjectName(singleTicket.getProject_id()) %></p>
+        <p><b>Status:</b> Otwarty</p>
         <hr>
         <div id="comments">
             <h3>Komentarze:</h3>

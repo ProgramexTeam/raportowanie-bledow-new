@@ -10,7 +10,7 @@
 <!-- Kontent -->
 <div class="content user-manager">
     <div class="content-inside">
-        <h1 class="backend-page-title"> Menadżer projektów</h1>
+        <h1 class="backend-page-title"><i class="fas fa-users"></i> Menadżer projektów</h1>
         <p class="info-msg"><% if(request.getAttribute("msg") != null){ out.println(request.getAttribute("msg")); request.setAttribute("msg", null); } %></p>
         <div class="filters">
             <%

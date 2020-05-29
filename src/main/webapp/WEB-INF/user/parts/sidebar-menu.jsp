@@ -8,9 +8,6 @@
             <a href="${pageContext.request.contextPath}/" class="backend-navigation-link" title="Powrót do strony głównej">
                 <li class="backend-navigation-element"><i class="fas fa-home"></i> Home</li>
             </a>
-            <a href="${pageContext.request.contextPath}/user" class="backend-navigation-link" title="Powrót do strony głównej panelu">
-                <li class="backend-navigation-element"><i class="fas fa-home"></i> Panel użytkownika</li>
-            </a>
             <div class="users-link">
                 <a href="${pageContext.request.contextPath}/user/project-manager" class="backend-navigation-link" title="Przejdź do menadżera projektów">
                     <li class="backend-navigation-element"><i class="fas fa-users"></i> Projekty</li>
@@ -38,7 +35,7 @@
                <% if(!user_role.equals("analyst")){%>
                 <ul class="dropdown ticket-dropdown">
                     <a href="${pageContext.request.contextPath}/user/ticket-manager/add-ticket" class="backend-navigation-link" title="Dodaj nowy ticket">
-                        <li><i class="fas fa-cart-plus"></i> Dodaj nowy ticket</li>
+                        <li><i class="fas fa-tags"></i> Dodaj nowy ticket</li>
                     </a>
                 </ul>
                 <% }%>
