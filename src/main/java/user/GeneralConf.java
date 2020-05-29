@@ -27,7 +27,6 @@ public class GeneralConf extends HttpServlet {
         while (parameterNames.hasMoreElements()) {
             String paramName = parameterNames.nextElement();
             String[] paramValues = request.getParameterValues(paramName);
-//            System.out.println(paramName + " " + paramValues[0]);
             configuration.put(paramName, paramValues[0]);
         }
         String pathToConfig = ContextOperations.getPathToRoot(getServletContext().getRealPath("")) + "\\src\\main\\webapp\\WEB-INF\\admin\\config.xml";
