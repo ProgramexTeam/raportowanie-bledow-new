@@ -16,7 +16,6 @@
             <%
                 int amountPerPage, currentPage, searchOption;
                 String searchByProjectName;
-                if(request.getAttribute("amountOfProjects") != null) { out.println("<p>Ilość projektów spełniających wymagania: " + request.getAttribute("amountOfProjects") + "</p>"); }
                 if(request.getAttribute("amountPerPage") != null){ amountPerPage = (int)((long)request.getAttribute("amountPerPage")); } else { amountPerPage = 0; }
                 if(request.getAttribute("currentPage") != null){ currentPage = (int)((long)request.getAttribute("currentPage")); } else { currentPage = 0; }
                 if(request.getAttribute("searchOption") != null){ searchOption = (int)request.getAttribute("searchOption"); } else { searchOption = 2; }
