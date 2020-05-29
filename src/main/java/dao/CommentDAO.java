@@ -11,7 +11,7 @@ import java.util.List;
 
 @SuppressWarnings({"SqlResolve", "SqlNoDataSourceInspection", "ConstantConditions"})
 public class CommentDAO {
-    public static List<Comment> getComments(String stuff, int ID) throws Exception {
+    public static List<Comment> getComments(String stuff, int ID) {
         Connection conn = null;
         PreparedStatement ps = null;
         List<Comment> temp = new ArrayList<>();

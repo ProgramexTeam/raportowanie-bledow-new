@@ -10,34 +10,6 @@ import java.util.ArrayList;
 
 @SuppressWarnings({"SqlResolve", "SqlNoDataSourceInspection", "ConstantConditions"})
 public class ProjectDAO {
-    /*public static Project getProject(String id) {
-        PreparedStatement ps = null;
-        Connection con = null;
-        Project project = null;
-        try {
-            con = DataConnect.getConnection();
-            if (con != null) {
-                String sql = "SELECT * FROM categories WHERE caegory_id=?";
-                ps = con.prepareStatement(sql);
-                ps.setString(1, id);
-                ResultSet rs = ps.executeQuery();
-                while (rs.next()) {
-                    project = new Project(
-                            rs.getInt("category_id"),
-                            rs.getString("category_name"),
-                            rs.getString("category_url"));
-                }
-            }
-        } catch (Exception ex) {
-            System.out.println("Category request error when executing query; CategoryDAO.getCategory() -->" + ex.getMessage());
-        } finally {
-            if (con != null) {
-                DataConnect.close(con);
-            }
-            try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; ProjectDAO.getCategory() -->" + ex.getMessage()); }
-        }
-        return project;
-    }*/
     public static long amountOfProjects() {
         Connection con = null;
         long amount = 0;
@@ -60,6 +32,7 @@ public class ProjectDAO {
         }
         return amount;
     }
+
     public static long amountOfProjectsOfPattern(String pattern, int searchOption) {
         Connection con = null;
         long amount = 0;
@@ -96,6 +69,7 @@ public class ProjectDAO {
         }
         return amount;
     }
+
     public static ArrayList<Project> getProjectsList(long startPosition, long amount) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -123,6 +97,7 @@ public class ProjectDAO {
         }
         return projects;
     }
+
     public static ArrayList<Project> getProjectsList() {
         Connection con = null;
         PreparedStatement ps = null;
@@ -148,6 +123,7 @@ public class ProjectDAO {
         }
         return categoriesList;
     }
+
     public static ArrayList<Project> getProjectsListOfPattern(long startPosition, long amountPerPage, String searchByProjectTitle, int searchOption) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -182,6 +158,7 @@ public class ProjectDAO {
         }
         return projectList;
     }
+
     public static boolean deleteSingleProject(String deleteId) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -242,6 +219,7 @@ public class ProjectDAO {
         }
         return false;
     }
+
     public static Project getSingleProjectData(int projectId) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -390,7 +368,6 @@ public class ProjectDAO {
         }
         return true;
     }
-
 
     public static boolean addUsersAndProjects(int user_ID){
         if (user_ID >= 0) {

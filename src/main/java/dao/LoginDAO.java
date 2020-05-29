@@ -40,54 +40,7 @@ public class LoginDAO {
         }
         return 0;
     }
-    public static String checkRole(String user) throws Exception {
-        Connection con = null;
-        PreparedStatement ps = null;
-        try {
-            con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT user_role FROM users WHERE user_login = '" + user + "' ");
 
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getString("user_role");
-            }
-        } catch (Exception ex) {
-            System.out.println("Login error while checking role; LoginDAO.checkRole() -->" + ex.getMessage());
-            return "UNDEFINED";
-        } finally {
-            if (ps != null) {
-                ps.close();
-            }
-            if (con != null) {
-                DataConnect.close(con);
-            }
-        }
-        return "UNDEFINED";
-    }
-    public static String checkAuth(String user, String password) throws Exception {
-        Connection con = null;
-        PreparedStatement ps = null;
-        try {
-            con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT user_activation_key FROM users WHERE user_login = '" + user + "' and user_pass = '" + password + "'");
-
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getString("user_activation_key");
-            }
-        } catch (Exception ex) {
-            System.out.println("Login error while checking auth key; LoginDAO.checkAuth() -->" + ex.getMessage());
-            return "exception";
-        } finally {
-            if (ps != null) {
-                ps.close();
-            }
-            if (con != null) {
-                DataConnect.close(con);
-            }
-        }
-        return "exception";
-    }
     public static ArrayList<String> checkUserData(String user, String password) throws Exception {
         Connection con = null;
         PreparedStatement ps = null;

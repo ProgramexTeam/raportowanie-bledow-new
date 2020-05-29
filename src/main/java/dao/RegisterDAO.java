@@ -22,6 +22,7 @@ public class RegisterDAO {
 
         return sb.toString();
     }
+
     public static boolean validateUserLogin(String user_login) {
         if (!user_login.isEmpty()) {
             PreparedStatement ps = null;
@@ -53,6 +54,7 @@ public class RegisterDAO {
         }
         return true;
     }
+
     public static boolean validateUserEmail(String user_email) {
         if (!user_email.isEmpty()) {
             PreparedStatement ps = null;
@@ -84,6 +86,7 @@ public class RegisterDAO {
         }
         return true;
     }
+
     public static boolean addUser(String user_login, String user_pass, String first_name, String last_name, String user_email, String activation_key, String role) {
         if (user_login != null || user_pass != null || first_name != null || last_name != null || user_email != null || role != null) {
             String hashed_pass = BCrypt.hashpw(user_pass, BCrypt.gensalt());

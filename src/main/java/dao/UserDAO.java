@@ -39,6 +39,7 @@ public class UserDAO {
         }
         return amount;
     }
+
     public static long amountOfUsersOfPattern(String pattern, int searchOption) {
         Connection con = null;
         long amount = 0;
@@ -75,6 +76,7 @@ public class UserDAO {
         }
         return amount;
     }
+
     public static ArrayList<User> getUsersList() {
         Connection con = null;
         PreparedStatement ps = null;
@@ -104,6 +106,7 @@ public class UserDAO {
         }
         return usersList;
     }
+
     public static boolean checkIfUserExists(String id) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -133,6 +136,7 @@ public class UserDAO {
         }
         return false;
     }
+
     public static boolean deleteSingleUser(String deleteId) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -163,6 +167,7 @@ public class UserDAO {
             return false;
         }
     }
+
     public static boolean checkIfLoginExist(String user_login, String userId) {
         if (!user_login.isEmpty()) {
             PreparedStatement ps = null;
@@ -195,6 +200,7 @@ public class UserDAO {
         }
         return true;
     }
+
     public static boolean checkIfEmailExist(String user_email, String userId) {
         if (!user_email.isEmpty()) {
             PreparedStatement ps = null;
@@ -227,6 +233,7 @@ public class UserDAO {
         }
         return true;
     }
+
     public static User getSingleUserData(int userId) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -324,6 +331,7 @@ public class UserDAO {
             return false;
         }
     }
+
     public static ArrayList<User> getUsersListOfPattern(long startPosition, long amount, String searchByUserName, int searchOption) {
         Connection con = null;
         PreparedStatement ps = null;

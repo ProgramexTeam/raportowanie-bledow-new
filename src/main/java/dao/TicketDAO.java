@@ -13,35 +13,6 @@ import java.util.ArrayList;
 
 @SuppressWarnings({"SqlResolve", "SqlNoDataSourceInspection", "ConstantConditions"})
 public class TicketDAO {
-    public static Ticket getProduct(int id) {
-        PreparedStatement ps = null;
-        Connection con = null;
-        Ticket ticket = null;
-        try {
-            con = DataConnect.getConnection();
-            if (con != null) {
-                String sql = "SELECT * FROM tickets LEFT JOIN categories ON products.category_ID = categories.category_ID WHERE products.product_ID=?";
-                ps = con.prepareStatement(sql);
-                ps.setInt(1, id);
-                ResultSet rs = ps.executeQuery();
-                while (rs.next()) {
-                    ticket = new Ticket(
-                            rs.getInt("ID"),
-                            rs.getInt("author_ID"),
-                            rs.getInt("project_ID"),
-                            rs.getString("status"),
-                            rs.getString("title"),
-                            rs.getString("description"));
-                }
-            }
-        } catch (Exception ex) {
-            System.out.println("Product request error when executing query; TicketDAO.getProduct() -->" + ex.getMessage());
-        } finally {
-            DataConnect.close(con);
-            try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; TicketDAO.getProduct() -->" + ex.getMessage()); }
-        }
-        return ticket;
-    }
     public static long amountOfTickets() {
         Connection con = null;
         long amount = 0;
@@ -62,6 +33,7 @@ public class TicketDAO {
         }
         return amount;
     }
+
     public static long amountOfTicketsOfPattern(String pattern, int searchOption) {
         Connection con = null;
         long amount = 0;
@@ -96,6 +68,7 @@ public class TicketDAO {
         }
         return amount;
     }
+
     public static ArrayList<Ticket> getTicketList(long startPosition, long amount, int author_id) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -125,124 +98,7 @@ public class TicketDAO {
         }
         return tickets;
     }
-    public static ArrayList<Ticket> getProductsListByCategory(String id, String startPosition, String amount) {
-        Connection con = null;
-        PreparedStatement ps = null;
-        ArrayList<Ticket> productsList = new ArrayList<>();
-        try {
-            con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM tikcets LEFT JOIN categories ON products.category_ID = categories.category_ID WHERE products.category_ID = ? ORDER BY products.product_ID LIMIT ?, ?");
-            ps.setString(1, id);
-            ps.setString(2, startPosition);
-            ps.setString(3, amount);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Ticket temp = new Ticket(rs.getInt("ID"),
-                        rs.getInt("author_ID"),
-                        rs.getInt("project_ID"),
-                        rs.getString("status"),
-                        rs.getString("title"),
-                        rs.getString("description"));
-                productsList.add(temp);
-            }
-        } catch (Exception ex) {
-            System.out.println("Error while getting products data from db; TicketDAO.getTicketList() -->" + ex.getMessage());
-        } finally {
-            if (con != null) {
-                DataConnect.close(con);
-            }
-            try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; TicketDAO.getTicketList() -->" + ex.getMessage()); }
-        }
-        return productsList;
-    }
-    public static ArrayList<Ticket> getProductsListCustomStatement(String statement) {
-        Connection con = null;
-        PreparedStatement ps = null;
-        ArrayList<Ticket> productsList = new ArrayList<>();
-        try {
-            con = DataConnect.getConnection();
-            ps = con.prepareStatement(statement);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Ticket temp = new Ticket(rs.getInt("ID"),
-                        rs.getInt("author_ID"),
-                        rs.getInt("project_ID"),
-                        rs.getString("status"),
-                        rs.getString("title"),
-                        rs.getString("description"));
-                productsList.add(temp);
-            }
-        } catch (Exception ex) {
-            System.out.println("Error while getting products data from db; TicketDAO.getProductsListCustomStatement() -->" + ex.getMessage());
-        } finally {
-            if (con != null) {
-                DataConnect.close(con);
-            }
-            try {
-                ps.close();
-            } catch (Exception ex) {
-                System.out.println("Product delete error when closing database connection or prepared statement; TicketDAO.getProductsListCustomStatement() -->" + ex.getMessage());
-            }
-        }
-        return productsList;
-    }
-    public static long getAmountOfProductsCustomStatement(String statement) {
-        Connection con = null;
-        PreparedStatement ps = null;
-        long amountOfProducts = 0;
-        try {
-            con = DataConnect.getConnection();
-            ps = con.prepareStatement(statement);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                amountOfProducts = rs.getLong("amountOfPages");
-            }
-        } catch (Exception ex) {
-            System.out.println("Error while getting products data from db; TicketDAO.getAmountOfProductsCustomStatement() -->" + ex.getMessage());
-        } finally {
-            if (con != null) {
-                DataConnect.close(con);
-            }
-            try {
-                ps.close();
-            } catch (Exception ex) {
-                System.out.println("Product delete error when closing database connection or prepared statement; TicketDAO.getAmountOfProductsCustomStatement() -->" + ex.getMessage());
-            }
-        }
-        return amountOfProducts;
-    }
 
-    public static JsonArray getTicketList(String statement) {
-        Connection con = null;
-        PreparedStatement ps = null;
-        JsonArray productsList = null;
-
-        JsonArrayBuilder builder = Json.createArrayBuilder();
-
-        try {
-            con = DataConnect.getConnection();
-            ps = con.prepareStatement(statement);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                builder.add(Json.createObjectBuilder()
-                        .add("ID", rs.getInt("ID"))
-                        .add("author_ID", rs.getInt("author_ID"))
-                        .add("project_ID", rs.getInt("project_ID"))
-                        .add("status", rs.getString("status"))
-                        .add("title", rs.getString("title"))
-                        .add("description", rs.getString("description")));
-            }
-            productsList = builder.build();
-        } catch (Exception ex) {
-            System.out.println("Error while getting products data from db; TicketDAO.getProductsList() -->" + ex.getMessage());
-        } finally {
-            if (con != null) {
-                DataConnect.close(con);
-            }
-            try { ps.close(); } catch (Exception ex) { System.out.println("Product delete error when closing database connection or prepared statement; TicketDAO.getProductsList() -->" + ex.getMessage()); }
-        }
-        return productsList;
-    }
     public static ArrayList<Ticket> getTicketsListOfPattern(long startPosition, long amountPerPage, String searchByProductName, int searchOption) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -279,6 +135,7 @@ public class TicketDAO {
         }
         return ticketList;
     }
+
     public static boolean deleteSingleProduct(String deleteId) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -309,6 +166,7 @@ public class TicketDAO {
             return false;
         }
     }
+
     public static boolean checkIfTicketExists(String id) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -338,6 +196,7 @@ public class TicketDAO {
         }
         return false;
     }
+
     public static Ticket getSingleTicketData(int id) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -371,6 +230,7 @@ public class TicketDAO {
         }
         return null;
     }
+
       public static boolean editGivenTicket(int ID, int author_ID, int project_ID, String status, String title, String description) {
         if (author_ID != -1 || project_ID != -1) {
             PreparedStatement ps = null;
@@ -402,6 +262,7 @@ public class TicketDAO {
             return false;
         }
     }
+
     public static int addTicket(int author_ID, int project_ID, String title, String description) {
         if (author_ID != -1 || project_ID != -1) {
             PreparedStatement ps = null;
