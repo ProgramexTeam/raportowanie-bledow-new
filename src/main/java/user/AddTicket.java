@@ -1,6 +1,8 @@
 package user;
 
 import dao.TicketDAO;
+import util.ContextOperations;
+import util.EmailSend;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -11,10 +13,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
-
-import util.ContextOperations;
-import util.EmailSend;
+import java.util.Date;
 
 @MultipartConfig(maxFileSize = 1024 * 1024 * 50, maxRequestSize = 1024 * 1024 * 50 * 3)
 @WebServlet("/user/ticket-manager/add-ticket")
@@ -56,13 +55,10 @@ public class AddTicket extends HttpServlet {
 
                         String uploadPathTarget = ContextOperations.getPathToRoot(getServletContext().getRealPath("")) + UPLOAD_DIRECTORY + "\\" + id + "\\";
                         File uploadDirTarget = new File(uploadPathTarget);
-                        String fileName;
                         if (!uploadDirTarget.exists()) uploadDirTarget.mkdirs();
                         for (Part part : request.getParts()) {
-                            fileName = getFileName(part);
-                            if (fileName != null) {
-                                String outputFilePathTarget = uploadPathTarget + fileName;
-                                part.write(outputFilePathTarget);
+                            if (uploadPathTarget != null) {
+                                part.write(uploadPathTarget);
                             }
                         }
                     }
