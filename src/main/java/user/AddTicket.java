@@ -1,6 +1,8 @@
 package user;
 
 import dao.TicketDAO;
+import util.ContextOperations;
+import util.EmailSend;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -11,11 +13,9 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
 
-import util.ContextOperations;
-
-@MultipartConfig(maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 3)
+@MultipartConfig(maxFileSize = 1024 * 1024 * 50, maxRequestSize = 1024 * 1024 * 50 * 5)
 @WebServlet("/user/ticket-manager/add-ticket")
 public class AddTicket extends HttpServlet {
     private static final String UPLOAD_DIRECTORY = "target\\error-reporting-portal\\assets\\files\\tickets\\";
@@ -33,24 +33,22 @@ public class AddTicket extends HttpServlet {
         HttpSession session = request.getSession(false);
         int author_id = Integer.parseInt(session.getAttribute("user_id").toString());
         int project_id = Integer.parseInt(request.getParameter("project_id"));
-        String status = request.getParameter("status");
         String title = request.getParameter("title");
         String description = request.getParameter("description");
 
         if (project_id == -1) {
             request.setAttribute("msg", "Nie przypisano ticketu do projektu");
-        } else if (status == null) {
-            request.setAttribute("msg", "Nie podano statusu ticketu");
         } else if (title == null) {
             request.setAttribute("msg", "Nie podano tytułu ticketu");
         } else if (description == null) {
             request.setAttribute("msg", "Nie podano opisu ticketu");
         } else {
-            int id = TicketDAO.addTicket(author_id, project_id, status, title, description);
+            int id = TicketDAO.addTicket(author_id, project_id, title, description);
             if (id == -1) {
                 request.setAttribute("msg", "Wystąpił problem w trakcie dodawania ticketu do bazy, spróbuj ponownie, albo zweryfikuj logi serwera");
             } else {
                 request.setAttribute("msg", "Pomyślnie dodano ticket do bazy");
+                EmailSend.sendNotificationEmail(TicketDAO.getSingleTicketData(id));
                 if (request.getContentType() != null && request.getContentType().toLowerCase().contains("multipart/form-data")) {
                     if (!request.getParts().isEmpty()) {
                         String uploadPathTarget = ContextOperations.getPathToRoot(getServletContext().getRealPath("")) + UPLOAD_DIRECTORY + "\\" + id + "\\";
@@ -59,7 +57,7 @@ public class AddTicket extends HttpServlet {
                         if (!uploadDirTarget.exists()) uploadDirTarget.mkdirs();
                         for (Part part : request.getParts()) {
                             fileName = getFileName(part);
-                            if (fileName != null && (fileName.endsWith(".zip") || fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png"))) {
+                            if (fileName != null && !fileName.isEmpty()) {
                                 String outputFilePathTarget = uploadPathTarget + fileName;
                                 part.write(outputFilePathTarget);
                             }

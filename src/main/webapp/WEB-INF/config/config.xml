@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><configuration>
     <singleConf id="1">
         <name>logo</name>
-        <value>assets/images/dzira-logo.png</value>
+        <value>assets/images/new-logo.png</value>
     </singleConf>
     <singleConf id="2">
         <name>logoAlt</name>
@@ -17,11 +17,11 @@
     </singleConf>
     <singleConf id="5">
         <name>seoDesc</name>
-        <value>System raportowania błędów dla deweloperów.</value>
+        <value>System raportowania błędów</value>
     </singleConf>
     <singleConf id="6">
         <name>sloganText</name>
-        <value>System raportowania błędów dla deweloperów.</value>
+        <value>System raportowania błędów</value>
     </singleConf>
     <singleConf id="7">
         <name>sidebarAlignment</name>

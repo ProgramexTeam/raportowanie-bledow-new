@@ -6,12 +6,12 @@ import util.DataConnect;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings({"SqlResolve", "SqlNoDataSourceInspection", "ConstantConditions"})
 public class CommentDAO {
-    public static List<Comment> getComments(String stuff, int ID) throws SQLException {
+    public static List<Comment> getComments(String stuff, int ID) throws Exception {
         List<Comment> temp = new ArrayList<>();
         String comment = "SELECT * FROM comments_"+stuff+" WHERE "+stuff+"_ID = ? ORDER BY ID DESC";
         Connection conn = DataConnect.getConnection();
@@ -50,7 +50,9 @@ public class CommentDAO {
                     if (ps != null) {
                         ps.close();
                     }
-                    DataConnect.close(con);
+                    if (con != null) {
+                        DataConnect.close(con);
+                    }
                 } catch (Exception ex) {
                     System.out.println("Add project error when closing database connection or prepared statement; CommentDAO.addComment() -->" + ex.getMessage());
                 }

@@ -1,7 +1,10 @@
 package user;
 
 import dao.ProjectDAO;
+import dao.UserDAO;
 import objects.Project;
+import objects.User;
+import util.CookiesController;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/user/project-manager/edit-project")
 public class EditProject extends HttpServlet {
@@ -20,12 +24,24 @@ public class EditProject extends HttpServlet {
         } else {
             projectId = (String) request.getAttribute("projectId");
         }
+        Project singleProject;
+        CookiesController c = new CookiesController();
         if(ProjectDAO.checkIfProjectExists(projectId)){
-            Project singleProject = ProjectDAO.getSingleProjectData(Integer.parseInt(projectId));
-            request.setAttribute("singleProject", singleProject);
+            singleProject = ProjectDAO.getSingleProjectData(Integer.parseInt(projectId));
+            String user_id = c.getCookie(request, "user_id").getValue();
+            List<User> users = UserDAO.getUsersInProject(Integer.parseInt(projectId));
+            for (User user : users) {
+                if(singleProject.getAuthor_id() != Integer.parseInt(user_id) && user.getId() != Integer.parseInt(c.getCookie(request, "user_id").getValue())) {
+                    response.sendRedirect("/no-access");
+                    break;
+                }
+                else {
+                    request.setAttribute("singleProject", singleProject);
+                    request.getRequestDispatcher("/WEB-INF/user/edit-project.jsp").forward(request, response);
+                    break;
+                }
+            }
         }
-
-        request.getRequestDispatcher("/WEB-INF/user/edit-project.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -50,10 +66,10 @@ public class EditProject extends HttpServlet {
                 if (user_id > 0 && !usersRemoved){
                     ProjectDAO.removeUsersAndProjects(projectId);
                     usersRemoved = true;
-                    dbUpdated = ProjectDAO.addUsersAndProjects(user_id);
+                    dbUpdated = ProjectDAO.editUsersAndProjects(user_id, Integer.parseInt(projectId));
                 }
                 else if (user_id > 0){
-                    dbUpdated = ProjectDAO.addUsersAndProjects(user_id);
+                    dbUpdated = ProjectDAO.editUsersAndProjects(user_id, Integer.parseInt(projectId));
                 }
             }
             if (dbUpdated || done){

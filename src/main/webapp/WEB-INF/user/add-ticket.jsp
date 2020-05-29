@@ -9,7 +9,7 @@
 <!-- Kontent -->
 <div class="content ticket-manager">
     <div class="content-inside">
-        <h1 class="backend-page-title"> Dodawanie ticketów</h1>
+        <h1 class="backend-page-title"><i class="fas fa-tag"></i> Dodawanie ticketów</h1>
         <p class="info-msg"><% if(request.getAttribute("msg") != null){ out.println(request.getAttribute("msg")); request.setAttribute("msg", null); } %></p>
         <div class="form-container">
             <form method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/user/ticket-manager/add-ticket">
@@ -25,7 +25,7 @@
                         </select>
                     </p>
                 </div>
-                <p class="input-element"><span>Pliki: </span> <br /> <span style="font-size: 10px">Tutaj możesz załączyć pliki (maksymalnie 4) do ticketu:</span> <br />
+                <p class="input-element"><span>Pliki: </span> <br /> <span style="font-size: 10px">Tutaj możesz załączyć pliki (maksymalnie 4) do ticketu(max 50MB):</span> <br />
                     <input type="file" name="file0" class="element" title="Kliknij tutaj by wybrać plik."><br />
                     <input type="file" name="file1" class="element" title="Kliknij tutaj by wybrać plik."><br />
                     <input type="file" name="file2" class="element" title="Kliknij tutaj by wybrać plik."><br />
@@ -35,17 +35,6 @@
                 </p>
                 <div class="input-row">
                     <p class="input-element" style="width:100%"><span>Opis:</span> <br /><textarea name="description"></textarea></p>
-                </div>
-                <div class="input-row">
-                    <p><span>Status:</span><br />
-                        <select name="status">
-                            <option value="Otwarty">Otwarty</option>
-                            <option value="W trakcie naprawy">W trakcie naprawy</option>
-                            <option value="Naprawiony">Naprawiony</option>
-                            <option value="Odrzucony">Odrzucony</option>
-                            <option value="Oczekujący na retestowanie">Oczekujący na retestowanie</option>
-                        </select>
-                    </p>
                 </div>
                 <div class="input-row">
                     <p class="input-element submit-element"><input type="submit" value="Dodaj ticket"></p>

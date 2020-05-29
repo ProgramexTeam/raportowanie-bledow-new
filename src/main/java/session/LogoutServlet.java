@@ -1,14 +1,9 @@
 package session;
 
-import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
+import java.io.IOException;
 
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
@@ -19,14 +14,14 @@ public class LogoutServlet extends HttpServlet {
 		Cookie[] cookies = request.getCookies();
 		if(cookies != null){
 			for(Cookie cookie : cookies){
-				if(cookie.getName().equals("JSESSIONID")){
-					System.out.println("JSESSIONID="+cookie.getValue());
-					break;
+				if(!cookie.getName().equals("JSESSIONID")){
+					cookie.setMaxAge(0);
+					response.addCookie(cookie);
 				}
 			}
 		}
 		HttpSession session = request.getSession(false);
-		System.out.println("User="+session.getAttribute("user"));
+		//System.out.println("User="+session.getAttribute("user"));
 		session.invalidate();
 		response.sendRedirect("/");
 	}

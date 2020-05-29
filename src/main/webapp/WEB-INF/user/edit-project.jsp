@@ -11,7 +11,7 @@
 <% ArrayList<User> usersList = UserDAO.getUsersList(); %>
 <div class="content user-manager">
     <div class="content-inside">
-        <h1 class="backend-page-title"> Menadżer projektów - edytuj projekt</h1>
+        <h1 class="backend-page-title"><i class="fas fa-users"></i> Menadżer projektów - edytuj projekt</h1>
         <p class="info-msg"><% if(request.getAttribute("msg") != null){ out.println(request.getAttribute("msg")); request.setAttribute("msg", null); } %></p>
         <div class="form-container">
             <% if(request.getAttribute("singleProject") != null) { Project singleProject = (Project) request.getAttribute("singleProject"); %>

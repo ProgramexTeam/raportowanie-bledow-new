@@ -1,6 +1,6 @@
 package login;
 
-import util.ActivationEmail;
+import util.EmailSend;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,7 +20,7 @@ public class ResendActivationEmail extends HttpServlet {
         String authkey = request.getParameter("authkey");
         if(!email.isEmpty()){
             if(!authkey.isEmpty()){
-                ActivationEmail.sendActivationEmail(authkey, email);
+                EmailSend.sendActivationEmail(authkey, email);
                 request.setAttribute("message", "Wysłano email aktywacyjny ponownie!");
                 request.setAttribute("desc", "Aby aktywować konto sprawdź skrzynkę pocztową podaną w trakcie rejestracji i kliknij w link aktywacyjny.");
             } else {

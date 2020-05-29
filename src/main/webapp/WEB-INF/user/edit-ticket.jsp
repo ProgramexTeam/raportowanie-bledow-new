@@ -11,7 +11,7 @@
 <!-- Kontent -->
 <div class="content ticket-manager">
     <div class="content-inside">
-        <h1 class="backend-page-title"><i class="fas fa-shopping-cart"></i> Menadżer ticket - edytuj ticket</h1>
+        <h1 class="backend-page-title"><i class="fas fa-tag"></i> Menadżer ticket - edytuj ticket</h1>
         <p class="info-msg"><% if (request.getAttribute("msg") != null) {
             out.println(request.getAttribute("msg"));
             request.setAttribute("msg", null);
@@ -49,7 +49,7 @@
                 <div class="input-row">
                     <p class="input-element" style="min-width: 50%"><span>Opis:</span> <br/>
                         <textarea name="description" style="width:100%"><%
-                            if (singleTicket.getDescription() != null) singleTicket.getDescription(); %></textarea>
+                            if (singleTicket.getDescription() != null) out.print(singleTicket.getDescription()); %></textarea>
                 </div>
                 <div class="input-row">
                     <p><span>Status:</span><br/>
@@ -63,7 +63,7 @@
                     </p>
                 </div>
 
-                <p class="input-element"><span>Dodaj nowe pliki: </span> <br/> <span style="font-size: 10px">Tutaj możesz załączyć pliki (maksymalnie 4 jednocześnie) do ticketu:</span>
+                <p class="input-element"><span>Dodaj nowe pliki: </span> <br/> <span style="font-size: 10px">Tutaj możesz załączyć pliki (maksymalnie 4) do ticketu(max 50MB):</span>
                     <br/>
                     <input type="file" name="file0" class="element" title="Kliknij tutaj by wybrać plik."><br/>
                     <input type="file" name="file1" class="element" title="Kliknij tutaj by wybrać plik."><br/>

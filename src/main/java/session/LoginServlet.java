@@ -6,7 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 @WebServlet("/login")
@@ -15,6 +14,7 @@ public class LoginServlet extends HttpServlet {
 	private String pwd;
 	private String user;
 	private String id;
+	private boolean isRememberMeChecked;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
@@ -23,18 +23,27 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.user = request.getParameter("user");
 		this.pwd = request.getParameter("pwd");
-		boolean valid = false;
+		if(request.getParameter("remember_me") != null) {
+			if(request.getParameter("remember_me").equals("on")) {
+				isRememberMeChecked = true;
+			}
+			else {
+				isRememberMeChecked = false;
+			}
+		}
+
+		int valid = -1;
 		try {
 			valid = LoginDAO.validate(user, pwd);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		if(valid){
+		if(valid == 1){
 			ArrayList<String> userData = null;
 			try {
 				userData = LoginDAO.checkUserData(user, pwd);
-			} catch (SQLException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			String user_login = userData.get(0);
@@ -50,17 +59,28 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("user_email", user_email);
 				session.setAttribute("user_id", user_id);
 
-				//expiration after: 30 mins
-				session.setMaxInactiveInterval(30*60);
+				//expiration after: 60 mins
+				session.setMaxInactiveInterval(60*60);
 				Cookie userName = new Cookie("user_login", user_login);
 				Cookie userRole = new Cookie("user_role", user_role);
 				Cookie userEmail = new Cookie("user_email", user_email);
 				Cookie userId = new Cookie("user_id", user_id);
 
-				userName.setMaxAge(30*60);
-				userRole.setMaxAge(30*60);
-				userEmail.setMaxAge(30*60);
-				userId.setMaxAge(30*60);
+				if(isRememberMeChecked) {
+					userName.setMaxAge(365*24*60*60);
+					userRole.setMaxAge(365*24*60*60);
+					userEmail.setMaxAge(365*24*60*60);
+					userId.setMaxAge(365*24*60*60);
+//					Cookie rememberUser = new Cookie("remember_role", user_role);
+//					rememberUser.setMaxAge(365*24*60*60);
+//					response.addCookie(rememberUser);
+				}
+				else {
+					userName.setMaxAge(60*60);
+					userRole.setMaxAge(60*60);
+					userEmail.setMaxAge(60*60);
+					userId.setMaxAge(60*60);
+				}
 
 				response.addCookie(userName);
 				response.addCookie(userRole);
@@ -73,20 +93,24 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("user_email", user_email);
 
 				//expiration after: 30 mins
-				session.setMaxInactiveInterval(30*60);
+				session.setMaxInactiveInterval(60*60);
 				Cookie userActivationKey = new Cookie("user_activation_key", user_activation_key);
 				Cookie userEmail = new Cookie("user_email", user_email);
 
-				userActivationKey.setMaxAge(30*60);
-				userEmail.setMaxAge(30*60);
+				userActivationKey.setMaxAge(60*60);
+				userEmail.setMaxAge(60*60);
 
 				response.addCookie(userActivationKey);
 				response.addCookie(userEmail);
 
 				response.sendRedirect("/account-not-verified");
 			}
-		} else {
+		} else if (valid == 0) {
 			request.setAttribute("msg", "Logowanie nie powiodło się. Podałeś złe dane.");
+			doGet(request, response);
+		}
+		else {
+			request.setAttribute("msg", "Połączenie z bazą danych nie powiodło się.");
 			doGet(request, response);
 		}
 	}

@@ -1,8 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div class="Navbar">
-    <a href="${pageContext.request.contextPath}/user" title="Przejdź do panelu użytkownika">
+    <a href="${pageContext.request.contextPath}/user/project-manager" title="Przejdź do managera projektów">
         <div class="Navbar__Link">
-            <i class="fas fa-igloo"></i> Panel użytkownika
+            <i class="fas fa-users"></i> Manager projektów
+        </div>
+    </a>
+    <a href="${pageContext.request.contextPath}/user/ticket-manager" title="Przejdź do managera ticketów">
+        <div class="Navbar__Link">
+            <i class="fa fa-tag"></i> Manager ticketów
         </div>
     </a>
     <nav class="Navbar__Items Navbar__Items--right">
