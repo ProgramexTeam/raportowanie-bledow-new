@@ -55,10 +55,13 @@ public class AddTicket extends HttpServlet {
 
                         String uploadPathTarget = ContextOperations.getPathToRoot(getServletContext().getRealPath("")) + UPLOAD_DIRECTORY + "\\" + id + "\\";
                         File uploadDirTarget = new File(uploadPathTarget);
+                        String fileName;
                         if (!uploadDirTarget.exists()) uploadDirTarget.mkdirs();
                         for (Part part : request.getParts()) {
-                            if (uploadPathTarget != null) {
-                                part.write(uploadPathTarget);
+                            fileName = getFileName(part);
+                            if (fileName != null && !fileName.isEmpty()) {
+                                String outputFilePathTarget = uploadPathTarget + fileName;
+                                part.write(outputFilePathTarget);
                             }
                         }
                     }
