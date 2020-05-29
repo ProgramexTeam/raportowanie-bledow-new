@@ -1,11 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ page import="dao.UserDAO" %>
-<%@ page import="objects.Project" %>
 <%@ page import="objects.Ticket" %>
-<%@ page import="objects.User" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="dao.ProjectDAO" %>
-<%@ page import="dao.TicketDAO" %>
 <!-- Nagłówek -->
 <jsp:include page="/WEB-INF/user/parts/overall-header.jsp"/>
 <!-- Nawigacja sidebar -->

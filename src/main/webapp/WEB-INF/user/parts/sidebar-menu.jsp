@@ -1,6 +1,3 @@
-<%@ page import="dao.LoginDAO" %>
-<%@ page import="objects.User" %>
-<%@ page import="java.sql.SQLException" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <div class="sidebar-left">
     <div class="backend-navigation">

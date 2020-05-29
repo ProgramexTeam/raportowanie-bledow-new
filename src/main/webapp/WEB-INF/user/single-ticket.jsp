@@ -2,7 +2,6 @@
 <%@ page import="dao.CommentDAO" %>
 <%@ page import="dao.UserDAO" %>
 <%@ page import="objects.Comment" %>
-<%@ page import="objects.Project" %>
 <%@ page import="objects.Ticket" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.List" %>
