@@ -26,11 +26,9 @@ public class SingleProject extends HttpServlet {
             project = ProjectDAO.getSingleProjectData(id);
             if (project != null) {
                 request.setAttribute("singleProject", project);
-            } else {
-                //response.sendRedirect("/portal");
             }
         } catch (NumberFormatException e) {
-            //response.sendRedirect("/portal");
+
         }
         request.getRequestDispatcher("/WEB-INF/user/single-project.jsp").forward(request, response);
     }

@@ -71,9 +71,6 @@ public class LoginServlet extends HttpServlet {
 					userRole.setMaxAge(365*24*60*60);
 					userEmail.setMaxAge(365*24*60*60);
 					userId.setMaxAge(365*24*60*60);
-//					Cookie rememberUser = new Cookie("remember_role", user_role);
-//					rememberUser.setMaxAge(365*24*60*60);
-//					response.addCookie(rememberUser);
 				}
 				else {
 					userName.setMaxAge(60*60);
@@ -92,7 +89,7 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("user_activation_key", user_activation_key);
 				session.setAttribute("user_email", user_email);
 
-				//expiration after: 30 mins
+				//expiration after: 60 mins
 				session.setMaxInactiveInterval(60*60);
 				Cookie userActivationKey = new Cookie("user_activation_key", user_activation_key);
 				Cookie userEmail = new Cookie("user_email", user_email);
