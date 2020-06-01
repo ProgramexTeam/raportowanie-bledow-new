@@ -98,13 +98,17 @@ public class ProjectDAO {
         return projects;
     }
 
-    public static ArrayList<Project> getProjectsList() {
+    public static ArrayList<Project> getProjectsList(String uid) {
+        int id = Integer.parseInt(uid);
         Connection con = null;
         PreparedStatement ps = null;
+        System.out.println(id);
         ArrayList<Project> categoriesList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM projects ORDER BY ID");
+            ps = con.prepareStatement("SELECT * FROM projects, users_has_projects WHERE projects.ID = users_has_projects.project_ID AND (projects.author_ID = ? OR users_has_projects.user_ID = ?) GROUP BY projects.ID ORDER BY projects.ID");
+            ps.setInt(1, id);
+            ps.setInt(2, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Project temp = new Project(rs.getInt("ID"),
