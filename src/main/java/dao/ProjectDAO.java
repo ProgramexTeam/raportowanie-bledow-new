@@ -102,7 +102,6 @@ public class ProjectDAO {
         int id = Integer.parseInt(uid);
         Connection con = null;
         PreparedStatement ps = null;
-        System.out.println(id);
         ArrayList<Project> categoriesList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
