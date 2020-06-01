@@ -16,7 +16,7 @@
     <div class="content">
         <h1>Aktywacja konta zakończona powodzeniem!</h1>
         <img class="email-image" src="${pageContext.request.contextPath}/assets/images/mail-activation-tick.png" />
-        <p>Twój email został potwierdzony. Oznacza to, że możesz już bez problemu zalogować się na swoje nowe konto i rozpocząć zakupy. W razie pytań możesz skontaktować się z nami mailowo: <a href="mailto:kontakt@monopolowy24h.pl">kontakt@monopolowy24h.pl</a> lub telefonicznie: <a href="tel:+48123456789">+48 123 456 789</a></p>
+        <p>Twój email został potwierdzony. Oznacza to, że możesz już bez problemu zalogować się na swoje nowe konto i rozpocząć zakupy. W razie pytań możesz skontaktować się z nami mailowo: <a href="mailto:kontakt@monopolowy24h.pl">kontakt@error.reporting.portal.pl</a> lub telefonicznie: <a href="tel:+48123456789">+48 123 456 789</a></p>
         <a href="${pageContext.request.contextPath}/login" title="Naciśnij aby przejść do logowania">
             <div class="button-go-to-login">
                 <span>Przejdź do logowania</span>

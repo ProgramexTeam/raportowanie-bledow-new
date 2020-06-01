@@ -52,7 +52,7 @@
     <% out.print(configuration.get("hookBeforeHeadEnd")); %>
 </head>
 <body>
-<!-- Hook after <body> -->
+    <!-- Hook after <body> -->
     <% out.print(configuration.get("hookAfterBody")); %>
 
     <%  if (session.getAttribute("user_id") != null){ %>

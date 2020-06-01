@@ -78,7 +78,7 @@
 
                             for (User u: users) {
                                 if (u.getId() == userID || project.getAuthor_id() == userID) {
-                                    if (!user_role.equals("analyst")) {
+                                    if (!user_role.equals("analyst") && !user_role.equals("tester")) {
                                         out.println("<tr class=\"project-row project-no-" + i + "\">" +
                                                 "<td class=\"project-row-item project-edit\">" +
                                                 "<a href=\"" + request.getContextPath() + "/user/project-manager/single-project?projectId=" + project.getId() + "\">szczegóły</a> / " +
