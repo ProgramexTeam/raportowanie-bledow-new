@@ -3,9 +3,6 @@ package dao;
 import objects.Ticket;
 import util.DataConnect;
 
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -75,7 +72,7 @@ public class TicketDAO {
         ArrayList<Ticket> tickets = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM tickets LEFT JOIN projects ON tickets.project_ID = projects.ID LEFT JOIN users_has_projects ON projects.ID = users_has_projects.project_ID WHERE tickets.author_ID = ? OR users_has_projects.user_ID = ? GROUP BY users_has_projects.project_ID ORDER BY tickets.ID DESC LIMIT ?, ?");
+            ps = con.prepareStatement("SELECT * FROM tickets LEFT JOIN projects ON tickets.project_ID = projects.ID LEFT JOIN users_has_projects ON projects.ID = users_has_projects.project_ID WHERE tickets.author_ID = ? OR users_has_projects.user_ID = ? GROUP BY tickets.ID ORDER BY tickets.ID DESC LIMIT ?, ?");
             ps.setLong(1, author_id);
             ps.setLong(2, author_id);
             ps.setLong(3, startPosition);

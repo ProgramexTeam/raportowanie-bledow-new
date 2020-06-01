@@ -20,7 +20,7 @@ public class TicketManager extends HttpServlet {
     private static final String UPLOAD_DIRECTORY = "target\\error-reporting-portal\\assets\\files\\tickets\\";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        long page, amountPerPage, amountOfProducts;
+        long page, amountPerPage, amountOfTickets;
         String deleteId, searchByTicketName;
         int searchOption;
         Cookie cookies[] = request.getCookies();
@@ -64,23 +64,23 @@ public class TicketManager extends HttpServlet {
         if (request.getParameter("searchByTicketName") != null) {
             searchByTicketName = request.getParameter("searchByTicketName");
             ArrayList<Ticket> list = TicketDAO.getTicketsListOfPattern(page * amountPerPage, amountPerPage, searchByTicketName, searchOption);
-            amountOfProducts = TicketDAO.amountOfTicketsOfPattern(searchByTicketName, searchOption);
+            amountOfTickets = TicketDAO.amountOfTicketsOfPattern(searchByTicketName, searchOption);
             request.setAttribute("searchOption", searchOption);
             request.setAttribute("searchByTicketName", searchByTicketName);
             request.setAttribute("list", list);
         } else {
             ArrayList<Ticket> list = TicketDAO.getTicketList(page * amountPerPage, amountPerPage, author_ID);
-            amountOfProducts = TicketDAO.amountOfTickets();
+            amountOfTickets = TicketDAO.amountOfTickets();
             request.setAttribute("list", list);
         }
 
         // Ile stron wydrukować
-        int pagesToPrint = (int) Math.ceil((double) amountOfProducts / (double) amountPerPage);
+        int pagesToPrint = (int) Math.ceil((double) amountOfTickets / (double) amountPerPage);
 
         request.setAttribute("pagesToPrint", pagesToPrint);
         request.setAttribute("currentPage", page);
         request.setAttribute("amountPerPage", amountPerPage);
-        request.setAttribute("amountOfUsers", amountOfProducts);
+        request.setAttribute("amountOfUsers", amountOfTickets);
 
         request.getRequestDispatcher("/WEB-INF/user/ticket-manager.jsp").forward(request, response);
     }
