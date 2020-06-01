@@ -63,7 +63,7 @@ public class TicketManager extends HttpServlet {
         // Zwraca inną listę użytkowników w zależności od tego czy zostało coś wpisane w szukajkę
         if (request.getParameter("searchByTicketName") != null) {
             searchByTicketName = request.getParameter("searchByTicketName");
-            ArrayList<Ticket> list = TicketDAO.getTicketsListOfPattern(page * amountPerPage, amountPerPage, searchByTicketName, searchOption);
+            ArrayList<Ticket> list = TicketDAO.getTicketsListOfPattern(page * amountPerPage, amountPerPage, searchByTicketName, searchOption, author_ID);
             amountOfTickets = TicketDAO.amountOfTicketsOfPattern(searchByTicketName, searchOption);
             request.setAttribute("searchOption", searchOption);
             request.setAttribute("searchByTicketName", searchByTicketName);

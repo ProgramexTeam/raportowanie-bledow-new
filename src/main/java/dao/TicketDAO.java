@@ -96,13 +96,13 @@ public class TicketDAO {
         return tickets;
     }
 
-    public static ArrayList<Ticket> getTicketsListOfPattern(long startPosition, long amountPerPage, String searchByProductName, int searchOption) {
+    public static ArrayList<Ticket> getTicketsListOfPattern(long startPosition, long amountPerPage, String searchByProductName, int searchOption, int author_ID) {
         Connection con = null;
         PreparedStatement ps = null;
         ArrayList<Ticket> ticketList = new ArrayList<>();
         try {
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT * FROM tickets WHERE title LIKE ? ORDER BY ID DESC LIMIT ?, ?");
+            ps = con.prepareStatement("SELECT * FROM tickets, users_has_projects WHERE (tickets.author_ID = ? OR users_has_projects.user_ID = ?) GROUP BY tickets.ID ORDER BY tickets.ID DESC LIMIT ?, ?");
             if(searchOption==1){
                 ps.setString(1, searchByProductName + "%");
             } else if(searchOption==3) {
@@ -110,8 +110,9 @@ public class TicketDAO {
             } else {
                 ps.setString(1, "%" + searchByProductName + "%");
             }
-            ps.setLong(2, startPosition);
-            ps.setLong(3, amountPerPage);
+            ps.setLong(2, author_ID);
+            ps.setLong(3, startPosition);
+            ps.setLong(4, amountPerPage);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Ticket temp = new Ticket(rs.getInt("ID"),
