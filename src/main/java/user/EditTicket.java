@@ -1,5 +1,6 @@
 package user;
 
+import dao.ProjectDAO;
 import dao.TicketDAO;
 import objects.Ticket;
 import util.ContextOperations;
@@ -39,7 +40,9 @@ public class EditTicket extends HttpServlet {
             singleTicket = TicketDAO.getSingleTicketData(Integer.parseInt(ticketId));
             request.setAttribute("singleTicket", singleTicket);
             String user_id = c.getCookie(request, "user_id").getValue();
-            if(singleTicket.getAuthor_id() != Integer.parseInt(user_id)) {
+            Ticket ticketData = TicketDAO.getSingleTicketData(Integer.parseInt(ticketId));
+            int projectID = ticketData.getProject_id();
+            if(!ProjectDAO.checkUsersAndProjects(Integer.parseInt(user_id), projectID) && singleTicket.getAuthor_id() != Integer.parseInt(user_id)) {
                 response.sendRedirect("/no-access");
             }
             else {
