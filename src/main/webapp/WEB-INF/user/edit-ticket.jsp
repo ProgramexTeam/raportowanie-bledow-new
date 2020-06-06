@@ -31,7 +31,7 @@
                         <input type="text" name="title" pattern=".{3,}"
                                value="<% out.print(singleTicket.getTitle()); %>"
                                title="Nazwa ticketu musi zawierać minimum 3 znaki" required></p>
-                    <% ArrayList<Project> projectList = ProjectDAO.getProjectsList(); %>
+                    <% ArrayList<Project> projectList = ProjectDAO.getProjectsList(session.getAttribute("user_id").toString()); %>
                     <p class="input-element"><span>Projekt: </span> <br/> <span style="font-size: 8px">Projekt można wybrać wyłącznie z listy utworzonych projektów. Jeśli chcesz użyć projektu, który nie znajduje się na liście przejdź do menadżera projektów.</span>
                         <br/>
                         <select name="project"
