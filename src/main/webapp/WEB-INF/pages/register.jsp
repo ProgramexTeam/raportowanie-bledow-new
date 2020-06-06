@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Zarejestruj się w sklepie</title>
+    <title>Zarejestruj się w portalu</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/login.css">
 </head>
